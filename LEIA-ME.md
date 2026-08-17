@@ -8,21 +8,27 @@ HTML, CSS e JavaScript puros, sem build e sem dependência. É só abrir o
 
 | Arquivo | O que é |
 |---|---|
-| `index.html` | Página principal: abertura, o duo, trajetória, mapa, repertório, imprensa e contato |
-| `ana.html` | Página de Ana Lúcia Gaborim |
-| `curriculo-ana.html` | Currículo dela (sublink da página acima) |
-| `marcelo.html` | Página de Marcelo Fernandes |
-| `curriculo-marcelo.html` | Currículo dele (sublink da página acima) |
+| `index.html` | Página principal: abertura, o duo, imprensa, trajetória, mapa, repertório e contato |
+| `ana.html` | Ana Lúcia Gaborim — perfil **e** currículo completo, na mesma página (`ana.html#curriculo`) |
+| `marcelo.html` | Marcelo Fernandes — perfil **e** currículo completo (`marcelo.html#curriculo`) |
+| `curriculo-ana.html`, `curriculo-marcelo.html` | Só redirecionam para as páginas acima. Existem para não quebrar endereços já enviados por e-mail ou impressos |
+| `release-duo-amabile.txt` | Release para produtores e imprensa, oferecido para download no site |
+
+> Os currículos ficavam em páginas separadas e isso confundia quem chegava.
+> Agora cada intérprete tem uma página só, com o currículo logo abaixo do
+> perfil e um índice fixo na margem.
 
 ## Estrutura
 
 ```
 duo-amabile/
-├── index.html, ana.html, marcelo.html, curriculo-*.html
+├── index.html, ana.html, marcelo.html
+├── curriculo-ana.html, curriculo-marcelo.html   ← redirecionamentos
+├── release-duo-amabile.txt
 ├── favicon.svg
 ├── css/style.css          ← toda a aparência, num arquivo só
 ├── js/
-│   ├── main.js            ← pauta, violão, revelação no scroll, menu
+│   ├── main.js            ← revelação no scroll, menu, carrossel, índice do currículo
 │   ├── mapa.js            ← o mapa: lugares, zoom e ficha lateral
 │   └── mapa-dados.js      ← contornos dos países (não precisa mexer)
 └── images/                ← fotos, já redimensionadas para a web
@@ -30,48 +36,87 @@ duo-amabile/
 
 ## A identidade visual
 
-A paleta saiu das fotos do próprio Duo na Igreja das Carmelitas, em Aveiro:
-talha dourada acesa contra sombra quente. As cores estão todas no topo do
-`css/style.css`, em variáveis:
+A referência é o **programa impresso** que se recebe na porta do concerto:
+papel levemente quente, tinta quase preta, um único acento em bordô — a cor do
+veludo de teatro. Não há mais dourado nem fundo escuro. As cores estão todas
+no topo do `css/style.css`, em variáveis:
 
 ```css
---breu:#14100C     /* fundo da página     */
---nogueira:#211910 /* seções alternadas   */
---talha:#C9922F    /* fios e rótulos      */
---ouro:#E8C87A     /* destaques de texto  */
---marfim:#F4EDE0   /* texto principal     */
---sepia:#AC9C86    /* texto secundário    */
+--papel:#F5F2EC    /* fundo da página        */
+--papel-2:#EBE7DE  /* faixas alternadas      */
+--papel-3:#FFFFFF  /* cartões e fichas       */
+--tinta:#191817    /* texto principal        */
+--tinta-2:#55514B  /* texto corrido          */
+--tinta-3:#847E76  /* legendas               */
+--bordo:#7A2438    /* o acento: rótulos, links, botões */
 ```
 
 Mudou de ideia sobre uma cor? Troque só ali em cima — o site inteiro segue.
 
-Tipografia: **Fraunces** nos títulos, **Archivo** no texto corrido e
-**IBM Plex Mono** nos rótulos pequenos (datas, lugares, legendas).
+Tipografia: **EB Garamond** nos títulos, nomes e citações; **Libre Franklin**
+no texto corrido e nos rótulos em versalete. Só duas famílias, sem
+monoespaçada.
 
-## As duas animações
+Dois detalhes de composição carregam a ideia de programa impresso e valem ser
+preservados ao mexer no site:
 
-**A pauta**, fixa no rodapé, é a assinatura do site: a melodia está impressa
-de ponta a ponta e a nota anda com a rolagem, acendendo o que já passou.
-Para mudar a melodia, edite o vetor `MELODIA` no `js/main.js` — cada número é
-uma altura na pauta, de `0` (linha de baixo) a `8` (linha de cima).
-
-**O violão** fica cortado pela borda direita e gira devagar conforme a página
-anda. As cordas atravessam a tela inteira; quando uma seção nova entra, uma
-delas soa. Está no fim de cada HTML, na `<div class="violao">`.
-
-Quem tem `prefers-reduced-motion` ligado no sistema não vê nenhuma das duas
-se mexer — isso já está tratado.
+- **O rótulo na margem.** Cada seção tem o nome ("Trajetória", "Imprensa") na
+  coluna estreita à esquerda, alinhado com a primeira linha do título. É a
+  classe `.cab__in` e a largura vem da variável `--rail`.
+- **O fio pontilhado.** Na trajetória, o título de cada apresentação é ligado
+  ao lugar onde aconteceu por um pontilhado, como na listagem de um programa.
+  É o `<i class="marco__fio">` dentro de `.marco__cabeca`.
 
 ## Mexer no conteúdo
 
 ### Acrescentar um marco na trajetória
 
 No `index.html`, dentro de `<ol class="linha">`, copie um `<li class="marco">`
-e ajuste. As classes fazem o seguinte:
+e ajuste. O esqueleto é:
+
+```html
+<li class="marco marco--foto reveal">
+  <p class="marco__ano">2026</p>
+  <div class="marco__corpo">
+    <div>
+      <div class="marco__cabeca">
+        <h3>Título da apresentação</h3>
+        <i class="marco__fio"></i>
+        <p class="marco__onde">Teatro · Cidade · mês</p>
+      </div>
+      <p>Um parágrafo contando o que foi.</p>
+    </div>
+    <figure class="marco__foto">…</figure>
+  </div>
+</li>
+```
 
 - `marco--foto` — o marco tem foto ao lado (sem isso, o texto ocupa a largura toda)
-- `marco--fora` — concerto fora do Brasil; deixa a cabeça de nota vazada
 - `marco__foto--alta` — para fotos em pé, que ficam melhor em 3×4
+- Dois anos no mesmo marco: `<p class="marco__ano">2020<span>2021</span></p>`
+
+### Acrescentar uma matéria na imprensa
+
+No `index.html`, dentro de `<ul class="carrossel__trilho">`, copie um
+`<li class="recorte">`. Cada cartão tem foto, veículo com a data, título,
+resumo de duas linhas e o link. Os botões de avançar e recuar se ajustam
+sozinhos à quantidade de cartões.
+
+Se a matéria for um recorte de jornal (imagem alta), use
+`class="recorte__foto recorte__foto--pagina"` para mostrar o alto da página, e
+aponte o link para o arquivo com `download`, como está feito com a página do
+jornal *O Estado*. Para fotos em pé em que o corte 16×10 cortaria as cabeças,
+use `recorte__foto--topo`.
+
+### Material para imprensa
+
+O bloco "Para a imprensa", no fim da seção, oferece três downloads: a foto
+oficial, a página do jornal e o `release-duo-amabile.txt`. Para acrescentar um
+arquivo novo, ponha-o na pasta e copie um `<a class="kit__item" … download>`.
+
+> O `release-duo-amabile.txt` tem duas linhas marcadas **A PREENCHER** com a
+> duração habitual do concerto e as necessidades técnicas. Vale preencher: é a
+> primeira coisa que um produtor pergunta.
 
 ### Acrescentar um lugar no mapa
 
@@ -92,13 +137,18 @@ lugares ficam perto demais.
 ### Trocar telefone, e-mail ou redes
 
 Estão em três lugares por página: na seção de contato do `index.html`, no
-rodapé de todas as páginas e nos links `wa.me` / `mailto:`.
+rodapé de todas as páginas e nos links `wa.me` / `mailto:`. O e-mail também
+aparece no `release-duo-amabile.txt`.
 
 ### Trocar fotos
 
 Ponha o arquivo em `images/` e aponte o `src`. Vale redimensionar antes: as
 fotos aqui têm entre 900 e 2000 px de largura e nenhuma passa de 400 KB.
 Sempre preencha o `alt` descrevendo a cena — é o que quem não enxerga vai ler.
+
+A foto de abertura é a oficial, a mesma que o *Diário de Aveiro* publicou, com
+o fundo branco recortado (`images/duo-oficial.webp`). A versão original, com
+fundo, é a que fica disponível para download em `images/duo-oficial.jpg`.
 
 ## Publicar
 
@@ -108,9 +158,11 @@ subir o conteúdo e apontar o Pages para a raiz do repositório; o arquivo
 
 ## De onde veio o conteúdo
 
-Do portfólio `Duo Amabile 2026.pptx` e do `Release Duo Amabile.pdf`. Onde os
-dois discordavam, seguiu-se o release, que é o texto mais recente. Vale
-conferir estes três pontos com Ana e Marcelo:
+Do portfólio `Duo Amabile 2026.pptx`, do `Release Duo Amabile.pdf` e da página
+do corpo docente da FAALC/UFMS (<https://faalc.ufms.br/corpo-docente/>), de
+onde vieram os anos de titulação e os e-mails institucionais. Onde as fontes
+discordavam, seguiu-se o release, que é o texto mais recente. Vale conferir
+estes pontos com Ana e Marcelo:
 
 1. **“Canções poéticas e imagens modernistas”** — o release diz **2019**, o
    portfólio diz 2021. O site está com 2019.
@@ -121,15 +173,19 @@ conferir estes três pontos com Ana e Marcelo:
 3. **Winterthur** — o release deixa claro que foi **recital solo de Marcelo**,
    não do Duo. O site está assim, e por isso Winterthur não tem pino próprio
    no mapa: aparece no texto de Berna e no currículo dele.
+4. **Titulação de Marcelo** — a UFMS registra “Mestre em Artes (2003)”; o
+   texto antigo do site dizia “Mestre em Violão”. O site agora segue a UFMS.
+5. **Graduação de Ana Lúcia** — o site diz “Bacharela em Composição e
+   Regência”, como no release; a UFMS registra “Bacharelado em Música com
+   habilitação em Composição”. Ficou como estava, com o ano (2000) da UFMS.
 
 Os números da seção “o duo” (6 países, 16 cidades de MS, 4 projetos com
-fomento) foram contados a partir desses dois documentos. Se entrar concerto
-novo, é só atualizar à mão no `index.html`.
+fomento) foram contados a partir desses documentos. Se entrar concerto novo,
+é só atualizar à mão no `index.html`.
 
 Duas informações não vêm desses arquivos e foram confirmadas direto com a
 família: o **hino da UFMS** é composição de Marcelo, e a **Camerata Madeiras
-Dedilhadas** foi fundada por ele. Estão na página e no currículo dele. O
-casamento em **1998** também veio daí, e aparece na seção “o duo”.
+Dedilhadas** foi fundada por ele. O casamento em **1998** também veio daí.
 
 ## Sobre as coordenadas do mapa
 
