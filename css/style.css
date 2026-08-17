@@ -1,15 +1,18 @@
 /* ==========================================================================
    DUO AMÁBILE — canto e violão
 
-   Branco, preto e dourado. O site é claro e limpo — branco de verdade, não
-   bege — e escurece em blocos inteiros (mapa, citação, rodapé). O dourado só
-   aparece quando o fundo escurece: sobre branco ele fica sujo, sobre preto
-   ele acende. Nas partes claras a cor é a tinta e nada mais.
+   Branco, creme, preto quente e dourado. O site alterna três fundos: branco
+   para as seções de leitura, creme nas faixas (números, imprensa, contato) e
+   preto quente nos blocos que precisam de peso (mapa, citação, rodapé).
+
+   O dourado tem duas versões, e é isso que o mantém elegante em vez de
+   berrante: #96590B nas partes claras, escurecido até passar no contraste,
+   e #D9B978 nas escuras, onde ele acende. Nunca o mesmo nos dois.
 
    Como a troca de fundo funciona
-     Toda cor vem de variável. A classe .secao--escura redefine as variáveis
-     dentro da própria seção, e todos os componentes seguem sem precisar de
-     regra nova. Para escurecer uma seção, basta acrescentar a classe.
+     Toda cor vem de variável. As classes .secao--creme e .secao--escura
+     redefinem as variáveis dentro da própria seção, e todos os componentes
+     seguem sem precisar de regra nova — mapa e botões inclusive.
 
    Sumário
      1. Fundamentos (variáveis, base, utilitários)
@@ -33,27 +36,29 @@
 :root{
   /* --- fundo claro (o padrão) --- */
   --papel:#FFFFFF;          /* fundo da seção */
-  --papel-2:#F4F4F2;        /* superfície levantada, faixa alternada */
+  --papel-2:#F7F0E3;        /* creme: faixas alternadas e painéis */
   --papel-3:#FFFFFF;        /* cartões e fichas */
-  --tinta:#15161A;          /* títulos e texto forte */
-  --tinta-2:#54565C;        /* texto corrido */
-  --tinta-3:#8A8C92;        /* legendas e apoio */
-  --acento:#15161A;         /* rótulos e links: tinta no claro, ouro no escuro */
-  --acento-2:#15161A;       /* preenchimento de botão principal */
+  --tinta:#1C1917;          /* títulos e texto forte — preto quente */
+  --tinta-2:#57534E;        /* texto corrido */
+  --tinta-3:#6F6960;        /* legendas e apoio */
+  --acento:var(--ouro-tinta);  /* rótulos e links */
+  --acento-2:#1C1917;       /* preenchimento de botão principal */
   --acento-fg:#FFFFFF;      /* texto sobre o botão principal */
 
-  --fio:rgba(21,22,26,.15);
-  --fio-forte:rgba(21,22,26,.34);
-  --fio-claro:rgba(21,22,26,.09);
+  --fio:rgba(28,25,23,.16);
+  --fio-forte:rgba(28,25,23,.34);
+  --fio-claro:rgba(28,25,23,.10);
 
   /* o mapa, nas duas situações */
-  --mapa-terra:#EAE9E5;
-  --mapa-solo:#C9C7C0;
-  --mapa-duo:#15161A;
+  --mapa-terra:#EDE7DC;
+  --mapa-solo:#D8C7A6;
+  --mapa-duo:var(--ouro-tinta);
 
-  /* o dourado, guardado para os fundos escuros */
-  --ouro:#D7B366;
-  --ouro-fundo:#16171A;
+  /* Os dois dourados. Sobre claro é preciso um ouro escurecido — o dourado
+     claro sobre branco fica turvo e reprova no contraste. Ambos foram
+     conferidos: 5,6:1 sobre branco e 9,3:1 sobre o fundo escuro. */
+  --ouro:#D9B978;           /* dourado que acende sobre o escuro */
+  --ouro-tinta:#96590B;     /* dourado legível sobre claro */
 
   /* tipo */
   --display:"EB Garamond",Georgia,"Times New Roman",serif;
@@ -69,22 +74,22 @@
 
 /* --- fundo escuro: só troca as variáveis, o resto do CSS segue igual --- */
 .secao--escura,.rodape{
-  --papel:#16171A;
-  --papel-2:#1E2025;
-  --papel-3:#1E2025;
-  --tinta:#F7F6F3;
-  --tinta-2:#B4B3AE;
-  --tinta-3:#8B8A86;
+  --papel:#1C1917;
+  --papel-2:#262220;
+  --papel-3:#24211E;
+  --tinta:#FAF7F2;
+  --tinta-2:#BCB5AC;
+  --tinta-3:#8E877E;
   --acento:var(--ouro);
   --acento-2:var(--ouro);
-  --acento-fg:#16171A;
+  --acento-fg:#1C1917;
 
-  --fio:rgba(247,246,243,.16);
-  --fio-forte:rgba(247,246,243,.34);
-  --fio-claro:rgba(247,246,243,.09);
+  --fio:rgba(250,247,242,.17);
+  --fio-forte:rgba(250,247,242,.36);
+  --fio-claro:rgba(250,247,242,.10);
 
-  --mapa-terra:#2A2C31;
-  --mapa-solo:#4B453A;
+  --mapa-terra:#2E2A26;
+  --mapa-solo:#57472A;
   --mapa-duo:var(--ouro);
 
   background:var(--papel);
@@ -239,13 +244,12 @@ em{ font-style:italic; }
 
 .link{
   display:inline-flex; align-items:center; gap:7px;
-  font-weight:500; color:var(--tinta); text-decoration:none;
-  border-bottom:1px solid var(--fio-forte); padding-bottom:2px;
-  transition:border-color .2s ease,gap .2s ease,color .2s ease;
+  font-weight:500; color:var(--acento); text-decoration:none;
+  border-bottom:1px solid currentColor; padding-bottom:2px;
+  border-bottom-color:color-mix(in srgb,currentColor 40%,transparent);
+  transition:border-color .2s ease,gap .2s ease;
 }
-.link:hover{ border-bottom-color:var(--tinta); gap:11px; }
-.secao--escura .link{ color:var(--ouro); border-bottom-color:rgba(215,179,102,.4); }
-.secao--escura .link:hover{ border-bottom-color:var(--ouro); }
+.link:hover{ border-bottom-color:currentColor; gap:11px; }
 .link svg{ width:13px; height:13px; }
 
 /* o rótulo de margem, com o fio curto por cima: é a marca de composição
@@ -261,7 +265,7 @@ em{ font-style:italic; }
 }
 
 .secao{ padding-block:var(--s-secao); position:relative; }
-.secao--nevoa{ background:var(--papel-2); }
+.secao--creme{ background:var(--papel-2); }
 
 /* Cabeçalho de seção: o rótulo vai para a margem, como a anotação lateral de
    uma edição impressa; o título e o texto ficam na coluna de leitura. */
@@ -289,13 +293,6 @@ em{ font-style:italic; }
   gap:clamp(24px,4vw,64px); align-items:end;
 }
 
-.abertura__olho{
-  font-family:var(--corpo); font-size:10.5px; font-weight:600;
-  letter-spacing:.22em; text-transform:uppercase; color:var(--tinta);
-  margin-bottom:22px;
-}
-.abertura__olho i{ font-style:normal; color:var(--tinta-3); margin-inline:9px; }
-
 .abertura h1{
   font-size:clamp(58px,10vw,124px);
   line-height:.94; letter-spacing:-.02em;
@@ -307,7 +304,7 @@ em{ font-style:italic; }
 /* a definição da palavra que dá nome ao duo — está na partitura, não é enfeite.
    É o único traço dourado das partes claras. */
 .abertura__glosa{
-  border-left:2px solid var(--ouro);
+  border-left:2px solid var(--acento);
   padding:2px 0 2px 16px; margin-bottom:26px;
   max-width:34rem; font-size:16px;
 }
@@ -357,15 +354,14 @@ em{ font-style:italic; }
 }
 
 /* os números, numa faixa fina logo abaixo da abertura */
+.numeros{ background:var(--papel-2); padding-block:clamp(26px,3.5vw,42px); }
 .contas{
   display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
   gap:clamp(18px,3vw,40px);
-  border-top:1px solid var(--fio); border-bottom:1px solid var(--fio);
-  padding-block:clamp(22px,3vw,32px);
 }
 .contas dt{
   font-family:var(--display); font-size:clamp(32px,3.6vw,44px); line-height:1;
-  color:var(--tinta);
+  color:var(--acento);
 }
 .contas dd{
   margin:8px 0 0; font-size:11.5px; font-weight:500;

@@ -36,38 +36,49 @@ duo-amabile/
 
 ## A identidade visual
 
-Branco, preto e dourado. O site é claro e limpo — branco de verdade, não bege
-— e escurece em blocos inteiros: o mapa, a citação e o rodapé. **O dourado só
-aparece sobre fundo escuro**: sobre branco ele fica sujo, sobre preto ele
-acende. Nas partes claras, a cor é a tinta e nada mais.
+Branco, creme, preto quente e dourado. O site alterna **três fundos**:
 
-Todas as cores estão no topo do `css/style.css`, em variáveis:
+| Fundo | Onde | Classe |
+|---|---|---|
+| Branco | seções de leitura: o duo, trajetória, repertório | (nenhuma) |
+| Creme `#F7F0E3` | faixa de números, imprensa, contato | `secao--creme` |
+| Preto quente `#1C1917` | mapa, citação, rodapé | `secao--escura` |
+
+O dourado tem **duas versões**, e é isso que o mantém elegante em vez de
+berrante: um escurecido para as partes claras e um claro para as escuras.
+Nunca o mesmo nos dois — dourado claro sobre branco fica turvo e reprova no
+contraste.
 
 ```css
---papel:#FFFFFF    /* fundo da seção          */
---papel-2:#F4F4F2  /* faixa clara alternada   */
---papel-3:#FFFFFF  /* cartões e fichas        */
---tinta:#15161A    /* títulos e texto forte   */
---tinta-2:#54565C  /* texto corrido           */
---tinta-3:#8A8C92  /* legendas                */
---ouro:#D7B366     /* só nas seções escuras   */
+--papel:#FFFFFF     /* fundo da seção            */
+--papel-2:#F7F0E3   /* creme das faixas          */
+--papel-3:#FFFFFF   /* cartões e fichas          */
+--tinta:#1C1917     /* títulos e texto forte     */
+--tinta-2:#57534E   /* texto corrido             */
+--tinta-3:#6F6960   /* legendas                  */
+--ouro:#D9B978      /* dourado sobre o escuro    */
+--ouro-tinta:#96590B/* dourado sobre o claro     */
 ```
 
-### Como escurecer (ou clarear) uma seção
+Todos os pares de cor foram conferidos contra a norma de contraste (WCAG AA,
+4,5:1 para texto): o dourado escuro dá 5,6:1 sobre branco e 5,0:1 sobre creme;
+o dourado claro dá 9,3:1 sobre o preto. Ao trocar qualquer cor, vale refazer
+essa conta antes de publicar.
 
-Não existe CSS separado para o fundo escuro. A classe `.secao--escura`
-redefine as mesmas variáveis dentro da própria seção, e todo o resto segue
-sozinho — inclusive o mapa, os botões e os fios. Então:
+### Como trocar o fundo de uma seção
+
+Não existe CSS separado para cada fundo. As classes redefinem as mesmas
+variáveis dentro da própria seção, e todo o resto segue sozinho — inclusive o
+mapa, os botões, os fios e o dourado, que troca de versão automaticamente:
 
 ```html
-<section class="secao secao--escura" id="mapa">   <!-- escura -->
-<section class="secao secao--nevoa" id="imprensa"><!-- clara, fundo cinza -->
-<section class="secao" id="repertorio">           <!-- branca -->
+<section class="secao secao--escura" id="mapa">     <!-- preta  -->
+<section class="secao secao--creme" id="imprensa">  <!-- creme  -->
+<section class="secao" id="repertorio">             <!-- branca -->
 ```
 
-Trocar uma seção de fundo é trocar essa classe, mais nada. Hoje estão escuros
-o mapa, a citação e o rodapé; se ficarem escuros demais (ou de menos), é aí
-que se ajusta.
+Trocar uma seção de fundo é trocar essa classe, mais nada. Se o site ficar
+escuro demais (ou de menos), é aí que se ajusta.
 
 Tipografia: **EB Garamond** nos títulos, nomes e citações; **Libre Franklin**
 no texto corrido e nos rótulos em versalete. Só duas famílias, sem
@@ -77,26 +88,33 @@ Dois detalhes de composição carregam a ideia de programa impresso e valem ser
 preservados ao mexer no site:
 
 - **O rótulo na margem.** Cada seção tem o nome ("Trajetória", "Imprensa") na
-  coluna estreita à esquerda, com um fio curto por cima, alinhado com a
-  primeira linha do título. É a classe `.cab__in` e a largura vem da variável
-  `--rail`.
+  coluna estreita à esquerda, com um fio dourado curto por cima, alinhado com
+  a primeira linha do título. É a classe `.cab__in` e a largura vem da
+  variável `--rail`.
 - **O fio pontilhado.** Na trajetória, o título de cada apresentação é ligado
   ao lugar onde aconteceu por um pontilhado, como na listagem de um programa.
   É o `<i class="marco__fio">` dentro de `.marco__cabeca`.
+
+> [!warning] Nada de olho de metadados no alto do hero
+> A abertura **não** leva aquela linha de versalete separada por pontos
+> ("CANTO E VIOLÃO · DESDE 2015 · CAMPO GRANDE, MS"). Ela existiu e foi
+> removida a pedido: é o clichê mais reconhecível de página feita por IA, e
+> não diz nada que o título e o texto já não digam. Essa informação vive na
+> faixa de números logo abaixo.
 
 ## Ao mudar o CSS, mude o número da versão
 
 Nos HTML, a folha de estilo é chamada assim:
 
 ```html
-<link rel="stylesheet" href="css/style.css?v=2">
+<link rel="stylesheet" href="css/style.css?v=3">
 ```
 
-O `?v=2` existe porque o navegador guarda o CSS em cache e pode continuar
+O `?v=3` existe porque o navegador guarda o CSS em cache e pode continuar
 mostrando o antigo depois de uma publicação — foi o que aconteceu na primeira
 vez, e o resultado é uma página meio nova e meio velha, que parece quebrada.
-**Depois de mexer no `style.css`, troque o número em todos os HTML** (`?v=3`,
-`?v=4`…) e o navegador é obrigado a buscar a versão nova.
+**Depois de mexer no `style.css`, troque o número em todos os HTML** (`?v=4`,
+`?v=5`…) e o navegador é obrigado a buscar a versão nova.
 
 ## Mexer no conteúdo
 
