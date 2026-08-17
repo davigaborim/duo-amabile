@@ -8,7 +8,7 @@ HTML, CSS e JavaScript puros, sem build e sem dependência. É só abrir o
 
 | Arquivo | O que é |
 |---|---|
-| `index.html` | Página principal: abertura, o duo, imprensa, trajetória, mapa, repertório e contato |
+| `index.html` | Página principal: abertura, o duo, trajetória, mapa, imprensa, repertório e contato |
 | `ana.html` | Ana Lúcia Gaborim — perfil **e** currículo completo, na mesma página (`ana.html#curriculo`) |
 | `marcelo.html` | Marcelo Fernandes — perfil **e** currículo completo (`marcelo.html#curriculo`) |
 | `curriculo-ana.html`, `curriculo-marcelo.html` | Só redirecionam para as páginas acima. Existem para não quebrar endereços já enviados por e-mail ou impressos |
@@ -36,22 +36,38 @@ duo-amabile/
 
 ## A identidade visual
 
-A referência é o **programa impresso** que se recebe na porta do concerto:
-papel levemente quente, tinta quase preta, um único acento em bordô — a cor do
-veludo de teatro. Não há mais dourado nem fundo escuro. As cores estão todas
-no topo do `css/style.css`, em variáveis:
+Branco, preto e dourado. O site é claro e limpo — branco de verdade, não bege
+— e escurece em blocos inteiros: o mapa, a citação e o rodapé. **O dourado só
+aparece sobre fundo escuro**: sobre branco ele fica sujo, sobre preto ele
+acende. Nas partes claras, a cor é a tinta e nada mais.
+
+Todas as cores estão no topo do `css/style.css`, em variáveis:
 
 ```css
---papel:#F5F2EC    /* fundo da página        */
---papel-2:#EBE7DE  /* faixas alternadas      */
---papel-3:#FFFFFF  /* cartões e fichas       */
---tinta:#191817    /* texto principal        */
---tinta-2:#55514B  /* texto corrido          */
---tinta-3:#847E76  /* legendas               */
---bordo:#7A2438    /* o acento: rótulos, links, botões */
+--papel:#FFFFFF    /* fundo da seção          */
+--papel-2:#F4F4F2  /* faixa clara alternada   */
+--papel-3:#FFFFFF  /* cartões e fichas        */
+--tinta:#15161A    /* títulos e texto forte   */
+--tinta-2:#54565C  /* texto corrido           */
+--tinta-3:#8A8C92  /* legendas                */
+--ouro:#D7B366     /* só nas seções escuras   */
 ```
 
-Mudou de ideia sobre uma cor? Troque só ali em cima — o site inteiro segue.
+### Como escurecer (ou clarear) uma seção
+
+Não existe CSS separado para o fundo escuro. A classe `.secao--escura`
+redefine as mesmas variáveis dentro da própria seção, e todo o resto segue
+sozinho — inclusive o mapa, os botões e os fios. Então:
+
+```html
+<section class="secao secao--escura" id="mapa">   <!-- escura -->
+<section class="secao secao--nevoa" id="imprensa"><!-- clara, fundo cinza -->
+<section class="secao" id="repertorio">           <!-- branca -->
+```
+
+Trocar uma seção de fundo é trocar essa classe, mais nada. Hoje estão escuros
+o mapa, a citação e o rodapé; se ficarem escuros demais (ou de menos), é aí
+que se ajusta.
 
 Tipografia: **EB Garamond** nos títulos, nomes e citações; **Libre Franklin**
 no texto corrido e nos rótulos em versalete. Só duas famílias, sem
@@ -61,11 +77,26 @@ Dois detalhes de composição carregam a ideia de programa impresso e valem ser
 preservados ao mexer no site:
 
 - **O rótulo na margem.** Cada seção tem o nome ("Trajetória", "Imprensa") na
-  coluna estreita à esquerda, alinhado com a primeira linha do título. É a
-  classe `.cab__in` e a largura vem da variável `--rail`.
+  coluna estreita à esquerda, com um fio curto por cima, alinhado com a
+  primeira linha do título. É a classe `.cab__in` e a largura vem da variável
+  `--rail`.
 - **O fio pontilhado.** Na trajetória, o título de cada apresentação é ligado
   ao lugar onde aconteceu por um pontilhado, como na listagem de um programa.
   É o `<i class="marco__fio">` dentro de `.marco__cabeca`.
+
+## Ao mudar o CSS, mude o número da versão
+
+Nos HTML, a folha de estilo é chamada assim:
+
+```html
+<link rel="stylesheet" href="css/style.css?v=2">
+```
+
+O `?v=2` existe porque o navegador guarda o CSS em cache e pode continuar
+mostrando o antigo depois de uma publicação — foi o que aconteceu na primeira
+vez, e o resultado é uma página meio nova e meio velha, que parece quebrada.
+**Depois de mexer no `style.css`, troque o número em todos os HTML** (`?v=3`,
+`?v=4`…) e o navegador é obrigado a buscar a versão nova.
 
 ## Mexer no conteúdo
 
