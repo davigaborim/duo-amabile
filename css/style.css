@@ -1060,27 +1060,22 @@ a.recorte__cartao:hover{ border-color:var(--tinta); transform:translateY(-2px); 
    a garantia de que nada disso atrapalha quem lê.
    -------------------------------------------------------------------------- */
 
-/* A camada acompanha a tela em vez de cobrir a seção inteira. A trajetória
-   tem uns oito mil pixels de altura: espalhadas por tudo, sobraria menos de
-   uma nota por tela. Presas ao campo de visão, elas vagam sempre em volta de
-   quem está lendo.
-
-   O `margin-bottom` negativo cancela a altura da camada, para que ela não
-   empurre o conteúdo da seção para baixo. */
+/* A camada cobre a seção inteira: as notas ficam espalhadas pelos oito mil
+   pixels da trajetória, e não presas ao campo de visão. Só as que estão
+   perto da tela são calculadas — ver o bloco 7 do js/main.js. */
 .notas{
-  position:sticky; top:0; z-index:0;
-  height:100vh; margin-bottom:-100vh;
+  position:absolute; inset:0; z-index:0;
   overflow:hidden; pointer-events:none;
 }
-/* A opacidade é baixa de propósito: elas passam por cima do texto corrido da
-   trajetória, e precisam ser vistas sem disputar a leitura. */
+/* A opacidade é baixa de propósito: mesmo desviando dos blocos de texto,
+   elas passam por cima de fotos e fios. */
 .nota{
   position:absolute; left:0; top:0;
-  color:var(--tinta); opacity:.17;
+  color:var(--tinta); opacity:.19;
   will-change:transform;
 }
 /* uma em cada três sai dourada, para a nuvem não ficar chapada */
-.nota:nth-child(3n){ color:var(--acento); opacity:.26; }
+.nota:nth-child(3n){ color:var(--acento); opacity:.28; }
 .nota svg{ display:block; width:100%; height:auto; }
 .nota .cheia{ stroke:none; }
 
@@ -1094,16 +1089,13 @@ a.recorte__cartao:hover{ border-color:var(--tinta); transform:translateY(-2px); 
   background:var(--acento); transform:rotate(-20deg); flex:0 0 auto;
 }
 
-/* Sem cursor não há brincadeira: no celular as notas só atrapalhariam a
-   leitura de uma seção que já é longa. */
-@media (hover:none),(max-width:760px){
-  .notas{ display:none; }
-  .cab__dica{ display:none; }
-}
+/* No celular vale o toque no lugar do cursor: arrastar o dedo afasta as
+   notas, tocar espalha. Só quem pediu menos movimento fica sem elas. */
 @media (prefers-reduced-motion:reduce){
   .notas{ display:none; }
   .cab__dica{ display:none; }
 }
+
 
 /* ==========================================================================
    15. RÉGUA DE LEITURA

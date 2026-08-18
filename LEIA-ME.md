@@ -111,7 +111,7 @@ por conta própria: reagem à rolagem ou ao cursor, e param quando ninguém mexe
 
 | O quê | Onde está | Para que serve |
 |---|---|---|
-| **Notas flutuantes** | trajetória (`index.html`) | Vagam pela seção mais alta e mais vazia do site, quicam nas bordas, se afastam umas das outras e fogem do cursor. O clique espalha. A camada é `pointer-events:none`, então nenhum link perde o clique |
+| **Notas flutuantes** | trajetória (`index.html`) | Vagam pelos oito mil pixels da seção mais vazia do site, quicam nas bordas, se afastam umas das outras e fogem do cursor ou do dedo. O toque espalha. A camada é `pointer-events:none`, então nenhum link perde o clique |
 | **Violão** | trajetória, citação escura e abertura de `videos.html` | Contorno de um violão clássico em fio único, cortado pela borda. Sem preenchimento e sem sombra: é gravura, não ilustração |
 | **Disco de pauta** | canto superior direito da abertura, e dentro da régua | Uma pauta de cinco linhas dobrada em círculo, com notas e barras de compasso. Gira conforme a rolagem |
 | **Régua de leitura** | barra presa no rodapé, em todas as páginas | Diz em que seção se está e permite pular direto. Cada marca é uma barra de compasso e um botão. Some sozinha quando o rodapé aparece |
@@ -119,17 +119,38 @@ por conta própria: reagem à rolagem ou ao cursor, e param quando ninguém mexe
 Onde cada um é montado:
 
 - As **notas** nascem de `js/main.js` dentro do `<div class="notas" data-notas>`.
-  Quantidade, alcance do cursor e força do empurrão são as constantes
-  `QUANTAS`, `RAIO`, `EMPURRAO` e `CLIQUE`, logo no começo do bloco 7.
+  Os botões de ajuste estão logo no começo do bloco 7: `RAIO` e `EMPURRAO`
+  (alcance e força do cursor), `TOQUE` (a pancada do clique), `VMAX` e `VMIN`
+  (o quanto elas correm) e `FOLGA` (o respiro em volta do texto). A
+  quantidade é calculada pela área da seção, na variável `porNota` — quanto
+  menor o número, mais notas.
 - O **violão** e o **disco** também são desenhados em `js/main.js`. Para pôr um
   violão em outra seção, basta a seção ter `class="secao--gravura"` e receber
   `<span class="violao violao--trilha" aria-hidden="true" data-violao></span>`.
 - A **régua** marca as seções que têm `data-regua="Nome"`. Tirar o atributo
   tira a marca, sem mexer em código.
 
-Nenhum deles aparece no celular ou para quem pediu menos movimento nas
-preferências do sistema: as notas não são sequer criadas, para não gastar
-bateria desenhando o que ninguém vai ver.
+### Como as notas não entram no texto
+
+Cada bloco de texto da trajetória vira uma fila de **círculos** de exclusão ao
+longo do seu lado maior. Como os círculos se sobrepõem, a união não tem
+cantos: é um campo arredondado, e não a divisória retangular do elemento. A
+nota que entra num campo é devolvida para a borda dele no mesmo quadro, em
+três passadas — onde dois campos se encostam, corrigir um empurraria a nota
+para dentro do outro. Se ainda assim ela ficar entalada, é jogada para fora
+por cima ou por baixo, onde sempre há o vão entre um marco e o seguinte.
+
+As fotos **não** são zona de exclusão: as notas passam por cima delas de
+propósito, e é o que dá movimento à coluna da direita. Só o texto é
+protegido.
+
+Duas coisas mantêm isso barato mesmo com mais de duzentas notas: só as que
+estão perto da tela são calculadas (as outras ficam congeladas onde estão), e
+os campos de exclusão são medidos uma vez a cada layout, não a cada quadro.
+Medido em 60 fps no computador e no celular.
+
+Quem pediu menos movimento nas preferências do sistema não recebe nenhuma
+delas — não são sequer criadas.
 
 > [!warning] Versões anteriores de duas destas foram rejeitadas na revisão
 > Uma pauta fixa no rodapé e um violão giratório de fundo saíram em agosto de
@@ -151,7 +172,7 @@ bateria desenhando o que ninguém vai ver.
 Nos HTML, a folha de estilo é chamada assim:
 
 ```html
-<link rel="stylesheet" href="css/style.css?v=5">
+<link rel="stylesheet" href="css/style.css?v=6">
 ```
 
 O `?v=3` existe porque o navegador guarda o CSS em cache e pode continuar

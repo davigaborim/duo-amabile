@@ -394,41 +394,37 @@
   /* ======================================================================
      7. NOTAS FLUTUANTES DA TRAJETÓRIA
 
-     A trajetória é a seção mais alta e mais vazia do site: uma coluna de
-     texto e muita margem. As notas ocupam essa margem.
+     A trajetória é a seção mais alta e mais vazia do site. As notas ocupam
+     essa margem: nascem espalhadas pelos oito mil pixels da seção, vagam
+     em todas as direções, quicam nas bordas e se afastam umas das outras.
+     O cursor — ou o dedo — as empurra; o toque espalha.
 
-     Elas vagam devagar, quicam nas bordas da seção e se afastam umas das
-     outras — nunca se tocam. O cursor as empurra dentro de um raio, e o
-     clique dá um empurrão maior. Fora isso, ninguém as comanda.
+     Duas coisas mantêm isso barato mesmo com mais de cem notas:
+
+     - Só as que estão perto da tela são calculadas. As outras ficam
+       congeladas onde estão, e ninguém vê a diferença.
+     - Os blocos de texto viram campos circulares de exclusão, medidos uma
+       vez a cada layout. A nota que entra num campo é devolvida para a
+       borda dele na hora — atrás do texto elas nunca chegam a passar.
 
      A camada é `pointer-events:none`, então nada aqui rouba o clique de um
-     link da trajetória. O movimento só roda enquanto a seção está na tela, e
-     não roda de jeito nenhum para quem pediu menos movimento.
+     link da trajetória.
      ====================================================================== */
 
   var caixaNotas = document.querySelector('[data-notas]');
   var menosMovimento = window.matchMedia('(prefers-reduced-motion: reduce)');
-  var temCursor = window.matchMedia('(hover: hover) and (pointer: fine)');
-  var telaLarga = window.matchMedia('(min-width: 761px)');
 
-  // As mesmas condições que o CSS usa para esconder a camada. Repetidas aqui
-  // porque esconder não basta: sem isto o laço continuaria calculando física
-  // para notas que ninguém vê.
-  var podeAnimar = function () {
-    return telaLarga.matches && !menosMovimento.matches;
-  };
-
-  if (caixaNotas && temCursor.matches) {
-    // os quatro desenhos, em caixa de 44 × 62
+  if (caixaNotas) {
+    // os quatro desenhos, em caixa de 44 x 62
     var FIGURAS = [
-      // semínima
+      // seminima
       '<ellipse cx="13" cy="50" rx="8.4" ry="5.9" transform="rotate(-20 13 50)"/>' +
       '<path d="M21.4 46.6V9" stroke-width="2.9" stroke-linecap="round"/>',
       // colcheia
       '<ellipse cx="13" cy="50" rx="8.4" ry="5.9" transform="rotate(-20 13 50)"/>' +
       '<path d="M21.4 46.6V9" stroke-width="2.9" stroke-linecap="round"/>' +
       '<path d="M21.4 9c9.6 4.6 12.6 11 8.4 20 2.6-9.4-.6-14.4-8.4-15.6Z" class="cheia"/>',
-      // mínima, de cabeça vazada
+      // minima, de cabeca vazada
       '<ellipse cx="13" cy="50" rx="8.4" ry="5.9" transform="rotate(-20 13 50)" ' +
       'fill="none" stroke-width="3"/>' +
       '<path d="M21.4 46.6V9" stroke-width="2.9" stroke-linecap="round"/>',
@@ -439,73 +435,203 @@
       '<path d="M17.4 13 42.6 7v6l-25.2 6Z" class="cheia"/>'
     ];
 
-    var QUANTAS  = window.innerWidth < 1100 ? 15 : 21;
-    var RAIO     = 165;   // alcance do cursor, em px
-    var EMPURRAO = 1500;  // força do cursor
-    var CLIQUE   = 5200;  // força do clique
-    var VMAX     = 46;    // px por segundo
-    var VMIN     = 7;
+    var RAIO     = 190;    // alcance do ponteiro, em px
+    var EMPURRAO = 2600;   // forca do ponteiro
+    var TOQUE    = 9000;   // forca do clique ou toque
+    var VMAX     = 170;    // px por segundo
+    var VMIN     = 48;
+    var FOLGA    = 20;     // respiro em volta do texto (menor no celular)
+    var BORDA    = 700;    // quanto alem da tela ainda se calcula
 
-    var notas = [];
-    var larg = 0, alt = 0;
-    var mx = -9999, my = -9999;
-    var rodando = false, ultimo = 0;
+    var secaoNotas = caixaNotas.parentElement;
 
-    for (var i = 0; i < QUANTAS; i++) {
-      var el = document.createElement('span');
-      el.className = 'nota';
-      var escala = 0.48 + Math.random() * 0.62;
-      el.innerHTML =
-        '<svg viewBox="0 0 44 62" fill="currentColor" stroke="currentColor" ' +
-        'focusable="false" aria-hidden="true">' +
-        FIGURAS[Math.floor(Math.random() * FIGURAS.length)] + '</svg>';
-      el.style.width = (36 * escala).toFixed(1) + 'px';
-      caixaNotas.appendChild(el);
+    var notas = [], zonas = [];
+    var larg = 0, alt = 0, topoSecao = 0;
+    var mx = -99999, my = -99999;
+    var rodando = false, naTela = false, ultimo = 0;
 
-      var ang = Math.random() * Math.PI * 2;
-      var vel = VMIN + Math.random() * 14;
-      notas.push({
-        el: el, r: 27 * escala,
-        x: 0, y: 0,
-        vx: Math.cos(ang) * vel, vy: Math.sin(ang) * vel,
-        giro: Math.random() * 360,
-        vgiro: (Math.random() - 0.5) * 9
-      });
-    }
+    /* --- os campos de exclusão -------------------------------------------
+       Cada bloco de texto vira uma fila de círculos ao longo do seu lado
+       maior. Como eles se sobrepõem, a união não tem cantos: é um campo
+       arredondado, e não a divisória retangular do elemento.
+       ------------------------------------------------------------------- */
+    var medirZonas = function () {
+      zonas = [];
+      var folga = larg < 760 ? 9 : FOLGA;
+      var base = secaoNotas.getBoundingClientRect();
+      var alvos = secaoNotas.querySelectorAll(
+        '.cab__in > div, .marco__ano, .marco__cabeca, ' +
+        '.marco__corpo > div > p, .marco__foto figcaption'
+      );
 
-    var medir = function (espalhar) {
-      var cx = caixaNotas.getBoundingClientRect();
-      larg = cx.width; alt = cx.height;
-      notas.forEach(function (n) {
-        if (espalhar) {
-          n.x = n.r + Math.random() * Math.max(1, larg - n.r * 2);
-          n.y = n.r + Math.random() * Math.max(1, alt - n.r * 2);
+      alvos.forEach(function (el) {
+        var r = el.getBoundingClientRect();
+        if (!r.width || !r.height) return;
+
+        var x = r.left - base.left, y = r.top - base.top;
+        var raio = Math.min(r.width, r.height) / 2 + folga;
+        var cx, cy;
+
+        if (r.width >= r.height) {
+          var passoX = Math.max(12, raio * 0.85);
+          for (cx = x + r.height / 2; cx < x + r.width - r.height / 2 + passoX; cx += passoX) {
+            zonas.push({ x: Math.min(cx, x + r.width - r.height / 2), y: y + r.height / 2, r: raio });
+          }
         } else {
-          n.x = Math.min(Math.max(n.r, n.x), Math.max(n.r, larg - n.r));
-          n.y = Math.min(Math.max(n.r, n.y), Math.max(n.r, alt - n.r));
+          var passoY = Math.max(12, raio * 0.85);
+          for (cy = y + r.width / 2; cy < y + r.height - r.width / 2 + passoY; cy += passoY) {
+            zonas.push({ x: x + r.width / 2, y: Math.min(cy, y + r.height - r.width / 2), r: raio });
+          }
+        }
+      });
+
+      zonas.sort(function (a, b) { return a.y - b.y; });
+    };
+
+    /* Devolve a nota para fora de qualquer campo em que tenha entrado.
+
+       Em várias passadas: onde dois campos se sobrepõem, a correção de um
+       pode empurrar a nota para dentro do outro, e uma passada só deixaria
+       notas presas atrás do texto. Três resolvem na prática. */
+    var desviarDoTexto = function (n) {
+      for (var passada = 0; passada < 3; passada++) desviarUmaVez(n);
+
+      /* Última saída. No celular o texto ocupa quase toda a largura, e sobra
+         vão mais estreito que a nota: ela fica entalada entre dois campos e
+         as passadas acima empatam. Aqui ela é jogada para fora pelo lado de
+         cima ou de baixo — o vão entre um marco e o seguinte sempre cabe. */
+      var preso = zonaDe(n);
+      if (!preso) return;
+
+      var limite = preso.r + n.r;
+      var acima = preso.y - limite, abaixo = preso.y + limite;
+      n.y = (Math.abs(n.y - acima) < Math.abs(n.y - abaixo)) ? acima : abaixo;
+      n.vy = -n.vy;
+      desviarUmaVez(n);
+    };
+
+    // o campo em que a nota está enfiada, se houver
+    var zonaDe = function (n) {
+      for (var i = 0; i < zonas.length; i++) {
+        var z = zonas[i];
+        if (z.y < n.y - 1200) continue;
+        if (z.y > n.y + 1200) break;
+        var limite = z.r + n.r;
+        if (Math.abs(n.x - z.x) > limite || Math.abs(n.y - z.y) > limite) continue;
+        if (Math.hypot(n.x - z.x, n.y - z.y) < limite - 0.5) return z;
+      }
+      return null;
+    };
+
+    var desviarUmaVez = function (n) {
+      for (var i = 0; i < zonas.length; i++) {
+        var z = zonas[i];
+        if (z.y < n.y - 1200) continue;
+        if (z.y > n.y + 1200) break;
+
+        var dx = n.x - z.x, dy = n.y - z.y;
+        var limite = z.r + n.r;
+        if (Math.abs(dx) > limite || Math.abs(dy) > limite) continue;
+
+        var d = Math.hypot(dx, dy);
+        if (d >= limite) continue;
+
+        if (d < 0.01) { dx = 1; dy = 0; d = 1; }
+        n.x = z.x + (dx / d) * limite;
+        n.y = z.y + (dy / d) * limite;
+
+        // sai deslizando pela borda, em vez de bater e voltar
+        var radial = (n.vx * dx + n.vy * dy) / d;
+        if (radial < 0) {
+          n.vx -= 1.7 * radial * (dx / d);
+          n.vy -= 1.7 * radial * (dy / d);
+        }
+      }
+    };
+
+    var criar = function (quantas) {
+      caixaNotas.innerHTML = '';
+      notas = [];
+      for (var i = 0; i < quantas; i++) {
+        var el = document.createElement('span');
+        el.className = 'nota';
+        // No celular o texto ocupa quase toda a largura. Nota grande não cabe
+        // nos vãos e acaba espremida por cima da leitura; miúda, cabe.
+        var escala = larg < 760
+          ? 0.30 + Math.random() * 0.26
+          : 0.45 + Math.random() * 0.65;
+        el.innerHTML =
+          '<svg viewBox="0 0 44 62" fill="currentColor" stroke="currentColor" ' +
+          'focusable="false" aria-hidden="true">' +
+          FIGURAS[Math.floor(Math.random() * FIGURAS.length)] + '</svg>';
+        el.style.width = (36 * escala).toFixed(1) + 'px';
+        caixaNotas.appendChild(el);
+
+        var ang = Math.random() * Math.PI * 2;
+        var vel = VMIN + Math.random() * (VMAX - VMIN) * 0.7;
+        notas.push({
+          el: el, r: 27 * escala,
+          x: 0, y: 0,
+          vx: Math.cos(ang) * vel, vy: Math.sin(ang) * vel,
+          giro: Math.random() * 360,
+          vgiro: (Math.random() - 0.5) * 26
+        });
+      }
+    };
+
+    /* Distribui em grade embaralhada, e não a esmo: com posições puramente
+       aleatórias a seção de oito mil pixels ficava com trechos lotados e
+       trechos vazios. Cada nota sorteia dentro da sua célula, e repete o
+       sorteio ate cair fora dos campos de texto. */
+    var espalhar = function () {
+      var quantas = notas.length;
+      var colunas = Math.max(1, Math.round(Math.sqrt(quantas * larg / Math.max(1, alt))));
+      var linhas  = Math.ceil(quantas / colunas);
+      var lc = larg / colunas, ll = alt / linhas;
+
+      notas.forEach(function (n, i) {
+        var c = i % colunas, l = Math.floor(i / colunas);
+        for (var t = 0; t < 14; t++) {
+          n.x = Math.min(Math.max(n.r, (c + Math.random()) * lc), larg - n.r);
+          n.y = Math.min(Math.max(n.r, (l + Math.random()) * ll), alt - n.r);
+          var livre = true;
+          for (var j = 0; j < zonas.length; j++) {
+            var z = zonas[j];
+            if (Math.abs(z.y - n.y) > z.r + n.r) continue;
+            if (Math.hypot(n.x - z.x, n.y - z.y) < z.r + n.r) { livre = false; break; }
+          }
+          if (livre) break;
         }
       });
     };
 
-    var pintar = function () {
-      notas.forEach(function (n) {
-        n.el.style.transform =
-          'translate3d(' + (n.x - n.r).toFixed(1) + 'px,' + (n.y - n.r).toFixed(1) + 'px,0)' +
-          ' rotate(' + n.giro.toFixed(1) + 'deg)';
-      });
+    var lugar = function (n) {
+      return 'translate3d(' + (n.x - n.r).toFixed(1) + 'px,' + (n.y - n.r).toFixed(1) + 'px,0)' +
+             ' rotate(' + n.giro.toFixed(1) + 'deg)';
     };
 
-    // "animar", e não "passo": o carrossel da imprensa já usa esse nome neste
-    // mesmo escopo, e um segundo `var passo` apagaria o dele
+    var pintar = function () {
+      notas.forEach(function (n) { n.el.style.transform = lugar(n); });
+    };
+
     var animar = function (agora) {
       if (!rodando) return;
       var dt = Math.min(0.05, (agora - ultimo) / 1000 || 0.016);
       ultimo = agora;
 
-      for (var a = 0; a < notas.length; a++) {
-        var n = notas[a];
+      // a faixa da seção que vale calcular, em coordenadas da própria seção
+      var de  = window.scrollY - topoSecao - BORDA;
+      var ate = de + window.innerHeight + BORDA * 2;
 
-        // o cursor empurra, e a força cresce quanto mais perto ele está
+      var vivas = [], a, b, n, o;
+      for (a = 0; a < notas.length; a++) {
+        if (notas[a].y > de && notas[a].y < ate) vivas.push(notas[a]);
+      }
+
+      for (a = 0; a < vivas.length; a++) {
+        n = vivas[a];
+
+        // o ponteiro empurra, e a força cresce quanto mais perto ele está
         var dx = n.x - mx, dy = n.y - my;
         var d = Math.hypot(dx, dy);
         if (d < RAIO && d > 0.01) {
@@ -515,73 +641,99 @@
         }
 
         // e uma da outra, para nunca se encostarem
-        for (var b = a + 1; b < notas.length; b++) {
-          var o = notas[b];
+        for (b = a + 1; b < vivas.length; b++) {
+          o = vivas[b];
           var ex = n.x - o.x, ey = n.y - o.y;
-          var de = Math.hypot(ex, ey);
-          var minimo = n.r + o.r + 8;
-          if (de < minimo && de > 0.01) {
-            var g = (minimo - de) / minimo * 260 * dt;
-            n.vx += (ex / de) * g; n.vy += (ey / de) * g;
-            o.vx -= (ex / de) * g; o.vy -= (ey / de) * g;
+          var minimo = n.r + o.r + 2;
+          if (Math.abs(ex) > minimo || Math.abs(ey) > minimo) continue;
+          var dv = Math.hypot(ex, ey);
+          if (dv < minimo && dv > 0.01) {
+            var g = (minimo - dv) / minimo * 260 * dt;
+            n.vx += (ex / dv) * g; n.vy += (ey / dv) * g;
+            o.vx -= (ex / dv) * g; o.vy -= (ey / dv) * g;
           }
         }
 
-        n.vx *= 0.986; n.vy *= 0.986;
+        n.vx *= 0.995; n.vy *= 0.995;
 
         // nem paradas nem em disparada
         var v = Math.hypot(n.vx, n.vy);
         if (v > VMAX) { n.vx = n.vx / v * VMAX; n.vy = n.vy / v * VMAX; }
         else if (v < VMIN) {
           var t = Math.random() * Math.PI * 2;
-          n.vx += Math.cos(t) * 9 * dt * 10;
-          n.vy += Math.sin(t) * 9 * dt * 10;
+          n.vx += Math.cos(t) * 260 * dt;
+          n.vy += Math.sin(t) * 260 * dt;
         }
 
         n.x += n.vx * dt; n.y += n.vy * dt;
         n.giro += n.vgiro * dt;
 
+        desviarDoTexto(n);
+
         // quicam nas bordas da seção
-        if (n.x < n.r)        { n.x = n.r;        n.vx = Math.abs(n.vx) * 0.86; }
-        if (n.x > larg - n.r) { n.x = larg - n.r; n.vx = -Math.abs(n.vx) * 0.86; }
-        if (n.y < n.r)        { n.y = n.r;        n.vy = Math.abs(n.vy) * 0.86; }
-        if (n.y > alt - n.r)  { n.y = alt - n.r;  n.vy = -Math.abs(n.vy) * 0.86; }
+        if (n.x < n.r)        { n.x = n.r;        n.vx = Math.abs(n.vx) * 0.9; }
+        if (n.x > larg - n.r) { n.x = larg - n.r; n.vx = -Math.abs(n.vx) * 0.9; }
+        if (n.y < n.r)        { n.y = n.r;        n.vy = Math.abs(n.vy) * 0.9; }
+        if (n.y > alt - n.r)  { n.y = alt - n.r;  n.vy = -Math.abs(n.vy) * 0.9; }
+
+        n.el.style.transform = lugar(n);
       }
 
-      pintar();
       requestAnimationFrame(animar);
     };
 
-    var seguirCursor = function (e) {
+    var seguirPonteiro = function (e) {
       var cx = caixaNotas.getBoundingClientRect();
       mx = e.clientX - cx.left;
       my = e.clientY - cx.top;
     };
 
-    var secaoNotas = caixaNotas.parentElement;
+    var soltarPonteiro = function () { mx = my = -99999; };
 
-    secaoNotas.addEventListener('pointermove', seguirCursor);
-    secaoNotas.addEventListener('pointerleave', function () { mx = my = -9999; });
+    secaoNotas.addEventListener('pointermove', seguirPonteiro, { passive: true });
+    secaoNotas.addEventListener('pointerleave', soltarPonteiro);
 
-    // o clique espalha tudo em volta, com alcance maior
+    // No celular o dedo some quando solta. Sem isto as notas ficariam fugindo
+    // de um ponteiro parado que já não está lá.
+    secaoNotas.addEventListener('pointerup', soltarPonteiro, { passive: true });
+    secaoNotas.addEventListener('pointercancel', soltarPonteiro, { passive: true });
+
+    // o toque espalha tudo em volta, com alcance maior
     secaoNotas.addEventListener('pointerdown', function (e) {
-      seguirCursor(e);
+      seguirPonteiro(e);
       notas.forEach(function (n) {
         var dx = n.x - mx, dy = n.y - my;
         var d = Math.hypot(dx, dy) || 0.01;
-        if (d < RAIO * 2.1) {
-          var f = 1 - d / (RAIO * 2.1);
-          n.vx += (dx / d) * f * CLIQUE * 0.016;
-          n.vy += (dy / d) * f * CLIQUE * 0.016;
-          n.vgiro += (Math.random() - 0.5) * 90;
+        if (d < RAIO * 2.4) {
+          var f = 1 - d / (RAIO * 2.4);
+          n.vx += (dx / d) * f * TOQUE * 0.016;
+          n.vy += (dy / d) * f * TOQUE * 0.016;
+          n.vgiro += (Math.random() - 0.5) * 160;
         }
       });
-    });
+    }, { passive: true });
 
-    medir(true);
-    pintar();
+    var medir = function (recriar) {
+      var cx = secaoNotas.getBoundingClientRect();
+      larg = cx.width; alt = cx.height;
+      topoSecao = cx.top + window.scrollY;
+      medirZonas();
 
-    var naTela = false;
+      // densidade constante: quanto maior a seção, mais notas
+      var porNota = larg < 760 ? 21000 : 27000;
+      var quantas = Math.max(30, Math.min(260, Math.round(larg * alt / porNota)));
+
+      if (recriar || !notas.length || Math.abs(quantas - notas.length) > 14) {
+        criar(quantas);
+        espalhar();
+      } else {
+        notas.forEach(function (n) {
+          n.x = Math.min(Math.max(n.r, n.x), Math.max(n.r, larg - n.r));
+          n.y = Math.min(Math.max(n.r, n.y), Math.max(n.r, alt - n.r));
+        });
+      }
+      pintar();
+    };
 
     var ligar = function (sim) {
       if (sim === rodando) return;
@@ -589,29 +741,37 @@
       if (sim) { ultimo = performance.now(); requestAnimationFrame(animar); }
     };
 
+    var reavaliar = function () { ligar(naTela && !menosMovimento.matches); };
+
+    medir(true);
+
     // só se mexem enquanto a seção está à vista
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (es) {
         naTela = es[0].isIntersecting;
-        ligar(naTela && podeAnimar());
-      }, { rootMargin: '120px' }).observe(secaoNotas);
+        reavaliar();
+      }, { rootMargin: '200px' }).observe(secaoNotas);
     } else {
       naTela = true;
-      ligar(podeAnimar());
+      reavaliar();
     }
 
-    var reavaliar = function () { ligar(naTela && podeAnimar()); };
     menosMovimento.addEventListener('change', reavaliar);
-    telaLarga.addEventListener('change', reavaliar);
 
     var remedir;
-    window.addEventListener('resize', function () {
+    var aoMudarTamanho = function () {
       clearTimeout(remedir);
-      remedir = setTimeout(function () { medir(false); pintar(); }, 160);
-    });
-    window.addEventListener('load', function () { medir(false); pintar(); });
-  }
+      remedir = setTimeout(function () { medir(false); }, 180);
+    };
+    window.addEventListener('resize', aoMudarTamanho);
+    window.addEventListener('load', function () { medir(true); });
 
+    // A seção cresce quando as fotos terminam de carregar. Sem remedir, os
+    // campos de exclusão ficariam nas posições antigas.
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(aoMudarTamanho).observe(secaoNotas);
+    }
+  }
   /* ======================================================================
      8. RÉGUA DE LEITURA
 
