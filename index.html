@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..600;1,400..600&family=Libre+Franklin:ital,wght@0,300..700;1,400..600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=4">
+<link rel="stylesheet" href="css/style.css?v=5">
 </head>
 <body>
 
@@ -36,7 +36,7 @@
       <a href="#duo">O duo</a>
       <a href="ana.html">Ana Lúcia</a>
       <a href="marcelo.html">Marcelo</a>
-      <a href="#videos">Vídeos</a>
+      <a href="videos.html">Vídeos</a>
       <a href="#imprensa">Imprensa</a>
       <a href="#trajetoria">Trajetória</a>
       <a href="#mapa">Mapa</a>
@@ -142,238 +142,18 @@
   </div>
 </section>
 
-<!-- ============================ VÍDEOS ============================
-     Vem cedo: quem chega aqui precisa poder ouvir o Duo antes de ler onze
-     anos de trajetória. A listagem é a de um programa impresso — a obra, o
-     fio pontilhado, o lugar — e clicar numa peça a leva para o quadro. -->
-<section class="secao secao--creme" id="videos" data-regua="Vídeos">
-  <div class="wrap">
-    <header class="cab">
-      <div class="cab__in">
-        <p class="rotulo reveal">Vídeos</p>
-        <div>
-          <h2 class="reveal" style="--d:1">Ouça o Duo antes de convidar.</h2>
-          <p class="cab__texto reveal" style="--d:2">
-            Gravações dos concertos na Europa e no Brasil. Escolha uma peça na
-            lista abaixo para trocar o que está no quadro.
-          </p>
-        </div>
-      </div>
-    </header>
-
-    <div class="palco reveal" data-palco>
-      <div class="palco__quadro">
-        <!-- miniatura e player montados por js/main.js -->
-      </div>
-
-      <div class="palco__ficha">
-        <p class="rotulo">No quadro</p>
-        <h3 data-ficha="obra"></h3>
-        <p class="palco__credito" data-ficha="credito"></p>
-        <p class="palco__local" data-ficha="onde"></p>
-        <p class="palco__canal">
-          <a class="link" data-ficha="link" href="https://www.youtube.com/@DuoAmabile-CantoeViol%C3%A3o" target="_blank" rel="noopener">
-            Abrir no YouTube
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7m0 0H8m9 0v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-        </p>
-      </div>
-    </div>
-
-    <ol class="faixas reveal">
-      <li>
-        <button type="button" class="faixa-item"
-                data-video="IAgmTslQoME"
-                data-obra="Ode a Campo Grande"
-                data-credito="Texto de Rubênio Marcelo, música de Marcelo Fernandes."
-                data-onde="Berna · Suíça">
-          <span class="faixa-item__topo">
-            <span class="faixa-item__obra">Ode a Campo Grande</span>
-            <i class="faixa-item__fio"></i>
-            <span class="faixa-item__onde">Berna · Suíça</span>
-          </span>
-          <span class="faixa-item__credito">Rubênio Marcelo / Marcelo Fernandes</span>
-        </button>
-      </li>
-
-      <li>
-        <button type="button" class="faixa-item"
-                data-video="EF5l-BK8F8g"
-                data-obra="Acalanto e Menina"
-                data-credito="Textos de Delasnieve Daspet, música de Marcelo Fernandes."
-                data-onde="Paris · França">
-          <span class="faixa-item__topo">
-            <span class="faixa-item__obra">Acalanto e Menina</span>
-            <i class="faixa-item__fio"></i>
-            <span class="faixa-item__onde">Paris · França</span>
-          </span>
-          <span class="faixa-item__credito">Delasnieve Daspet / Marcelo Fernandes</span>
-        </button>
-      </li>
-
-      <li>
-        <button type="button" class="faixa-item"
-                data-video="PRYr_6yjGFw"
-                data-obra="O campeador e o vento"
-                data-credito="Texto de Carlos Nejar, da Academia Brasileira de Letras; música de Marcelo Fernandes."
-                data-onde="Paris · França">
-          <span class="faixa-item__topo">
-            <span class="faixa-item__obra">O campeador e o vento</span>
-            <i class="faixa-item__fio"></i>
-            <span class="faixa-item__onde">Paris · França</span>
-          </span>
-          <span class="faixa-item__credito">Carlos Nejar / Marcelo Fernandes</span>
-        </button>
-      </li>
-
-      <li>
-        <button type="button" class="faixa-item"
-                data-video="ibycMxKp0Ds"
-                data-obra="Uirapuru"
-                data-credito="De Waldemar Henrique."
-                data-onde="Nepomuk · Rep. Tcheca">
-          <span class="faixa-item__topo">
-            <span class="faixa-item__obra">Uirapuru</span>
-            <i class="faixa-item__fio"></i>
-            <span class="faixa-item__onde">Nepomuk · Rep. Tcheca</span>
-          </span>
-          <span class="faixa-item__credito">Waldemar Henrique</span>
-        </button>
-      </li>
-
-      <li>
-        <button type="button" class="faixa-item"
-                data-video="O1814IzWOIQ"
-                data-obra="Lundú brasileiro"
-                data-credito="Texto de A. Porto Alegre, música de Cândido Ignácio da Silva."
-                data-onde="Berna · Suíça">
-          <span class="faixa-item__topo">
-            <span class="faixa-item__obra">Lundú brasileiro</span>
-            <i class="faixa-item__fio"></i>
-            <span class="faixa-item__onde">Berna · Suíça</span>
-          </span>
-          <span class="faixa-item__credito">A. Porto Alegre / Cândido Ignácio da Silva</span>
-        </button>
-      </li>
-
-      <li>
-        <button type="button" class="faixa-item"
-                data-video="JySkCCSVzkw"
-                data-obra="Beijo a mão que me condena"
-                data-credito="Do Padre José Maurício Nunes Garcia."
-                data-onde="Todi · Itália">
-          <span class="faixa-item__topo">
-            <span class="faixa-item__obra">Beijo a mão que me condena</span>
-            <i class="faixa-item__fio"></i>
-            <span class="faixa-item__onde">Todi · Itália</span>
-          </span>
-          <span class="faixa-item__credito">Pe. José Maurício Nunes Garcia</span>
-        </button>
-      </li>
-
-      <li>
-        <button type="button" class="faixa-item"
-                data-video="EIB3RmihwPI"
-                data-obra="Quem sabe?"
-                data-credito="Modinha de Carlos Gomes sobre texto de Bittencourt Sampaio."
-                data-onde="Aveiro · Portugal">
-          <span class="faixa-item__topo">
-            <span class="faixa-item__obra">Quem sabe?</span>
-            <i class="faixa-item__fio"></i>
-            <span class="faixa-item__onde">Aveiro · Portugal</span>
-          </span>
-          <span class="faixa-item__credito">Carlos Gomes / Bittencourt Sampaio</span>
-        </button>
-      </li>
-
-      <li>
-        <button type="button" class="faixa-item"
-                data-video="kQGgk_xXB1o"
-                data-obra="Rua Aurora"
-                data-credito="De Edmundo Villani-Côrtes."
-                data-onde="">
-          <span class="faixa-item__topo">
-            <span class="faixa-item__obra">Rua Aurora</span>
-            <i class="faixa-item__fio"></i>
-            <span class="faixa-item__onde">gravação</span>
-          </span>
-          <span class="faixa-item__credito">Edmundo Villani-Côrtes</span>
-        </button>
-      </li>
-
-      <li>
-        <button type="button" class="faixa-item"
-                data-video="JWDVnOC_Jyw"
-                data-obra="O campeador e o vento"
-                data-credito="Texto de Carlos Nejar, música de Marcelo Fernandes. Outra interpretação da mesma obra."
-                data-onde="">
-          <span class="faixa-item__topo">
-            <span class="faixa-item__obra">O campeador e o vento</span>
-            <i class="faixa-item__fio"></i>
-            <span class="faixa-item__onde">outra gravação</span>
-          </span>
-          <span class="faixa-item__credito">Carlos Nejar / Marcelo Fernandes</span>
-        </button>
-      </li>
-
-      <li>
-        <button type="button" class="faixa-item"
-                data-video="mYNgTTID6yQ"
-                data-obra="Recital na Academia Brasileira de Letras"
-                data-credito="Apresentação completa na sede da ABL, no Rio de Janeiro, em 2023."
-                data-onde="Rio de Janeiro · 2023">
-          <span class="faixa-item__topo">
-            <span class="faixa-item__obra">Recital na ABL</span>
-            <i class="faixa-item__fio"></i>
-            <span class="faixa-item__onde">Rio de Janeiro · 2023</span>
-          </span>
-          <span class="faixa-item__credito">Apresentação completa</span>
-        </button>
-      </li>
-
-      <li>
-        <button type="button" class="faixa-item"
-                data-video="77zdl6KwKzQ"
-                data-obra="Canções Poéticas em Imagens Modernistas"
-                data-credito="Especial do Movimento Concerto, gravado no Teatro Glauce Rocha e transmitido pela TV UFMS."
-                data-onde="Teatro Glauce Rocha · 2021">
-          <span class="faixa-item__topo">
-            <span class="faixa-item__obra">Canções Poéticas em Imagens Modernistas</span>
-            <i class="faixa-item__fio"></i>
-            <span class="faixa-item__onde">Glauce Rocha · 2021</span>
-          </span>
-          <span class="faixa-item__credito">Concerto completo · TV UFMS</span>
-        </button>
-      </li>
-
-      <li>
-        <button type="button" class="faixa-item"
-                data-video="LJ0-n6zkpV8"
-                data-obra="Pocket Show — Homenagem às Mulheres"
-                data-credito="Concerto do Movimento Concerto sem plateia, transmitido ao vivo pela TV UFMS durante a pandemia."
-                data-onde="Teatro Glauce Rocha · 2020">
-          <span class="faixa-item__topo">
-            <span class="faixa-item__obra">Homenagem às Mulheres</span>
-            <i class="faixa-item__fio"></i>
-            <span class="faixa-item__onde">Glauce Rocha · 2020</span>
-          </span>
-          <span class="faixa-item__credito">Concerto completo · TV UFMS</span>
-        </button>
-      </li>
-    </ol>
-  </div>
-</section>
-
-<!-- ============================ FAIXA ============================ -->
-<figure class="faixa">
-  <img src="images/duo-plateia.jpg" alt="Marcelo Fernandes de pé com o violão nas mãos e Ana Lúcia Gaborim ao lado, diante da talha dourada da Igreja das Carmelitas, vistos do fundo da plateia" width="1600" height="1067" loading="lazy">
-  <div class="wrap"><figcaption>Igreja das Carmelitas, Aveiro — Festivais de Outono da Universidade de Aveiro, novembro de 2024.</figcaption></div>
-</figure>
-
 <!-- ============================ TRAJETÓRIA ============================
      Lida como a listagem de um programa impresso: o ano na margem, o título
-     da apresentação e o fio pontilhado levando até o lugar. -->
-<section class="secao" id="trajetoria" data-regua="Trajetória">
+     da apresentação e o fio pontilhado levando até o lugar.
+
+     É a seção mais alta e mais vazia do site, e por isso a que recebe as duas
+     gravuras: o violão em fio único no alto, e as notas que vagam pela margem
+     e fogem do cursor. Toda a camada é `pointer-events:none` — nada aqui
+     atrapalha a leitura nem rouba o clique de um link. -->
+<section class="secao secao--gravura" id="trajetoria" data-regua="Trajetória">
+  <span class="violao violao--trilha" aria-hidden="true" data-violao></span>
+  <div class="notas" aria-hidden="true" data-notas></div>
+
   <div class="wrap">
     <header class="cab">
       <div class="cab__in">
@@ -383,6 +163,9 @@
           <p class="cab__texto reveal" style="--d:2">
             Da estreia em Corumbá, em 2015, aos concertos na Europa. Cada entrada
             traz o ano, o que foi apresentado e onde.
+          </p>
+          <p class="cab__dica reveal" style="--d:3">
+            As notas fogem do cursor. Clique para espalhá-las.
           </p>
         </div>
       </div>
@@ -1084,33 +867,7 @@
      único, cortado pela borda esquerda. Sem preenchimento e sem sombra — é
      gravura, não ilustração. Fica só aqui, onde não há texto por cima. -->
 <section class="secao secao--escura secao--gravura">
-  <span class="violao" aria-hidden="true">
-    <svg viewBox="0 0 420 700" fill="none" stroke="currentColor" stroke-width="2.2"
-         stroke-linecap="round" stroke-linejoin="round" focusable="false">
-      <g transform="translate(0,-330)">
-        <!-- caixa -->
-        <path d="M210 382c90 0 140 50 140 120 0 60-28 98-28 150 0 60 66 100 66 180 0 100-68 180-178 180S32 932 32 832c0-80 66-120 66-180 0-52-28-90-28-150 0-70 50-120 140-120Z"/>
-        <!-- braço e cabeça -->
-        <path d="M180 382 187 96h46l7 286"/>
-        <path d="M187 96 180 20c0-8 6-12 14-12h32c8 0 14 4 14 12l-7 76"/>
-        <path d="M187 96h46"/>
-        <rect x="192" y="26" width="12" height="54" rx="6"/>
-        <rect x="216" y="26" width="12" height="54" rx="6"/>
-        <!-- trastes -->
-        <path d="M181 340h58M182 300h56M183 262h54M184 226h52M185 192h50M185 160h49M186 130h48" stroke-width="1.4"/>
-        <!-- boca e roseta -->
-        <circle cx="210" cy="596" r="60"/>
-        <circle cx="210" cy="596" r="68" stroke-width="1.2"/>
-        <circle cx="210" cy="596" r="73" stroke-width="1.2"/>
-        <!-- cavalete -->
-        <rect x="112" y="848" width="196" height="28" rx="4"/>
-        <path d="M112 862h196" stroke-width="1.2"/>
-        <!-- as seis cordas, do cavalete à pestana -->
-        <path d="M170 862 191 96M186 862 199 96M202 862 206 96M218 862 214 96M234 862 222 96M250 862 229 96"
-              stroke-width="1.1"/>
-      </g>
-    </svg>
-  </span>
+  <span class="violao violao--citacao" aria-hidden="true" data-violao></span>
 
   <div class="wrap">
     <figure class="homenagem">
@@ -1189,7 +946,7 @@
         <div>
           <h4>O Duo</h4>
           <a href="#duo">Quem são</a>
-          <a href="#videos">Vídeos</a>
+          <a href="videos.html">Vídeos</a>
           <a href="#trajetoria">Trajetória</a>
           <a href="#mapa">Mapa de concertos</a>
           <a href="#repertorio">Repertório</a>

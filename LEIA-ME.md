@@ -8,7 +8,8 @@ HTML, CSS e JavaScript puros, sem build e sem dependência. É só abrir o
 
 | Arquivo | O que é |
 |---|---|
-| `index.html` | Página principal: abertura, o duo, vídeos, trajetória, mapa, imprensa, repertório e contato |
+| `index.html` | Página principal: abertura, o duo, trajetória, mapa, imprensa, repertório e contato |
+| `videos.html` | Hub de vídeos: o quadro que toca e a listagem das doze gravações |
 | `ana.html` | Ana Lúcia Gaborim — perfil **e** currículo completo, na mesma página (`ana.html#curriculo`) |
 | `marcelo.html` | Marcelo Fernandes — perfil **e** currículo completo (`marcelo.html#curriculo`) |
 | `curriculo-ana.html`, `curriculo-marcelo.html` | Só redirecionam para as páginas acima. Existem para não quebrar endereços já enviados por e-mail ou impressos |
@@ -22,13 +23,13 @@ HTML, CSS e JavaScript puros, sem build e sem dependência. É só abrir o
 
 ```
 duo-amabile/
-├── index.html, ana.html, marcelo.html
+├── index.html, ana.html, marcelo.html, videos.html
 ├── curriculo-ana.html, curriculo-marcelo.html   ← redirecionamentos
 ├── release-duo-amabile.txt
 ├── favicon.svg
 ├── css/style.css          ← toda a aparência, num arquivo só
 ├── js/
-│   ├── main.js            ← revelação no scroll, menu, carrossel, hub de vídeos, gravuras, régua
+│   ├── main.js            ← scroll, menu, carrossel, vídeos, gravuras, notas, régua
 │   ├── mapa.js            ← o mapa: lugares, zoom e ficha lateral
 │   └── mapa-dados.js      ← contornos dos países (não precisa mexer)
 └── images/                ← fotos, já redimensionadas para a web
@@ -102,43 +103,55 @@ preservados ao mexer no site:
 > não diz nada que o título e o texto já não digam. Essa informação vive na
 > faixa de números logo abaixo.
 
-## As três gravuras, e como desligar cada uma
+## As quatro gravuras, e como desligar cada uma
 
-Três elementos foram acrescentados para dar corpo à página sem acrescentar
-ruído. Os três derivam da mesma ideia do resto do site — a partitura e o
-instrumento — e nenhum deles se move sozinho: só reagem à rolagem.
+Quatro elementos dão corpo às páginas sem acrescentar ruído. Todos saem da
+mesma ideia do resto do site — a partitura e o instrumento — e nenhum se move
+por conta própria: reagem à rolagem ou ao cursor, e param quando ninguém mexe.
 
 | O quê | Onde está | Para que serve |
 |---|---|---|
-| **Régua de leitura** | barra presa no rodapé, montada por `js/main.js` | Diz em que seção se está e permite pular direto. Cada marca é uma barra de compasso e um botão. Some sozinha quando o rodapé aparece |
+| **Notas flutuantes** | trajetória (`index.html`) | Vagam pela seção mais alta e mais vazia do site, quicam nas bordas, se afastam umas das outras e fogem do cursor. O clique espalha. A camada é `pointer-events:none`, então nenhum link perde o clique |
+| **Violão** | trajetória, citação escura e abertura de `videos.html` | Contorno de um violão clássico em fio único, cortado pela borda. Sem preenchimento e sem sombra: é gravura, não ilustração |
 | **Disco de pauta** | canto superior direito da abertura, e dentro da régua | Uma pauta de cinco linhas dobrada em círculo, com notas e barras de compasso. Gira conforme a rolagem |
-| **Violão de fundo** | seção escura da citação | Contorno de um violão clássico em fio único, cortado pela borda. Sem preenchimento e sem sombra: é gravura, não ilustração |
+| **Régua de leitura** | barra presa no rodapé, em todas as páginas | Diz em que seção se está e permite pular direto. Cada marca é uma barra de compasso e um botão. Some sozinha quando o rodapé aparece |
 
-> [!warning] Versões anteriores destes três foram rejeitadas na revisão
-> Uma pauta fixa no rodapé e um violão giratório de fundo já existiram e saíram
-> em agosto de 2026, por soarem amadores. Estes foram refeitos em outro
-> registro — hairline, baixa opacidade, nada girando por conta própria, nunca
-> por cima de texto. **Se a revisão reprovar de novo, cada um sai com uma linha
-> só**, e nada mais do site depende deles:
+Onde cada um é montado:
+
+- As **notas** nascem de `js/main.js` dentro do `<div class="notas" data-notas>`.
+  Quantidade, alcance do cursor e força do empurrão são as constantes
+  `QUANTAS`, `RAIO`, `EMPURRAO` e `CLIQUE`, logo no começo do bloco 7.
+- O **violão** e o **disco** também são desenhados em `js/main.js`. Para pôr um
+  violão em outra seção, basta a seção ter `class="secao--gravura"` e receber
+  `<span class="violao violao--trilha" aria-hidden="true" data-violao></span>`.
+- A **régua** marca as seções que têm `data-regua="Nome"`. Tirar o atributo
+  tira a marca, sem mexer em código.
+
+Nenhum deles aparece no celular ou para quem pediu menos movimento nas
+preferências do sistema: as notas não são sequer criadas, para não gastar
+bateria desenhando o que ninguém vai ver.
+
+> [!warning] Versões anteriores de duas destas foram rejeitadas na revisão
+> Uma pauta fixa no rodapé e um violão giratório de fundo saíram em agosto de
+> 2026, por soarem amadores. Voltaram a pedido, em outro registro — fio fino,
+> baixa opacidade, nada girando sozinho, nunca sobre uma foto. **Se a revisão
+> reprovar de novo, cada um sai com uma linha só**, e nada mais depende deles:
 
 ```css
 /* no fim do css/style.css */
-.regua { display: none; }            /* tira a barra do rodapé */
-.disco { display: none; }            /* tira o disco de pauta (os dois) */
-.violao { display: none; }           /* tira o violão da seção escura */
+.notas  { display: none; }           /* tira as notas flutuantes */
+.violao { display: none; }           /* tira os violões de fundo */
+.disco  { display: none; }           /* tira o disco de pauta (os dois) */
+.regua  { display: none; }           /* tira a barra do rodapé */
 .numeros::before { display: none; }  /* tira as cordas atrás dos números */
 ```
-
-A régua e o disco são desenhados por JavaScript; o violão é SVG escrito
-direto no `index.html`. As seções que a régua marca são as que têm o atributo
-`data-regua="Nome"` — tirar o atributo tira a marca, sem mexer em código.
 
 ## Ao mudar o CSS, mude o número da versão
 
 Nos HTML, a folha de estilo é chamada assim:
 
 ```html
-<link rel="stylesheet" href="css/style.css?v=4">
+<link rel="stylesheet" href="css/style.css?v=5">
 ```
 
 O `?v=3` existe porque o navegador guarda o CSS em cache e pode continuar
@@ -177,7 +190,7 @@ e ajuste. O esqueleto é:
 
 ### Acrescentar um vídeo
 
-No `index.html`, dentro de `<ol class="faixas">`, copie um `<li>`. Todo o
+No `videos.html`, dentro de `<ol class="faixas">`, copie um `<li>`. Todo o
 conteúdo do item vive em atributos `data-` no botão — é de lá que o quadro de
 cima tira o que mostrar:
 

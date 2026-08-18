@@ -900,6 +900,21 @@ a.recorte__cartao:hover{ border-color:var(--tinta); transform:translateY(-2px); 
 .palco__quadro:has(.palco__toca:hover) img,
 .palco__quadro:has(.palco__toca:focus-visible) img{ transform:scale(1.03); opacity:.95; }
 
+/* Se o embed do YouTube não pintar em 3,5 s — quase sempre uma extensão de
+   privacidade barrando o iframe — o quadro deixa de ser um retângulo preto
+   mudo e passa a oferecer o caminho de saída. */
+.palco__escape{
+  position:absolute; left:50%; top:50%; translate:-50% -50%;
+  z-index:2; opacity:0; pointer-events:none;
+  background:var(--papel); color:var(--tinta);
+  font-size:13.5px; font-weight:600; text-decoration:none;
+  padding:14px 22px; border-radius:var(--raio);
+  box-shadow:0 2px 24px rgba(0,0,0,.28);
+  transition:opacity .25s ease;
+}
+.palco__quadro.is-travado .palco__escape{ opacity:1; pointer-events:auto; }
+.palco__escape:hover{ background:var(--ouro); }
+
 .palco__ficha{ padding-top:4px; }
 .palco__ficha .rotulo{ margin-bottom:14px; }
 .palco__ficha h3{ font-size:clamp(22px,2.2vw,28px); line-height:1.2; }
@@ -951,6 +966,26 @@ a.recorte__cartao:hover{ border-color:var(--tinta); transform:translateY(-2px); 
 
 @media (max-width:760px){ .faixas{ columns:1; } }
 
+/* --- a página de vídeos ---------------------------------------------------
+   Tem espaço que a seção da inicial não tinha: o título ocupa a largura de
+   leitura inteira e o quadro fica maior.
+   ------------------------------------------------------------------------ */
+
+.sala{ padding-block:clamp(30px,4vw,52px) clamp(30px,4vw,48px); }
+.sala__abre{ max-width:46rem; }
+.sala h1{ font-size:clamp(38px,5.6vw,68px); letter-spacing:-.018em; margin:6px 0 0; }
+.sala__texto{
+  font-family:var(--display); font-size:clamp(19px,1.8vw,25px); line-height:1.35;
+  color:var(--tinta); margin:22px 0 20px; max-width:36rem;
+}
+
+.figura--fecho{ max-width:760px; margin-inline:auto; }
+.figura--fecho img{ aspect-ratio:3/2; object-fit:cover; object-position:50% 40%; }
+.fecho__acoes{
+  display:flex; flex-wrap:wrap; gap:12px; justify-content:center;
+  margin-top:clamp(26px,3.5vw,38px);
+}
+
 /* ==========================================================================
    14. GRAVURAS
 
@@ -980,17 +1015,94 @@ a.recorte__cartao:hover{ border-color:var(--tinta); transform:translateY(-2px); 
 }
 @media (max-width:900px){ .disco--abertura{ display:none; } }
 
-/* o violão da seção escura */
-.secao--gravura{ overflow:hidden; }
+/* `overflow-x:clip`, e não `overflow:hidden`: hidden cria um contexto de
+   rolagem e quebraria o `position:sticky` da camada de notas, que vive dentro
+   desta mesma seção. Clip corta a sangria lateral do violão sem isso. */
+.secao--gravura{ overflow-x:clip; }
 .secao--gravura > .wrap{ position:relative; z-index:1; }
-.violao{
-  position:absolute; z-index:0;
+/* O violão aparece em três lugares e em três tamanhos. A cor sai da variável
+   de acento da seção: dourado aceso no escuro, dourado escurecido no claro. */
+.violao{ position:absolute; z-index:0; color:var(--acento); }
+
+/* na citação escura: entra pela esquerda, na altura do texto */
+.violao--citacao{
   left:-11vw; top:50%; width:min(44vw,430px);
-  color:var(--ouro); opacity:.16;
-  transform:translateY(-46%) rotate(-13deg);
+  opacity:.16; transform:translateY(-46%) rotate(-13deg);
 }
+
+/* na trajetória: grande, entrando pela direita no alto da seção, atrás do
+   cabeçalho e dos primeiros marcos */
+.violao--trilha{
+  right:-15vw; top:-6vw; width:min(52vw,620px);
+  opacity:.1; transform:rotate(14deg);
+}
+
+/* na página de vídeos: abre a página pela direita */
+.violao--sala{
+  right:-13vw; top:-11vw; width:min(46vw,500px);
+  opacity:.13; transform:rotate(11deg);
+}
+
 @media (max-width:900px){
-  .violao{ left:-32vw; width:76vw; opacity:.1; transform:translateY(-46%) rotate(-13deg); }
+  .violao--citacao{ left:-32vw; width:76vw; opacity:.1; }
+  .violao--trilha{ right:-40vw; top:-14vw; width:96vw; opacity:.07; }
+  .violao--sala{ right:-38vw; top:-18vw; width:92vw; opacity:.09; }
+}
+
+/* --------------------------------------------------------------------------
+   NOTAS FLUTUANTES
+
+   Vagam pela trajetória e fogem do cursor. A camada inteira é transparente ao
+   ponteiro: o movimento é lido pela seção, não por estes elementos, então
+   nenhum link da trajetória perde o clique para uma nota.
+
+   As posições vêm do JavaScript via `transform`; aqui só ficam a aparência e
+   a garantia de que nada disso atrapalha quem lê.
+   -------------------------------------------------------------------------- */
+
+/* A camada acompanha a tela em vez de cobrir a seção inteira. A trajetória
+   tem uns oito mil pixels de altura: espalhadas por tudo, sobraria menos de
+   uma nota por tela. Presas ao campo de visão, elas vagam sempre em volta de
+   quem está lendo.
+
+   O `margin-bottom` negativo cancela a altura da camada, para que ela não
+   empurre o conteúdo da seção para baixo. */
+.notas{
+  position:sticky; top:0; z-index:0;
+  height:100vh; margin-bottom:-100vh;
+  overflow:hidden; pointer-events:none;
+}
+/* A opacidade é baixa de propósito: elas passam por cima do texto corrido da
+   trajetória, e precisam ser vistas sem disputar a leitura. */
+.nota{
+  position:absolute; left:0; top:0;
+  color:var(--tinta); opacity:.17;
+  will-change:transform;
+}
+/* uma em cada três sai dourada, para a nuvem não ficar chapada */
+.nota:nth-child(3n){ color:var(--acento); opacity:.26; }
+.nota svg{ display:block; width:100%; height:auto; }
+.nota .cheia{ stroke:none; }
+
+/* a linha que avisa que dá para brincar com elas */
+.cab__dica{
+  margin-top:14px; font-size:12.5px; color:var(--tinta-3);
+  display:flex; align-items:center; gap:9px;
+}
+.cab__dica::before{
+  content:""; width:7px; height:5px; border-radius:50%;
+  background:var(--acento); transform:rotate(-20deg); flex:0 0 auto;
+}
+
+/* Sem cursor não há brincadeira: no celular as notas só atrapalhariam a
+   leitura de uma seção que já é longa. */
+@media (hover:none),(max-width:760px){
+  .notas{ display:none; }
+  .cab__dica{ display:none; }
+}
+@media (prefers-reduced-motion:reduce){
+  .notas{ display:none; }
+  .cab__dica{ display:none; }
 }
 
 /* ==========================================================================
