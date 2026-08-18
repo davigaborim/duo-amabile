@@ -27,6 +27,9 @@
     10. Citação, contato e rodapé
     11. Páginas de intérprete e currículo
     12. Movimento
+    13. Vídeos — o programa que toca
+    14. Gravuras: disco de pauta e violão de fundo
+    15. Régua de leitura (a barra do rodapé)
    ========================================================================== */
 
 /* ==========================================================================
@@ -286,9 +289,10 @@ em{ font-style:italic; }
 
 .abertura{
   padding-block:clamp(40px,6vw,76px) clamp(40px,6vw,72px);
-  overflow:hidden;
+  overflow:hidden; position:relative;
 }
 .abertura__in{
+  position:relative; z-index:1;
   display:grid; grid-template-columns:minmax(0,1fr) minmax(0,44%);
   gap:clamp(24px,4vw,64px); align-items:end;
 }
@@ -353,19 +357,32 @@ em{ font-style:italic; }
   .abertura__texto,.abertura__glosa{ max-width:38rem; }
 }
 
-/* os números, numa faixa fina logo abaixo da abertura */
-.numeros{ background:var(--papel-2); padding-block:clamp(26px,3.5vw,42px); }
+/* Os números, numa faixa fina logo abaixo da abertura.
+
+   As seis cordas do violão atravessam a faixa por trás. Cada cela tem o fundo
+   creme opaco, então a corda só aparece nos vãos entre um número e outro —
+   como se passasse atrás deles. É o mesmo traço do violão da seção escura,
+   reduzido a régua. */
+.numeros{ background:var(--papel-2); padding-block:clamp(26px,3.5vw,42px); position:relative; overflow:hidden; }
+.numeros::before{
+  content:""; position:absolute; z-index:0; pointer-events:none;
+  left:0; right:0; top:50%; height:71px; transform:translateY(-50%);
+  background:repeating-linear-gradient(to bottom,var(--fio) 0 1px,transparent 1px 14.2px);
+  opacity:.6;
+}
 .contas{
+  position:relative; z-index:1;
   display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
   gap:clamp(18px,3vw,40px);
 }
+.contas > div{ background:var(--papel-2); padding-right:clamp(12px,2vw,22px); }
 .contas dt{
   font-family:var(--display); font-size:clamp(32px,3.6vw,44px); line-height:1;
   color:var(--acento);
 }
 .contas dd{
-  margin:8px 0 0; font-size:11.5px; font-weight:500;
-  letter-spacing:.1em; text-transform:uppercase; color:var(--tinta-3); line-height:1.5;
+  margin:8px 0 0; font-size:13px; color:var(--tinta-3); line-height:1.5;
+  max-width:15rem;
 }
 
 /* ==========================================================================
@@ -412,10 +429,21 @@ em{ font-style:italic; }
   padding-block:clamp(30px,4vw,46px);
 }
 
+/* O ano fica na margem com uma barra de compasso à esquerda, que se estende
+   de cima a baixo quando o marco entra na tela. É o mesmo traço que separa
+   os compassos numa partitura — aqui separando um ano do seguinte. */
 .marco__ano{
+  position:relative; padding-left:18px;
   font-family:var(--display); font-size:clamp(26px,2.6vw,34px);
   line-height:1; color:var(--tinta); padding-top:.1em;
 }
+.marco__ano::before{
+  content:""; position:absolute; left:0; top:.1em; width:1px;
+  height:1.1em; background:var(--acento);
+  transform:scaleY(0); transform-origin:top;
+  transition:transform .6s cubic-bezier(.22,.61,.36,1) .12s;
+}
+.marco.is-vista .marco__ano::before{ transform:scaleY(1); }
 .marco__ano span{ display:block; font-size:.62em; color:var(--tinta-3); margin-top:6px; }
 
 .marco__corpo{ display:grid; gap:clamp(18px,2.4vw,32px); }
@@ -815,4 +843,220 @@ a.recorte__cartao:hover{ border-color:var(--tinta); transform:translateY(-2px); 
   html{ scroll-behavior:auto; }
   .reveal,.entra{ opacity:1 !important; transform:none !important; animation:none !important; transition:none !important; }
   .mapa__grupo,.btn,.link,.recorte__cartao{ transition:none !important; }
+  .marco__ano::before{ transform:scaleY(1) !important; transition:none !important; }
+  .disco svg,.regua__disco svg{ transform:none !important; }
+  .regua{ transition:none !important; }
 }
+
+/* ==========================================================================
+   13. VÍDEOS — O PROGRAMA QUE TOCA
+
+   A lista de vídeos é escrita como a listagem de peças de um programa
+   impresso: a obra à esquerda, o fio pontilhado, o lugar à direita — o mesmo
+   desenho da trajetória. Clicar numa peça troca o vídeo do quadro acima.
+
+   O quadro não carrega o YouTube até alguém pedir: até lá é só a miniatura.
+   Isso mantém a página leve e não entrega o visitante ao Google sem que ele
+   tenha clicado em nada.
+   ========================================================================== */
+
+.palco{
+  display:grid; grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);
+  gap:clamp(22px,3.5vw,44px); align-items:start;
+  margin-bottom:clamp(34px,4.5vw,54px);
+}
+
+.palco__quadro{
+  position:relative; width:100%; aspect-ratio:16/9;
+  background:#1C1917; border:1px solid var(--fio); border-radius:var(--raio);
+  overflow:hidden;
+}
+.palco__quadro img{
+  width:100%; height:100%; object-fit:cover;
+  transition:transform .7s cubic-bezier(.22,.61,.36,1),opacity .35s ease;
+  opacity:.82;
+}
+.palco__quadro iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+
+.palco__toca{
+  position:absolute; inset:0; display:grid; place-items:center;
+  border:0; background:none; padding:0; cursor:pointer; color:inherit;
+}
+.palco__toca::after{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(to top,rgba(28,25,23,.5),rgba(28,25,23,0) 55%);
+}
+.palco__botao{
+  position:relative; z-index:1;
+  width:clamp(58px,6vw,74px); aspect-ratio:1; border-radius:50%;
+  background:var(--papel); color:var(--tinta);
+  display:grid; place-items:center;
+  transition:transform .28s cubic-bezier(.22,.61,.36,1),background .28s ease,color .28s ease;
+}
+.palco__botao svg{ width:38%; height:38%; margin-left:8%; }
+.palco__toca:hover .palco__botao,.palco__toca:focus-visible .palco__botao{
+  transform:scale(1.09); background:var(--ouro); color:#1C1917;
+}
+.palco__quadro:has(.palco__toca:hover) img,
+.palco__quadro:has(.palco__toca:focus-visible) img{ transform:scale(1.03); opacity:.95; }
+
+.palco__ficha{ padding-top:4px; }
+.palco__ficha .rotulo{ margin-bottom:14px; }
+.palco__ficha h3{ font-size:clamp(22px,2.2vw,28px); line-height:1.2; }
+.palco__credito{ margin-top:12px; font-size:15px; color:var(--tinta-2); }
+.palco__local{
+  margin-top:14px; font-size:10.5px; font-weight:600; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--tinta-3);
+}
+.palco__canal{ margin-top:22px; }
+
+@media (max-width:820px){ .palco{ grid-template-columns:1fr; gap:22px; } }
+
+/* a listagem de peças, em duas colunas */
+.faixas{
+  border-top:1px solid var(--tinta);
+  columns:2; column-gap:clamp(26px,4vw,56px); column-fill:balance;
+}
+.faixas li{ break-inside:avoid; border-bottom:1px solid var(--fio); }
+
+.faixa-item{
+  display:block; width:100%; text-align:left;
+  background:none; border:0; padding:15px 0; cursor:pointer;
+  font:inherit; color:inherit;
+  transition:padding-left .25s cubic-bezier(.22,.61,.36,1);
+}
+.faixa-item:hover{ padding-left:9px; }
+.faixa-item__topo{ display:flex; align-items:baseline; gap:11px; }
+.faixa-item__obra{
+  font-family:var(--display); font-size:18px; line-height:1.2; color:var(--tinta);
+  flex:0 1 auto;
+}
+.faixa-item__fio{ flex:1 1 20px; min-width:14px; border-bottom:1px dotted var(--fio-forte); transform:translateY(-.28em); }
+.faixa-item__onde{
+  flex:0 0 auto; font-size:10px; font-weight:600; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--tinta-3); text-align:right; max-width:44%;
+}
+.faixa-item__credito{ margin-top:5px; font-size:13px; color:var(--tinta-3); line-height:1.5; }
+
+/* a peça que está no quadro: nota dourada na margem, como a marca de lápis
+   que o músico faz no programa */
+.faixa-item[aria-current="true"]{ padding-left:9px; }
+.faixa-item[aria-current="true"] .faixa-item__obra{ color:var(--acento); }
+.faixa-item[aria-current="true"] .faixa-item__topo{ position:relative; }
+.faixa-item[aria-current="true"] .faixa-item__topo::before{
+  content:""; position:absolute; left:-16px; top:.42em;
+  width:7px; height:5px; border-radius:50%;
+  background:var(--acento); transform:rotate(-20deg);
+}
+
+@media (max-width:760px){ .faixas{ columns:1; } }
+
+/* ==========================================================================
+   14. GRAVURAS
+
+   Duas figuras desenhadas em traço, nunca preenchidas, nunca sobre texto.
+   Ambas ficam abaixo do conteúdo e são invisíveis para leitores de tela.
+
+   O disco é uma pauta de cinco linhas dobrada em círculo, com barras de
+   compasso e notas — a notação de um cânone circular, que volta ao começo.
+   Ele só gira com a rolagem: parado, fica parado.
+
+   O violão é o contorno de um violão clássico em fio único, cortado pela
+   borda da seção escura. Sem sombra, sem volume, sem foto.
+   ========================================================================== */
+
+.disco,.violao{ pointer-events:none; user-select:none; }
+.disco svg,.violao svg{ display:block; width:100%; height:auto; overflow:visible; }
+
+.disco svg{ transform:rotate(calc(var(--giro,0) * 1deg)); }
+
+/* O disco da abertura sai pelo canto superior direito: aparece um arco limpo
+   da pauta, não um borrão atrás da foto. No celular a foto sobe para o topo e
+   não sobra canto nenhum — então ele simplesmente não existe ali. */
+.disco--abertura{
+  position:absolute; z-index:0;
+  right:-7vw; top:-12vw; width:min(38vw,410px);
+  color:var(--tinta); opacity:.085;
+}
+@media (max-width:900px){ .disco--abertura{ display:none; } }
+
+/* o violão da seção escura */
+.secao--gravura{ overflow:hidden; }
+.secao--gravura > .wrap{ position:relative; z-index:1; }
+.violao{
+  position:absolute; z-index:0;
+  left:-11vw; top:50%; width:min(44vw,430px);
+  color:var(--ouro); opacity:.16;
+  transform:translateY(-46%) rotate(-13deg);
+}
+@media (max-width:900px){
+  .violao{ left:-32vw; width:76vw; opacity:.1; transform:translateY(-46%) rotate(-13deg); }
+}
+
+/* ==========================================================================
+   15. RÉGUA DE LEITURA
+
+   A barra presa embaixo. Não é enfeite: numa página com dezessete marcos de
+   trajetória, é o que diz onde se está e permite pular direto. As marcas são
+   barras de compasso — uma por seção — e cada uma é um botão.
+
+   Some sozinha quando o rodapé aparece: acabou a leitura, acabou a régua.
+   ========================================================================== */
+
+.regua{
+  position:fixed; left:0; right:0; bottom:0; z-index:70;
+  height:34px; display:flex; align-items:center; gap:11px;
+  padding-inline:clamp(12px,3vw,26px);
+  background:color-mix(in srgb,#FFFFFF 84%,transparent);
+  backdrop-filter:blur(14px) saturate(1.4);
+  -webkit-backdrop-filter:blur(14px) saturate(1.4);
+  border-top:1px solid var(--fio-claro);
+  opacity:0; transform:translateY(101%);
+  transition:opacity .3s ease,transform .38s cubic-bezier(.22,.61,.36,1);
+}
+.regua.is-viva{ opacity:1; transform:none; }
+
+/* o fio de progresso, rente ao topo da régua */
+.regua__progresso{
+  position:absolute; left:0; top:-1px; height:2px; width:100%;
+  background:var(--ouro-tinta); transform-origin:left center;
+  transform:scaleX(var(--lido,0));
+}
+
+.regua__disco{ width:19px; height:19px; flex:0 0 auto; color:var(--ouro-tinta); opacity:.8; }
+
+.regua__onde{
+  font-size:10px; font-weight:600; letter-spacing:.15em; text-transform:uppercase;
+  color:var(--tinta-2); white-space:nowrap; flex:0 0 auto;
+  transition:opacity .25s ease;
+}
+
+/* as barras de compasso: uma por seção, na posição que ela ocupa na página */
+.regua__compassos{ position:relative; flex:1 1 auto; height:100%; min-width:0; }
+.regua__marca{
+  position:absolute; top:0; height:100%; width:24px; margin-left:-12px;
+  padding:0; border:0; background:none; cursor:pointer;
+}
+.regua__marca::before{
+  content:""; position:absolute; left:50%; top:12px;
+  width:1px; height:10px; background:var(--fio-forte);
+  transition:height .2s ease,top .2s ease,background .2s ease;
+}
+.regua__marca:hover::before,.regua__marca:focus-visible::before{ background:var(--ouro-tinta); height:15px; top:9px; }
+.regua__marca[aria-current="true"]::before{ background:var(--tinta); height:15px; top:9px; }
+
+/* o nome da seção, só no hover da marca */
+.regua__nome{
+  position:absolute; bottom:calc(100% + 9px); left:50%; translate:-50% 0;
+  background:var(--tinta); color:#FFF; white-space:nowrap;
+  font-size:10px; font-weight:600; letter-spacing:.12em; text-transform:uppercase;
+  padding:6px 10px; border-radius:2px;
+  opacity:0; pointer-events:none; transition:opacity .18s ease;
+}
+.regua__marca:hover .regua__nome,.regua__marca:focus-visible .regua__nome{ opacity:1; }
+
+@media (max-width:760px){
+  .regua__compassos,.regua__disco{ display:none; }
+  .regua{ justify-content:center; }
+}
+@media print{ .regua{ display:none; } }

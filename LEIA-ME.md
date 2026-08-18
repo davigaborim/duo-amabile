@@ -8,7 +8,7 @@ HTML, CSS e JavaScript puros, sem build e sem dependência. É só abrir o
 
 | Arquivo | O que é |
 |---|---|
-| `index.html` | Página principal: abertura, o duo, trajetória, mapa, imprensa, repertório e contato |
+| `index.html` | Página principal: abertura, o duo, vídeos, trajetória, mapa, imprensa, repertório e contato |
 | `ana.html` | Ana Lúcia Gaborim — perfil **e** currículo completo, na mesma página (`ana.html#curriculo`) |
 | `marcelo.html` | Marcelo Fernandes — perfil **e** currículo completo (`marcelo.html#curriculo`) |
 | `curriculo-ana.html`, `curriculo-marcelo.html` | Só redirecionam para as páginas acima. Existem para não quebrar endereços já enviados por e-mail ou impressos |
@@ -28,7 +28,7 @@ duo-amabile/
 ├── favicon.svg
 ├── css/style.css          ← toda a aparência, num arquivo só
 ├── js/
-│   ├── main.js            ← revelação no scroll, menu, carrossel, índice do currículo
+│   ├── main.js            ← revelação no scroll, menu, carrossel, hub de vídeos, gravuras, régua
 │   ├── mapa.js            ← o mapa: lugares, zoom e ficha lateral
 │   └── mapa-dados.js      ← contornos dos países (não precisa mexer)
 └── images/                ← fotos, já redimensionadas para a web
@@ -102,12 +102,43 @@ preservados ao mexer no site:
 > não diz nada que o título e o texto já não digam. Essa informação vive na
 > faixa de números logo abaixo.
 
+## As três gravuras, e como desligar cada uma
+
+Três elementos foram acrescentados para dar corpo à página sem acrescentar
+ruído. Os três derivam da mesma ideia do resto do site — a partitura e o
+instrumento — e nenhum deles se move sozinho: só reagem à rolagem.
+
+| O quê | Onde está | Para que serve |
+|---|---|---|
+| **Régua de leitura** | barra presa no rodapé, montada por `js/main.js` | Diz em que seção se está e permite pular direto. Cada marca é uma barra de compasso e um botão. Some sozinha quando o rodapé aparece |
+| **Disco de pauta** | canto superior direito da abertura, e dentro da régua | Uma pauta de cinco linhas dobrada em círculo, com notas e barras de compasso. Gira conforme a rolagem |
+| **Violão de fundo** | seção escura da citação | Contorno de um violão clássico em fio único, cortado pela borda. Sem preenchimento e sem sombra: é gravura, não ilustração |
+
+> [!warning] Versões anteriores destes três foram rejeitadas na revisão
+> Uma pauta fixa no rodapé e um violão giratório de fundo já existiram e saíram
+> em agosto de 2026, por soarem amadores. Estes foram refeitos em outro
+> registro — hairline, baixa opacidade, nada girando por conta própria, nunca
+> por cima de texto. **Se a revisão reprovar de novo, cada um sai com uma linha
+> só**, e nada mais do site depende deles:
+
+```css
+/* no fim do css/style.css */
+.regua { display: none; }            /* tira a barra do rodapé */
+.disco { display: none; }            /* tira o disco de pauta (os dois) */
+.violao { display: none; }           /* tira o violão da seção escura */
+.numeros::before { display: none; }  /* tira as cordas atrás dos números */
+```
+
+A régua e o disco são desenhados por JavaScript; o violão é SVG escrito
+direto no `index.html`. As seções que a régua marca são as que têm o atributo
+`data-regua="Nome"` — tirar o atributo tira a marca, sem mexer em código.
+
 ## Ao mudar o CSS, mude o número da versão
 
 Nos HTML, a folha de estilo é chamada assim:
 
 ```html
-<link rel="stylesheet" href="css/style.css?v=3">
+<link rel="stylesheet" href="css/style.css?v=4">
 ```
 
 O `?v=3` existe porque o navegador guarda o CSS em cache e pode continuar
@@ -143,6 +174,41 @@ e ajuste. O esqueleto é:
 - `marco--foto` — o marco tem foto ao lado (sem isso, o texto ocupa a largura toda)
 - `marco__foto--alta` — para fotos em pé, que ficam melhor em 3×4
 - Dois anos no mesmo marco: `<p class="marco__ano">2020<span>2021</span></p>`
+
+### Acrescentar um vídeo
+
+No `index.html`, dentro de `<ol class="faixas">`, copie um `<li>`. Todo o
+conteúdo do item vive em atributos `data-` no botão — é de lá que o quadro de
+cima tira o que mostrar:
+
+```html
+<li>
+  <button type="button" class="faixa-item"
+          data-video="IAgmTslQoME"
+          data-obra="Ode a Campo Grande"
+          data-credito="Texto de Rubênio Marcelo, música de Marcelo Fernandes."
+          data-onde="Berna · Suíça">
+    <span class="faixa-item__topo">
+      <span class="faixa-item__obra">Ode a Campo Grande</span>
+      <i class="faixa-item__fio"></i>
+      <span class="faixa-item__onde">Berna · Suíça</span>
+    </span>
+    <span class="faixa-item__credito">Rubênio Marcelo / Marcelo Fernandes</span>
+  </button>
+</li>
+```
+
+- `data-video` é só o código do vídeo, o que vem depois de `watch?v=` no
+  endereço do YouTube — não o endereço inteiro.
+- O primeiro `<li>` da lista é o que aparece no quadro quando a página abre.
+  Para destacar um vídeo novo, mova-o para o topo.
+- A miniatura vem do próprio YouTube; não é preciso salvar imagem nenhuma.
+- `data-onde` pode ficar vazio (`data-onde=""`) quando não houver lugar a
+  informar — a linha some sozinha.
+
+> O quadro só carrega o player do YouTube depois que alguém clica em tocar.
+> Antes disso a página não conversa com o Google e não paga o peso do player.
+> Se um dia isso mudar, o motivo está comentado no `js/main.js`.
 
 ### Acrescentar uma matéria na imprensa
 
