@@ -4,16 +4,42 @@ Site do Duo Amábile: Ana Lúcia Gaborim (canto) e Marcelo Fernandes (violão).
 HTML, CSS e JavaScript puros, sem build e sem dependência. É só abrir o
 `index.html` no navegador ou jogar a pasta num servidor estático.
 
-## Páginas
+## Páginas e idiomas
+
+**O site abre em inglês.** A versão em português mora em `pt/`, com os mesmos
+nomes de arquivo. O botão `PT`/`EN` no cabeçalho leva à mesma página na outra
+língua, e leva junto a seção em que a pessoa estava (`#imprensa`, `#mapa`…).
+Os `id` das seções são os mesmos nas duas versões; não traduzir.
 
 | Arquivo | O que é |
 |---|---|
-| `index.html` | Página principal: abertura, o duo, trajetória, mapa, imprensa, repertório e contato |
-| `videos.html` | Hub de vídeos: o quadro que toca e a listagem das doze gravações |
-| `ana.html` | Ana Lúcia Gaborim — perfil **e** currículo completo, na mesma página (`ana.html#curriculo`) |
-| `marcelo.html` | Marcelo Fernandes — perfil **e** currículo completo (`marcelo.html#curriculo`) |
-| `curriculo-ana.html`, `curriculo-marcelo.html` | Só redirecionam para as páginas acima. Existem para não quebrar endereços já enviados por e-mail ou impressos |
-| `release-duo-amabile.txt` | Release para produtores e imprensa, oferecido para download no site |
+| `index.html` · `pt/index.html` | Página principal: abertura, o duo, trajetória, mapa, imprensa, repertório e contato |
+| `videos.html` · `pt/videos.html` | Vídeos: o quadro preso ao lado da lista; clicar numa peça já toca |
+| `ana.html` · `pt/ana.html` | Ana Lúcia Gaborim: perfil curto **e** currículo, na mesma página (`#curriculo`) |
+| `marcelo.html` · `pt/marcelo.html` | Marcelo Fernandes: perfil curto **e** currículo (`#curriculo`) |
+| `curriculo-ana.html`, `curriculo-marcelo.html` | Só redirecionam para `pt/ana.html` e `pt/marcelo.html`. Existem para não quebrar endereços já enviados por e-mail ou impressos (que foram para gente que lê português) |
+| `release-duo-amabile.txt` | Release para produtores e imprensa, oferecido para download no site (só em português) |
+
+**Mexeu num texto, mexa nos dois arquivos.** Não há build nem tradução
+automática: cada idioma é um HTML escrito à mão. As frases que o JavaScript
+monta (menu, mapa, botão do vídeo) ficam em `js/main.js` (bloco 1) e nos
+`LUGARES` de `js/mapa.js`, cada uma com `pt` e `en`.
+
+## Regras que valem ao mexer
+
+- **Menu só leva a páginas.** Ana Lúcia, Marcelo, Vídeos. As seções da
+  inicial se alcançam rolando ou pela régua do rodapé. O único atalho para
+  dentro de uma seção é o botão **Contato**, que é ação e tem cara de botão.
+  Misturar `#âncoras` e páginas no mesmo menu já deixou o cabeçalho com nove
+  itens e foi reprovado.
+- **Nada de revelação no scroll.** Todo bloco subindo ao entrar na tela
+  parecia demora de carregamento, não enfeite. As classes `.reveal` e
+  `.entra` foram removidas do CSS, do JS e do HTML; não recolocar.
+- **Sem rótulo pequeno em cima do título.** O nome da seção é o próprio
+  `h2`, na margem esquerda, com o fio dourado curto por cima.
+- **Texto sem cara de IA.** Sem travessão (—) no meio de frase, sem frase de
+  efeito em título ("Onze anos, lidos de cima a baixo"), sem fecho do tipo
+  "é um repertório que não existiria se…". Título diz o que é a seção.
 
 > Os currículos ficavam em páginas separadas e isso confundia quem chegava.
 > Agora cada intérprete tem uma página só, com o currículo logo abaixo do
@@ -42,8 +68,8 @@ Branco, creme, preto quente e dourado. O site alterna **três fundos**:
 | Fundo | Onde | Classe |
 |---|---|---|
 | Branco | seções de leitura: o duo, trajetória, repertório | (nenhuma) |
-| Creme `#F7F0E3` | faixa de números, imprensa, contato | `secao--creme` |
-| Preto quente `#1C1917` | mapa, citação, rodapé | `secao--escura` |
+| Creme `#F7F0E3` | imprensa, contato, convite no fim dos perfis | `secao--creme` |
+| Preto quente `#1C1917` | cabeçalho, abertura da inicial e dos perfis, mapa, citação, rodapé | `secao--escura` (o `.topo` herda as mesmas variáveis) |
 
 O dourado tem **duas versões**, e é isso que o mantém elegante em vez de
 berrante: um escurecido para as partes claras e um claro para as escuras.
@@ -88,10 +114,10 @@ monoespaçada.
 Dois detalhes de composição carregam a ideia de programa impresso e valem ser
 preservados ao mexer no site:
 
-- **O rótulo na margem.** Cada seção tem o nome ("Trajetória", "Imprensa") na
-  coluna estreita à esquerda, com um fio dourado curto por cima, alinhado com
-  a primeira linha do título. É a classe `.cab__in` e a largura vem da
-  variável `--rail`.
+- **O título na margem.** Cada seção tem o nome ("Trajetória", "Imprensa") no
+  `h2`, na coluna estreita à esquerda, com um fio dourado curto por cima; a
+  frase que explica a seção fica na coluna de leitura. É a classe `.cab__in`
+  e a largura vem da variável `--rail`.
 - **O fio pontilhado.** Na trajetória, o título de cada apresentação é ligado
   ao lugar onde aconteceu por um pontilhado, como na listagem de um programa.
   É o `<i class="marco__fio">` dentro de `.marco__cabeca`.
@@ -101,19 +127,45 @@ preservados ao mexer no site:
 > ("CANTO E VIOLÃO · DESDE 2015 · CAMPO GRANDE, MS"). Ela existiu e foi
 > removida a pedido: é o clichê mais reconhecível de página feita por IA, e
 > não diz nada que o título e o texto já não digam. Essa informação vive na
-> faixa de números logo abaixo.
+> primeira frase da abertura e no texto do duo.
+
+## A abertura é um palco
+
+Desde 18/11/2026 a inicial e os perfis abrem escuros, com um foco de luz
+dourada (`radial-gradient`) atrás da foto: o duo recortado na inicial, o
+retrato em preto e branco nos perfis. O "Amábile" e o sobrenome de cada um
+vêm em dourado itálico. O cabeçalho é escuro em todas as páginas.
+
+Saíram da abertura, a pedido, por parecerem enfeite de IA: a explicação da
+palavra *amabile*, os nomes com rótulo em versalete e a faixa de números com a
+pauta desenhada logo abaixo.
+
+Ficaram, porque o Davi gosta e dão força à foto: o **quadro creme** atrás do
+duo, sangrando para a direita e subindo até a altura da cabeça da Ana, e o
+**disco de pauta** em dourado no alto da seção, saindo por baixo do cabeçalho
+(é `position:absolute` na abertura, não fixo na tela), que gira com a rolagem. Na versão escura entrou um **contorno dourado torto**
+(`rotate(-3.5deg)`) atrás do quadro. Os três são `::before`, `::after` e
+`.disco--abertura` dentro de `.abertura__foto`, todos atrás da foto.
+
+A foto recortada (`images/duo-oficial.webp`) foi limpa em 18/11/2026: tinha
+sobra do fundo branco entre o braço da Ana e o corpo dela, e entre a cabeça do
+Marcelo e o braço dela, que no fundo escuro apareciam como manchas brancas.
+
+Botões são pílulas; fotos, cartões e quadros usam `--raio` (12 px).
 
 ## As quatro gravuras, e como desligar cada uma
 
 Quatro elementos dão corpo às páginas sem acrescentar ruído. Todos saem da
-mesma ideia do resto do site — a partitura e o instrumento — e nenhum se move
-por conta própria: reagem à rolagem ou ao cursor, e param quando ninguém mexe.
+mesma ideia do resto do site: a partitura e o instrumento. O disco e a régua
+só se mexem com a rolagem. As notas da trajetória vagam o tempo todo, devagar,
+e fogem do cursor: é o único movimento contínuo do site, e o Davi quis assim
+(18/11/2026). Quem pediu menos movimento no sistema não recebe nenhuma.
 
 | O quê | Onde está | Para que serve |
 |---|---|---|
 | **Notas flutuantes** | trajetória (`index.html`) | Vagam pelos oito mil pixels da seção mais vazia do site, quicam nas bordas, se afastam umas das outras e fogem do cursor ou do dedo. O toque espalha. A camada é `pointer-events:none`, então nenhum link perde o clique |
-| **Violão** | trajetória, citação escura e abertura de `videos.html` | Contorno de um violão clássico em fio único, cortado pela borda. Sem preenchimento e sem sombra: é gravura, não ilustração |
-| **Disco de pauta** | canto superior direito da abertura, e dentro da régua | Uma pauta de cinco linhas dobrada em círculo, com notas e barras de compasso. Gira conforme a rolagem |
+| **Violão** | trajetória e citação escura | Contorno de um violão clássico em fio único, cortado pela borda. Sem preenchimento e sem sombra: é gravura, não ilustração |
+| **Disco de pauta** | alto da abertura, logo abaixo do cabeçalho, e dentro da régua | Uma pauta de cinco linhas dobrada em círculo, com notas e barras de compasso. Gira conforme a rolagem |
 | **Régua de leitura** | barra presa no rodapé, em todas as páginas | Diz em que seção se está e permite pular direto. Cada marca é uma barra de compasso e um botão. Some sozinha quando o rodapé aparece |
 
 Onde cada um é montado:
@@ -164,22 +216,23 @@ delas — não são sequer criadas.
 .violao { display: none; }           /* tira os violões de fundo */
 .disco  { display: none; }           /* tira o disco de pauta (os dois) */
 .regua  { display: none; }           /* tira a barra do rodapé */
-.numeros::before { display: none; }  /* tira as cordas atrás dos números */
 ```
 
-## Ao mudar o CSS, mude o número da versão
+## Ao mudar o CSS ou o JS, mude o número da versão
 
-Nos HTML, a folha de estilo é chamada assim:
+Nos HTML, a folha de estilo e os scripts são chamados assim:
 
 ```html
-<link rel="stylesheet" href="css/style.css?v=6">
+<link rel="stylesheet" href="css/style.css?v=18">
+<script src="js/main.js?v=18" defer></script>
 ```
 
-O `?v=3` existe porque o navegador guarda o CSS em cache e pode continuar
+O `?v=` existe porque o navegador guarda o CSS em cache e pode continuar
 mostrando o antigo depois de uma publicação — foi o que aconteceu na primeira
 vez, e o resultado é uma página meio nova e meio velha, que parece quebrada.
-**Depois de mexer no `style.css`, troque o número em todos os HTML** (`?v=4`,
-`?v=5`…) e o navegador é obrigado a buscar a versão nova.
+**Depois de mexer no CSS ou num JS, troque o número em todos os HTML**,
+inclusive os de `pt/` e o `404.html` (`?v=18`, `?v=18`…), e o navegador é
+obrigado a buscar a versão nova.
 
 ## Mexer no conteúdo
 
@@ -189,7 +242,7 @@ No `index.html`, dentro de `<ol class="linha">`, copie um `<li class="marco">`
 e ajuste. O esqueleto é:
 
 ```html
-<li class="marco marco--foto reveal">
+<li class="marco marco--foto">
   <p class="marco__ano">2026</p>
   <div class="marco__corpo">
     <div>
@@ -211,26 +264,27 @@ e ajuste. O esqueleto é:
 
 ### Acrescentar um vídeo
 
-No `videos.html`, dentro de `<ol class="faixas">`, copie um `<li>`. Todo o
-conteúdo do item vive em atributos `data-` no botão — é de lá que o quadro de
-cima tira o que mostrar:
+Em `videos.html` **e** `pt/videos.html`, dentro de `.lista__grupo` (Canções
+ou Concertos inteiros), copie um `<li>`. Todo o conteúdo do item vive em
+atributos `data-` no botão — é de lá que o quadro tira o que mostrar:
 
 ```html
 <li>
-  <button type="button" class="faixa-item"
-          data-video="IAgmTslQoME"
+  <button type="button" class="faixa-item" data-video="IAgmTslQoME"
           data-obra="Ode a Campo Grande"
-          data-credito="Texto de Rubênio Marcelo, música de Marcelo Fernandes."
-          data-onde="Berna · Suíça">
-    <span class="faixa-item__topo">
+          data-credito="Poema de Rubênio Marcelo, música de Marcelo Fernandes."
+          data-onde="Berna, Suíça">
+    <img src="https://i.ytimg.com/vi/IAgmTslQoME/mqdefault.jpg" alt="" width="320" height="180" loading="lazy">
+    <span>
       <span class="faixa-item__obra">Ode a Campo Grande</span>
-      <i class="faixa-item__fio"></i>
-      <span class="faixa-item__onde">Berna · Suíça</span>
+      <span class="faixa-item__credito">Berna, Suíça</span>
+      <span class="faixa-item__agora">Em exibição</span>
     </span>
-    <span class="faixa-item__credito">Rubênio Marcelo / Marcelo Fernandes</span>
   </button>
 </li>
 ```
+
+Atualize também o número ao lado do título do grupo (`<span>9</span>`).
 
 - `data-video` é só o código do vídeo, o que vem depois de `watch?v=` no
   endereço do YouTube — não o endereço inteiro.
@@ -328,9 +382,9 @@ estes pontos com Ana e Marcelo:
    Regência”, como no release; a UFMS registra “Bacharelado em Música com
    habilitação em Composição”. Ficou como estava, com o ano (2000) da UFMS.
 
-Os números da seção “o duo” (6 países, 16 cidades de MS, 4 projetos com
-fomento) foram contados a partir desses documentos. Se entrar concerto novo,
-é só atualizar à mão no `index.html`.
+Os números do texto “o duo” (6 países, 16 cidades de MS) foram contados a
+partir desses documentos. Se entrar concerto novo, é só atualizar à mão no
+`index.html` e no `pt/index.html`.
 
 Duas informações não vêm desses arquivos e foram confirmadas direto com a
 família: o **hino da UFMS** é composição de Marcelo, e a **Camerata Madeiras

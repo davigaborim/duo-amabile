@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /LEIA-ME.md
+
+Sitemap: https://davigaborim.github.io/duo-amabile/sitemap.xml

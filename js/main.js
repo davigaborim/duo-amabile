@@ -1,7 +1,7 @@
 /* ==========================================================================
    DUO AMÁBILE — comportamento
 
-   1. Revelação no scroll (discreta: opacidade e 12 px)
+   1. Idioma (os textos que o script escreve, em inglês e português)
    2. Navegação: menu no celular, link ativo, cabeçalho preso
    3. Carrossel da imprensa
    4. Índice do currículo, nas páginas de intérprete
@@ -19,31 +19,38 @@
   'use strict';
 
   /* ======================================================================
-     1. REVELAÇÃO NO SCROLL
+     1. IDIOMA
+
+     O site existe em inglês (raiz) e em português (pasta pt/). O HTML de
+     cada língua já vem escrito; aqui ficam só as frases que o script monta.
+     A revelação no scroll que morava aqui saiu: ver o bloco 12 do CSS.
      ====================================================================== */
 
-  var aRevelar = document.querySelectorAll('.reveal');
+  var PT = (document.documentElement.lang || '').toLowerCase().indexOf('pt') === 0;
 
-  if ('IntersectionObserver' in window) {
-    var olho = new IntersectionObserver(function (entradas) {
-      entradas.forEach(function (e) {
-        if (e.isIntersecting) {
-          e.target.classList.add('is-vista');
-          olho.unobserve(e.target);
-        }
-      });
-    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+  var T = PT ? {
+    abrirMenu: 'Abrir menu', fecharMenu: 'Fechar menu',
+    miniatura: 'Miniatura do vídeo', assistir: 'Assistir a',
+    travou: 'Não carregou? Abrir no YouTube',
+    inicio: 'Início', irPara: 'Ir para'
+  } : {
+    abrirMenu: 'Open menu', fecharMenu: 'Close menu',
+    miniatura: 'Thumbnail of', assistir: 'Play',
+    travou: 'Not loading? Open on YouTube',
+    inicio: 'Top', irPara: 'Go to'
+  };
 
-    aRevelar.forEach(function (el) { olho.observe(el); });
-  } else {
-    aRevelar.forEach(function (el) { el.classList.add('is-vista'); });
-  }
+  // a troca de idioma leva junto a seção em que a pessoa está
+  document.querySelectorAll('.idiomas a:not([aria-current])').forEach(function (a) {
+    a.addEventListener('click', function () {
+      if (location.hash) a.href = a.href.split('#')[0] + location.hash;
+    });
+  });
 
   /* ======================================================================
      2. NAVEGAÇÃO
      ====================================================================== */
 
-  var topo   = document.getElementById('topo');
   var nav    = document.getElementById('nav');
   var burger = document.getElementById('hamburguer');
 
@@ -51,16 +58,23 @@
     var fecharMenu = function () {
       nav.classList.remove('is-aberto');
       burger.setAttribute('aria-expanded', 'false');
-      burger.setAttribute('aria-label', 'Abrir menu');
+      burger.setAttribute('aria-label', T.abrirMenu);
     };
 
     burger.addEventListener('click', function () {
       var aberto = nav.classList.toggle('is-aberto');
       burger.setAttribute('aria-expanded', String(aberto));
-      burger.setAttribute('aria-label', aberto ? 'Fechar menu' : 'Abrir menu');
+      burger.setAttribute('aria-label', aberto ? T.fecharMenu : T.abrirMenu);
+      // quem abriu pelo teclado vai direto para o primeiro link do menu
+      if (aberto) { var primeiro = nav.querySelector('a'); if (primeiro) primeiro.focus(); }
     });
 
     nav.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', fecharMenu); });
+
+    nav.addEventListener('focusout', function (e) {
+      if (nav.classList.contains('is-aberto') && e.relatedTarget &&
+          !nav.contains(e.relatedTarget) && e.relatedTarget !== burger) fecharMenu();
+    });
 
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && nav.classList.contains('is-aberto')) {
@@ -70,11 +84,6 @@
     });
   }
 
-  if (topo) {
-    window.addEventListener('scroll', function () {
-      topo.classList.toggle('is-preso', window.scrollY > 8);
-    }, { passive: true });
-  }
 
   // link do menu aceso conforme a seção visível
   var comId = Array.prototype.slice.call(document.querySelectorAll('main section[id]'));
@@ -172,6 +181,9 @@
      O quadro começa com a miniatura e um botão. Só quando alguém clica é que
      o iframe do YouTube entra na página — antes disso o site não conversa
      com o Google, e não paga o peso do player.
+
+     Clicar numa peça da lista já toca. Antes o primeiro clique só trocava a
+     miniatura e era preciso clicar de novo, e ninguém entendia.
      ====================================================================== */
 
   var palco = document.querySelector('[data-palco]');
@@ -200,15 +212,16 @@
       quadro.innerHTML = '';
 
       var img = document.createElement('img');
-      img.width = 1280; img.height = 720; img.loading = 'lazy';
-      img.alt = 'Miniatura do vídeo “' + item.getAttribute('data-obra') + '”';
+      // é a maior imagem do topo da página de vídeos: nada de lazy
+      img.width = 1280; img.height = 720; img.fetchPriority = 'high';
+      img.alt = T.miniatura + ' “' + item.getAttribute('data-obra') + '”';
       comReserva(img, id);
       img.src = 'https://i.ytimg.com/vi/' + id + '/maxresdefault.jpg';
 
       var botao = document.createElement('button');
       botao.type = 'button';
       botao.className = 'palco__toca';
-      botao.setAttribute('aria-label', 'Assistir a “' + item.getAttribute('data-obra') + '”');
+      botao.setAttribute('aria-label', T.assistir + ' “' + item.getAttribute('data-obra') + '”');
       botao.innerHTML =
         '<span class="palco__botao">' +
         '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>' +
@@ -239,7 +252,7 @@
       escape.href = 'https://www.youtube.com/watch?v=' + id;
       escape.target = '_blank';
       escape.rel = 'noopener';
-      escape.textContent = 'Não carregou? Abrir no YouTube';
+      escape.textContent = T.travou;
       quadro.appendChild(escape);
 
       // se em 3,5 s o player não tiver pintado nada, mostra o escape
@@ -265,10 +278,12 @@
 
     faixas.forEach(function (item) {
       item.addEventListener('click', function () {
-        // já escolhida: o clique repetido é um pedido para tocar
-        escolher(item, item.getAttribute('aria-current') === 'true');
-        if (window.matchMedia('(max-width:820px)').matches) {
-          quadro.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        escolher(item, true);
+        // o quadro é preso no alto da tela; só se ele estiver fora de vista
+        // (rolagem lá no começo da página) é que vale levar até ele
+        var r = palco.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > window.innerHeight) {
+          palco.scrollIntoView({ block: 'start', behavior: 'smooth' });
         }
       });
     });
@@ -358,7 +373,8 @@
     return svg;
   };
 
-  document.querySelectorAll('.disco').forEach(function (el) { el.appendChild(desenharDisco()); });
+
+  document.querySelectorAll('.disco--abertura').forEach(function (el) { el.appendChild(desenharDisco()); });
 
   /* --- o violão em fio único ---------------------------------------------
      Contorno de um violão clássico: caixa, braço, cabeça com as fendas,
@@ -791,7 +807,7 @@
     regua.innerHTML =
       '<i class="regua__progresso"></i>' +
       '<span class="disco regua__disco" aria-hidden="true"></span>' +
-      '<span class="regua__onde" aria-live="off">Abertura</span>' +
+      '<span class="regua__onde" aria-live="off"></span>' +
       '<span class="regua__compassos"></span>';
 
     regua.querySelector('.regua__disco').appendChild(desenharDisco());
@@ -805,7 +821,7 @@
       b.className = 'regua__marca';
       b.innerHTML = '<span class="regua__nome"></span>';
       b.querySelector('.regua__nome').textContent = secao.getAttribute('data-regua');
-      b.setAttribute('aria-label', 'Ir para ' + secao.getAttribute('data-regua'));
+      b.setAttribute('aria-label', T.irPara + ' ' + secao.getAttribute('data-regua'));
       b.addEventListener('click', function () {
         secao.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
@@ -849,7 +865,7 @@
       marcadas.forEach(function (s) {
         s.__marca.setAttribute('aria-current', String(s === atual));
       });
-      ondeEl.textContent = atual ? atual.getAttribute('data-regua') : 'Abertura';
+      ondeEl.textContent = atual ? atual.getAttribute('data-regua') : T.inicio;
     };
 
     var aoRolar = function () {

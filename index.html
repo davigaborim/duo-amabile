@@ -1,142 +1,132 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Duo Amábile — canto e violão</title>
-<meta name="description" content="Ana Lúcia Gaborim (canto) e Marcelo Fernandes (violão) formam o Duo Amábile: canção de câmara brasileira em teatros e igrejas do Brasil e da Europa desde 2015.">
-<meta name="theme-color" content="#FFFFFF">
+<title>Duo Amábile · voice and guitar</title>
+<meta name="description" content="Soprano Ana Lúcia Gaborim and guitarist Marcelo Fernandes play Brazilian art song in concert halls, churches and universities in Brazil and Europe. Together on stage since 2015.">
+<meta name="theme-color" content="#1C1917">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="favicon.svg">
+<link rel="alternate" hreflang="en" href="https://davigaborim.github.io/duo-amabile/">
+<link rel="alternate" hreflang="pt-BR" href="https://davigaborim.github.io/duo-amabile/pt/">
 
+<link rel="canonical" href="https://davigaborim.github.io/duo-amabile/">
+<meta property="og:url" content="https://davigaborim.github.io/duo-amabile/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Duo Amábile — canto e violão">
-<meta property="og:description" content="Canção de câmara brasileira em teatros e igrejas do Brasil e da Europa, desde 2015.">
-<meta property="og:image" content="images/duo-oficial.jpg">
-<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Duo Amábile · voice and guitar">
+<meta property="og:description" content="Brazilian art song for voice and guitar, in Brazil and Europe since 2015.">
+<meta property="og:image" content="https://davigaborim.github.io/duo-amabile/images/duo-oficial.jpg">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="pt_BR">
 <meta name="twitter:card" content="summary_large_image">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..600;1,400..600&family=Libre+Franklin:ital,wght@0,300..700;1,400..600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=6">
+<link rel="stylesheet" href="css/style.css?v=18">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"MusicGroup","name":"Duo Amábile","url":"https://davigaborim.github.io/duo-amabile/",
+"image":"https://davigaborim.github.io/duo-amabile/images/duo-oficial.jpg","genre":"Brazilian art song","foundingDate":"2015",
+"foundingLocation":"Campo Grande, Mato Grosso do Sul, Brasil","description":"Voice and guitar duo: soprano Ana Lúcia Gaborim and guitarist Marcelo Fernandes.",
+"email":"anaemarcelo440@gmail.com",
+"member":[{"@type":"Person","name":"Ana Lúcia Gaborim","url":"https://davigaborim.github.io/duo-amabile/ana.html"},
+{"@type":"Person","name":"Marcelo Fernandes","url":"https://davigaborim.github.io/duo-amabile/marcelo.html"}],
+"sameAs":["https://www.instagram.com/duoamabilecantoeviolao/","https://www.youtube.com/@DuoAmabile-CantoeViol%C3%A3o"]}
+</script>
 </head>
 <body>
 
-<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+<a class="pular" href="#conteudo">Skip to content</a>
 
-<!-- ============================ CABEÇALHO ============================ -->
 <header class="topo" id="topo">
   <div class="wrap topo__in">
-    <a class="marca" href="#topo" aria-label="Duo Amábile — início">
+    <a class="marca" href="index.html" aria-label="Duo Amábile, home">
       <span class="marca__nome">Duo Amábile</span>
     </a>
 
-    <nav class="nav" id="nav" aria-label="Navegação principal">
-      <a href="#duo">O duo</a>
+    <nav class="nav" id="nav" aria-label="Main">
       <a href="ana.html">Ana Lúcia</a>
       <a href="marcelo.html">Marcelo</a>
-      <a href="videos.html">Vídeos</a>
-      <a href="#imprensa">Imprensa</a>
-      <a href="#trajetoria">Trajetória</a>
-      <a href="#mapa">Mapa</a>
-      <a href="#repertorio">Repertório</a>
-      <a href="#contato">Contato</a>
+      <a href="videos.html">Videos</a>
+      <a class="nav__celular" href="#contato">Contact</a>
     </nav>
 
-    <button class="hamburguer" id="hamburguer" aria-expanded="false" aria-controls="nav" aria-label="Abrir menu">
-      <span></span><span></span><span></span>
-    </button>
+    <div class="topo__acoes">
+      <a class="btn btn--forte topo__contato" href="#contato">Contact</a>
+      <div class="idiomas" role="group" aria-label="Language">
+        <a href="index.html" lang="en" aria-current="true">EN</a>
+        <a href="pt/index.html" lang="pt-BR" hreflang="pt-BR" title="Português">PT</a>
+      </div>
+      <button class="hamburguer" id="hamburguer" aria-expanded="false" aria-controls="nav" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </header>
 
 <main id="conteudo">
 
-<!-- ============================ ABERTURA ============================
-     A abertura é a capa do programa: nome, a indicação de expressão que dá
-     nome ao duo, os dois intérpretes e a foto oficial recortada do fundo. -->
-<section class="abertura">
-  <!-- pauta de cinco linhas dobrada em círculo; o desenho vem de js/main.js -->
+<section class="abertura secao--escura">
+  <!-- pauta de cinco linhas dobrada em círculo, saindo pelo alto da abertura;
+       o desenho vem de js/main.js e gira com a rolagem -->
   <span class="disco disco--abertura" aria-hidden="true"></span>
-
   <div class="wrap abertura__in">
-    <div>
+    <div class="abertura__texto-col">
       <h1>
-        <span class="entra" style="--d:1">Duo</span>
-        <span class="amabile entra" style="--d:2">Amábile</span>
+        <span>Duo</span>
+        <span class="amabile">Amábile</span>
       </h1>
 
-      <p class="abertura__glosa entra" style="--d:3">
-        <b>amabile</b> — na partitura, a indicação para tocar com doçura.
+      <p class="abertura__texto">
+        Soprano <a href="ana.html">Ana Lúcia Gaborim</a> and guitarist
+        <a href="marcelo.html">Marcelo Fernandes</a>. Brazilian art song for voice
+        and guitar, performed in Brazil and Europe since 2015.
       </p>
 
-      <p class="abertura__texto entra" style="--d:3">
-        Uma soprano e um violonista, os dois doutores em música, tocando a
-        canção de câmara brasileira em teatros, igrejas e universidades do
-        Brasil e da Europa.
-      </p>
-
-      <div class="abertura__nomes entra" style="--d:4">
-        <a href="ana.html">Ana Lúcia Gaborim <em>canto</em></a>
-        <a href="marcelo.html">Marcelo Fernandes <em>violão</em></a>
-      </div>
-
-      <div class="abertura__acoes entra" style="--d:5">
-        <a class="btn btn--forte btn--lg" href="#trajetoria">
-          Ver a trajetória
+      <div class="abertura__acoes">
+        <a class="btn btn--forte btn--lg" href="videos.html">
+          Watch the videos
           <svg class="btn__seta" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13m0 0-5-5m5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
-        <a class="btn btn--lg" href="#contato">Convidar o Duo</a>
+        <a class="btn btn--lg" href="#contato">Invite the duo</a>
       </div>
     </div>
 
-    <div class="abertura__foto entra" style="--d:2">
-      <img src="images/duo-oficial.webp" alt="Ana Lúcia Gaborim em pé, de vestido verde, ao lado de Marcelo Fernandes sentado com o violão no colo" width="648" height="734" fetchpriority="high">
+    <div class="abertura__foto">
+      <img src="images/duo-oficial.webp" alt="Ana Lúcia Gaborim standing in a green dress next to Marcelo Fernandes, seated with his guitar" width="648" height="734" fetchpriority="high">
     </div>
-  </div>
-</section>
-
-<section class="numeros">
-  <div class="wrap">
-    <dl class="contas">
-      <div><dt>2015</dt><dd>o primeiro concerto, no Teatro do SESC de Corumbá</dd></div>
-      <div><dt>6</dt><dd>países onde o Duo já se apresentou</dd></div>
-      <div><dt>16</dt><dd>cidades de Mato Grosso do Sul em turnê</dd></div>
-      <div><dt>4</dt><dd>projetos realizados com fomento público</dd></div>
-    </dl>
   </div>
 </section>
 
 <!-- ============================ O DUO ============================ -->
-<section class="secao" id="duo" data-regua="O duo">
+<section class="secao" id="duo" data-regua="The duo">
   <div class="wrap">
     <div class="duo">
       <div class="duo__texto">
-        <p class="rotulo reveal" style="margin-bottom:18px">O duo</p>
-        <h2 class="duo__abre reveal" style="--d:1">
-          Desde 2015 os dois tocam juntos o repertório que quase ninguém estava
-          tocando: a canção de câmara brasileira, muita dela escrita sobre
-          poemas de Mato Grosso do Sul.
-        </h2>
-        <p class="reveal" style="--d:2">
-          A parceria é bem mais antiga que o Duo: <strong>Ana Lúcia Gaborim</strong> e
-          <strong>Marcelo Fernandes</strong> são casados desde 1998. Dividir o mesmo
-          palco, porém, só veio em 2015, e por convite — o projeto SESC Partituras,
-          que os levou ao Teatro do SESC de Corumbá para interpretar música de câmara
-          brasileira escrita ou arranjada para canto e violão. No começo se
-          apresentavam apenas como “Duo de Violão e Canto”. O nome veio depois.
+        <h2 class="titulo">The duo</h2>
+        <p class="duo__abre">
+          Married since 1998, on stage together since 2015.
         </p>
-        <p class="reveal" style="--d:3">
-          De lá para cá foram concertos em igrejas, teatros, museus, academias de
-          letras e universidades. Marcelo compõe sobre poemas de escritores
-          sul-mato-grossenses e brasileiros; Ana Lúcia estreia essas canções. É um
-          repertório que em boa parte não existiria se o Duo não existisse.
+        <p>
+          Duo Amábile performs Brazilian art song for voice and guitar, from
+          nineteenth-century modinhas to works written for the duo. Much of the
+          repertoire is by Marcelo Fernandes, who sets poems by Brazilian writers
+          such as Carlos Nejar, Raquel Naveira and Rubênio Marcelo, and Ana Lúcia
+          Gaborim gives the first performance.
+        </p>
+        <p>
+          The duo made its debut in 2015 in SESC’s Partituras series, in Corumbá.
+          It has since performed in six countries, at venues including the
+          Brazilian Academy of Letters, the Université Sorbonne Nouvelle, the
+          University of Aveiro and the residence of the Brazilian Ambassador in
+          Bern, and has toured sixteen towns in Mato Grosso do Sul.
         </p>
       </div>
 
-      <figure class="figura reveal" style="--d:2">
-        <img src="images/hero-aveiro.jpg" alt="Marcelo Fernandes tocando violão e Ana Lúcia Gaborim cantando diante da talha dourada da Igreja das Carmelitas, em Aveiro" width="2000" height="1333" loading="lazy">
-        <figcaption>Concerto na Igreja das Carmelitas, Aveiro — Portugal, novembro de 2024.</figcaption>
+      <figure class="figura">
+        <img src="images/hero-aveiro.webp" alt="Marcelo Fernandes playing guitar and Ana Lúcia Gaborim singing in front of the gilded altarpiece of the Igreja das Carmelitas, Aveiro" width="1200" height="800" loading="lazy">
+        <figcaption>Igreja das Carmelitas, Aveiro, Portugal, November 2024.</figcaption>
       </figure>
     </div>
   </div>
@@ -144,455 +134,435 @@
 
 <!-- ============================ TRAJETÓRIA ============================
      Lida como a listagem de um programa impresso: o ano na margem, o título
-     da apresentação e o fio pontilhado levando até o lugar.
-
-     É a seção mais alta e mais vazia do site, e por isso a que recebe as duas
-     gravuras: o violão em fio único no alto, e as notas que vagam pela margem
-     e fogem do cursor. Toda a camada é `pointer-events:none` — nada aqui
-     atrapalha a leitura nem rouba o clique de um link. -->
-<section class="secao secao--gravura" id="trajetoria" data-regua="Trajetória">
+     da apresentação e o fio pontilhado levando até o lugar. As notas que
+     vagam pela margem fogem do cursor; a camada é pointer-events:none. -->
+<section class="secao secao--gravura" id="trajetoria" data-regua="Concerts">
   <span class="violao violao--trilha" aria-hidden="true" data-violao></span>
   <div class="notas" aria-hidden="true" data-notas></div>
 
   <div class="wrap">
     <header class="cab">
       <div class="cab__in">
-        <p class="rotulo reveal">Trajetória</p>
-        <div>
-          <h2 class="reveal" style="--d:1">Onze anos, lidos de cima a baixo.</h2>
-          <p class="cab__texto reveal" style="--d:2">
-            Da estreia em Corumbá, em 2015, aos concertos na Europa. Cada entrada
-            traz o ano, o que foi apresentado e onde.
-          </p>
-          <p class="cab__dica reveal" style="--d:3">
-            As notas fogem do cursor. Clique para espalhá-las.
-          </p>
-        </div>
+        <h2>Concerts</h2>
+        <p class="cab__texto">
+          Selected concerts and projects since 2015.
+        </p>
       </div>
     </header>
 
     <ol class="linha">
 
-      <li class="marco marco--foto reveal">
+      <li class="marco marco--foto">
         <p class="marco__ano">2015</p>
         <div class="marco__corpo">
           <div>
             <div class="marco__cabeca">
-              <h3>SESC Partituras — a estreia</h3>
+              <h3>SESC Partituras, the first concert</h3>
               <i class="marco__fio"></i>
-              <p class="marco__onde">Teatro do SESC · Corumbá, MS</p>
+              <p class="marco__onde">SESC theatre · Corumbá, MS</p>
             </div>
             <p>
-              Convidados para o projeto SESC Partituras, os dois estreiam juntos
-              interpretando música de câmara brasileira composta ou arranjada para
-              canto e violão, editada e publicada pelo próprio SESC.
+              Invited to the SESC Partituras project, they played Brazilian chamber
+              music written or arranged for voice and guitar, published by SESC.
             </p>
             <p>
-              Daí em diante começa uma série de apresentações nos <em>campi</em> da UFMS —
-              Chapadão do Sul, Coxim, Paranaíba, Ponta Porã, Três Lagoas. No fim do
-              ano, o Duo encerra a FETEC no Memorial da Cultura de MS.
+              Concerts followed at the UFMS campuses in Chapadão do Sul, Coxim,
+              Paranaíba, Ponta Porã and Três Lagoas. At the end of the year the duo
+              closed FETEC at the Memorial da Cultura de MS.
             </p>
           </div>
           <figure class="marco__foto">
-            <img src="images/t-2015-sesc.jpg" alt="O Duo no palco do SESC, visto do fundo da plateia" width="960" height="720" loading="lazy">
-            <figcaption>Projeto SESC Partituras — o primeiro concerto do Duo.</figcaption>
+            <img src="images/t-2015-sesc.jpg" alt="The duo on the SESC stage, seen from the back of the audience" width="960" height="720" loading="lazy">
+            <figcaption>SESC Partituras, the duo’s first concert.</figcaption>
           </figure>
         </div>
       </li>
 
-      <li class="marco marco--foto reveal">
+      <li class="marco marco--foto">
         <p class="marco__ano">2016</p>
         <div class="marco__corpo">
           <div>
             <div class="marco__cabeca">
-              <h3>A primeira gravação em estúdio</h3>
+              <h3>First studio recording</h3>
               <i class="marco__fio"></i>
-              <p class="marco__onde">Campo Grande e interior de MS</p>
+              <p class="marco__onde">Campo Grande and other towns in MS</p>
             </div>
             <p>
-              O Duo grava <em>“As árvores do meu lugar”</em> — poema de Eliane Guaraldo,
-              música de Marcelo Fernandes — para o CD <em>“As canções que fizemos para
-              ela: homenagem a Maria Betânia”</em>, iniciativa independente de professores
-              e compositores da UFMS.
+              The duo recorded <em>“As árvores do meu lugar”</em>, a poem by Eliane
+              Guaraldo set by Marcelo Fernandes, for the CD <em>“As canções que
+              fizemos para ela: homenagem a Maria Betânia”</em>, an independent
+              release by teachers and composers from UFMS.
             </p>
             <p>
-              No mesmo ano, seguem as apresentações em eventos acadêmicos e culturais,
-              entre eles o Chá Literário da Academia Sul-mato-grossense de Letras, no
+              They also played at academic and cultural events that year, including
+              the Chá Literário of the Academia Sul-mato-grossense de Letras at the
               Centro Cultural José Otávio Guizzo.
             </p>
           </div>
           <figure class="marco__foto">
-            <img src="images/t-2016-gravacao.jpg" alt="Ana Lúcia cantando com a partitura nas mãos enquanto Marcelo toca, diante de uma pequena plateia" width="1000" height="750" loading="lazy">
-            <figcaption>Chá Literário da Academia Sul-mato-grossense de Letras.</figcaption>
+            <img src="images/t-2016-gravacao.jpg" alt="Ana Lúcia singing from a score while Marcelo plays, in front of a small audience" width="1000" height="750" loading="lazy">
+            <figcaption>Chá Literário, Academia Sul-mato-grossense de Letras.</figcaption>
           </figure>
         </div>
       </li>
 
-      <li class="marco marco--foto reveal">
+      <li class="marco marco--foto">
         <p class="marco__ano">2017</p>
         <div class="marco__corpo">
           <div>
             <div class="marco__cabeca">
-              <h3>A música brasileira em seis cordas</h3>
+              <h3 lang="pt">A música brasileira em seis cordas</h3>
               <i class="marco__fio"></i>
-              <p class="marco__onde">Oito cidades do interior de MS</p>
+              <p class="marco__onde">Eight towns in MS</p>
             </div>
             <p>
-              Homenagem a Dilermando Reis, patrocinada pelo FIC — Fundo de Investimentos
-              Culturais do Governo do Estado. De maio a setembro o Duo percorre Bonito,
-              Corguinho, Naviraí, Nova Andradina, Ponta Porã, Rochedo, São Gabriel do
-              Oeste e Sidrolândia.
+              A tribute to the guitarist Dilermando Reis, funded by the state culture
+              fund (FIC). From May to September the duo played in Bonito, Corguinho,
+              Naviraí, Nova Andradina, Ponta Porã, Rochedo, São Gabriel do Oeste and
+              Sidrolândia.
             </p>
             <p>
-              O concerto de encerramento acontece no Teatro Glauce Rocha, em Campo
-              Grande, com os artistas convidados Eduardo Martinelli, Luciana Fisher e
-              Renato Oliveira. Em outubro, o Duo participa do Movimento Concerto, no
-              mesmo teatro.
+              The final concert, at Teatro Glauce Rocha in Campo Grande, had guest
+              artists Eduardo Martinelli, Luciana Fisher and Renato Oliveira. In
+              October the duo was back at the same theatre for Movimento Concerto.
             </p>
           </div>
           <figure class="marco__foto marco__foto--alta">
-            <img src="images/t-2017-dilermando.jpg" alt="Cartaz do projeto A Música Brasileira em Seis Cordas, homenagem a Dilermando Reis" width="1000" height="1000" loading="lazy">
-            <figcaption>Cartaz do projeto, patrocinado pelo FIC/MS.</figcaption>
+            <img src="images/t-2017-dilermando.jpg" alt="Poster for the project A Música Brasileira em Seis Cordas, a tribute to Dilermando Reis" width="1000" height="1000" loading="lazy">
+            <figcaption>Project poster, funded by FIC/MS.</figcaption>
           </figure>
         </div>
       </li>
 
-      <li class="marco marco--foto reveal">
+      <li class="marco marco--foto">
         <p class="marco__ano">2019</p>
         <div class="marco__corpo">
           <div>
             <div class="marco__cabeca">
-              <h3>Canções poéticas e imagens modernistas</h3>
+              <h3 lang="pt">Canções poéticas e imagens modernistas</h3>
               <i class="marco__fio"></i>
-              <p class="marco__onde">Pontos turísticos de Campo Grande · FMIC</p>
+              <p class="marco__onde">Around Campo Grande · FMIC</p>
             </div>
             <p>
-              Contemplado pelo Fundo Municipal de Investimentos Culturais, o projeto
-              rende uma série de vídeos gravados em pontos turísticos da cidade, com o
-              violinista Heitor Lotti e a cantora lírica Andressa Chinzarian.
+              With a grant from the city culture fund (FMIC), the project produced a
+              series of videos filmed at landmarks around Campo Grande, with violinist
+              Heitor Lotti and soprano Andressa Chinzarian.
             </p>
             <p>
-              Em junho do mesmo ano, a obra <em>“Fogo da Poesia”</em> estreia na Academia
-              Brasileira de Letras de Mato Grosso do Sul, com transmissão pela TV
-              Pantanal.
+              In June, <em>“Fogo da Poesia”</em> was premiered at the Academia
+              Brasileira de Letras de Mato Grosso do Sul and broadcast on TV Pantanal.
             </p>
           </div>
           <figure class="marco__foto">
-            <img src="images/t-2019-poesia.jpg" alt="Ana Lúcia ao microfone e Marcelo ao violão em recital ao ar livre" width="1000" height="562" loading="lazy">
-            <figcaption>Recital do Duo em 2019.</figcaption>
+            <img src="images/t-2019-poesia.jpg" alt="Ana Lúcia at the microphone and Marcelo on guitar at an outdoor recital" width="1000" height="562" loading="lazy">
+            <figcaption>A recital in 2019.</figcaption>
           </figure>
         </div>
       </li>
 
-      <li class="marco reveal">
+      <li class="marco">
         <p class="marco__ano">2020<span>2021</span></p>
         <div class="marco__corpo">
           <div>
             <div class="marco__cabeca">
-              <h3>Concertos a distância</h3>
+              <h3>Concerts with no audience</h3>
               <i class="marco__fio"></i>
-              <p class="marco__onde">Teatro Glauce Rocha · transmissão ao vivo</p>
+              <p class="marco__onde">Teatro Glauce Rocha · live stream</p>
             </div>
             <p>
-              Durante a pandemia o Duo mantém a agenda dentro do Movimento Concerto
-              on-line: apresentações no Teatro Glauce Rocha, sem plateia, transmitidas
-              ao vivo pelo canal da TV UFMS.
-            </p>
-            <p class="marco__links">
-              <a class="link" href="https://www.youtube.com/watch?v=LJ0-n6zkpV8&t=740s" target="_blank" rel="noopener">Assistir ao primeiro concerto <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7m0 0H8m9 0v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-              <a class="link" href="https://www.youtube.com/watch?v=77zdl6KwKzQ" target="_blank" rel="noopener">e ao terceiro <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7m0 0H8m9 0v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+              During the pandemic the duo kept playing in the online edition of
+              Movimento Concerto: concerts at Teatro Glauce Rocha with empty seats,
+              streamed live by TV UFMS. Two of them are on the
+              <a href="videos.html">videos page</a>.
             </p>
           </div>
         </div>
       </li>
 
-      <li class="marco reveal">
+      <li class="marco">
         <p class="marco__ano">2021</p>
         <div class="marco__corpo">
           <div>
             <div class="marco__cabeca">
-              <h3>“Ode à Campo Grande” vira clipe</h3>
+              <h3>“Ode à Campo Grande” becomes a music video</h3>
               <i class="marco__fio"></i>
-              <p class="marco__onde">Programa Meu Mato Grosso do Sul · TV Morena</p>
+              <p class="marco__onde">Meu Mato Grosso do Sul · TV Morena</p>
             </div>
             <p>
-              A canção — música de Marcelo Fernandes sobre poema de Rubênio Marcelo —
-              é escolhida para o aniversário da capital, gravada em estúdio pelo Duo e
-              transformada em clipe musical.
+              Marcelo’s setting of a poem by Rubênio Marcelo was chosen for the city’s
+              anniversary. The duo recorded it in the studio and it was made into a
+              music video.
             </p>
             <p>
-              É também o período em que Marcelo compõe uma série de canções exclusivas
-              para o Duo sobre poetas do Estado — Delasnieve Daspet, Rubênio Marcelo — e
-              sobre o poeta Carlos Nejar, apresentadas na Academia Sul-mato-grossense de
-              Letras e em eventos da AFLAMS. O Duo se apresenta ao vivo no programa
-              “Tudo de Bom”, do SBT.
+              Around this time Marcelo wrote a set of songs for the duo on poems by
+              Delasnieve Daspet, Rubênio Marcelo and Carlos Nejar, performed at the
+              Academia Sul-mato-grossense de Letras and at AFLAMS events. The duo also
+              played live on “Tudo de Bom”, on SBT.
             </p>
             <p class="marco__links">
-              <a class="link" href="https://globoplay.globo.com/v/9812447/" target="_blank" rel="noopener">Ver o clipe no Globoplay <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7m0 0H8m9 0v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+              <a class="link" href="https://globoplay.globo.com/v/9812447/" target="_blank" rel="noopener">Watch the video on Globoplay <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7m0 0H8m9 0v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
             </p>
           </div>
         </div>
       </li>
 
-      <li class="marco marco--foto reveal">
+      <li class="marco marco--foto">
         <p class="marco__ano">2022</p>
         <div class="marco__corpo">
           <div>
             <div class="marco__cabeca">
-              <h3>Encontro com a música clássica</h3>
+              <h3 lang="pt">Encontro com a Música Clássica</h3>
               <i class="marco__fio"></i>
-              <p class="marco__onde">Teatro Glauce Rocha · agosto</p>
+              <p class="marco__onde">Teatro Glauce Rocha · August</p>
             </div>
             <p>
-              O Duo integra a programação do festival organizado pela Orquestra
-              Sinfônica Municipal de Campo Grande.
+              The duo played at the festival run by the Campo Grande Municipal
+              Symphony Orchestra.
             </p>
             <p>
-              Entre abril e julho já havia se apresentado no Instituto Histórico e
-              Geográfico de MS, gravado para a TV Assembleia, homenageado a poeta
-              Raquel Naveira e participado do lançamento da revista “Estação Folclore”,
-              no SESC Cultura. No fim do ano vem novo aporte do FIC, agora para o
-              projeto <em>“Cem anos de Semana de Arte Moderna em Terras Pantaneiras”</em>.
+              Between April and July they had played at the Instituto Histórico e
+              Geográfico de MS, recorded for TV Assembleia, paid tribute to the poet
+              Raquel Naveira and played at the launch of the magazine “Estação
+              Folclore” at SESC Cultura. At the end of the year the FIC fund backed a
+              new project, <em>“Cem anos de Semana de Arte Moderna em Terras
+              Pantaneiras”</em>.
             </p>
           </div>
           <figure class="marco__foto">
-            <img src="images/t-2022-classica.jpg" alt="Ana Lúcia cantando sob luz de palco enquanto Marcelo toca sentado" width="1000" height="666" loading="lazy">
+            <img src="images/t-2022-classica.jpg" alt="Ana Lúcia singing under stage lights while Marcelo plays, seated" width="1000" height="666" loading="lazy">
             <figcaption>Teatro Glauce Rocha, Campo Grande.</figcaption>
           </figure>
         </div>
       </li>
 
-      <li class="marco marco--foto reveal">
+      <li class="marco marco--foto">
         <p class="marco__ano">2023</p>
         <div class="marco__corpo">
           <div>
             <div class="marco__cabeca">
-              <h3>Academia Brasileira de Letras, no Rio</h3>
+              <h3>Brazilian Academy of Letters, Rio</h3>
               <i class="marco__fio"></i>
-              <p class="marco__onde">ABL e PEN Clube do Brasil · Rio de Janeiro</p>
+              <p class="marco__onde">ABL and PEN Clube do Brasil · Rio de Janeiro</p>
             </div>
             <p>
-              O Duo se apresenta na sede do PEN Clube do Brasil, por ocasião da
-              instauração do PEN Clube Centro-Oeste, e na Academia Brasileira de Letras,
-              estreando obra de Marcelo Fernandes sobre poema de Carlos Nejar.
+              The duo played at PEN Clube do Brasil for the founding of PEN Clube
+              Centro-Oeste, and at the Academia Brasileira de Letras, where they
+              premiered a piece by Marcelo Fernandes on a poem by Carlos Nejar.
             </p>
             <p>
-              Em abril, havia aberto o Festival Internacional de Violão, no Teatro
+              In April they had opened the International Guitar Festival at Teatro
               Glauce Rocha.
             </p>
           </div>
           <figure class="marco__foto">
-            <img src="images/t-2023-rio.jpg" alt="Ana Lúcia e Marcelo no Rio de Janeiro, com o Pão de Açúcar ao fundo" width="1000" height="706" loading="lazy">
+            <img src="images/t-2023-rio.jpg" alt="Ana Lúcia and Marcelo in Rio de Janeiro, with Sugarloaf Mountain behind them" width="1000" height="706" loading="lazy">
             <figcaption>Rio de Janeiro, 2023.</figcaption>
           </figure>
         </div>
       </li>
 
-      <li class="marco marco--foto reveal">
+      <li class="marco marco--foto">
         <p class="marco__ano">2023</p>
         <div class="marco__corpo">
           <div>
             <div class="marco__cabeca">
-              <h3>Cem anos de Semana de Arte Moderna em Terras Pantaneiras</h3>
+              <h3 lang="pt">Cem anos de Semana de Arte Moderna em Terras Pantaneiras</h3>
               <i class="marco__fio"></i>
-              <p class="marco__onde">Seis cidades de MS</p>
+              <p class="marco__onde">Six towns in MS</p>
             </div>
             <p>
-              O projeto contemplado pelo FIC no ano anterior leva o Duo de volta ao
-              interior — Aquidauana, Corumbá, Coxim, Dourados, Ponta Porã e Três
-              Lagoas — em parceria com a UEMS, o IFMS e a UFMS. Os concertos foram
-              oferecidos gratuitamente à população.
+              The FIC-funded project took the duo to Aquidauana, Corumbá, Coxim,
+              Dourados, Ponta Porã and Três Lagoas, in partnership with UEMS, IFMS and
+              UFMS. Every concert was free.
             </p>
             <p>
-              O encerramento, em 11 de outubro, comemorou a divisão do Estado de Mato
-              Grosso do Sul no Bioparque Pantanal — teatro lotado, com presença de
-              autoridades.
+              The closing concert, on 11 October, celebrated the anniversary of the
+              state of Mato Grosso do Sul at Bioparque Pantanal, to a full house.
             </p>
           </div>
           <figure class="marco__foto">
-            <img src="images/t-2023-bioparque.jpg" alt="Teatro lotado no Bioparque Pantanal durante o concerto de encerramento" width="1200" height="900" loading="lazy">
-            <figcaption>Encerramento no Bioparque Pantanal, 11 de outubro de 2023.</figcaption>
+            <img src="images/t-2023-bioparque.jpg" alt="A full theatre at Bioparque Pantanal during the closing concert" width="1200" height="900" loading="lazy">
+            <figcaption>Closing concert at Bioparque Pantanal, 11 October 2023.</figcaption>
           </figure>
         </div>
       </li>
 
-      <li class="marco marco--foto reveal">
+      <li class="marco marco--foto">
         <p class="marco__ano">2023</p>
         <div class="marco__corpo">
           <div>
             <div class="marco__cabeca">
               <h3>Memorial da América Latina</h3>
               <i class="marco__fio"></i>
-              <p class="marco__onde">São Paulo · setembro</p>
+              <p class="marco__onde">São Paulo · September</p>
             </div>
             <p>
-              O Duo abre o VIII IFLAC World Brazil — Peace Congress, com participação
-              especial do violinista Heitor Lotti.
+              The duo opened the 8th IFLAC World Brazil Peace Congress, with
+              violinist Heitor Lotti as guest.
             </p>
             <p>
-              Ainda em 2023, Marcelo compõe duas canções sobre poemas de Raquel Naveira
-              para o CD <em>“Cabeza de Vaca, Andarilho das Américas”</em>, lançado no Teatro
-              Glauce Rocha com um coletivo de artistas sul-mato-grossenses.
+              Also in 2023, Marcelo wrote two songs on poems by Raquel Naveira for the
+              CD <em>“Cabeza de Vaca, Andarilho das Américas”</em>, launched at Teatro
+              Glauce Rocha by a group of artists from Mato Grosso do Sul.
             </p>
           </div>
           <figure class="marco__foto">
-            <img src="images/t-2023-saopaulo.jpg" alt="Palco iluminado em azul no Memorial da América Latina, visto da plateia" width="1000" height="750" loading="lazy">
+            <img src="images/t-2023-saopaulo.jpg" alt="Stage lit in blue at the Memorial da América Latina, seen from the audience" width="1000" height="750" loading="lazy">
             <figcaption>Memorial da América Latina, São Paulo.</figcaption>
           </figure>
         </div>
       </li>
 
-      <li class="marco marco--foto reveal">
+      <li class="marco marco--foto">
         <p class="marco__ano">2024</p>
         <div class="marco__corpo">
           <div>
             <div class="marco__cabeca">
-              <h3>Projeto ALMAR — fados</h3>
+              <h3>ALMAR project: fado</h3>
               <i class="marco__fio"></i>
-              <p class="marco__onde">SESC Prosa · 8 de outubro</p>
+              <p class="marco__onde">SESC Prosa · 8 October</p>
             </div>
             <p>
-              Um concerto de fados portugueses, com os poetas Rubênio Marcelo e Ana
-              Maria Bernardelli e músicos convidados — a soprano Luciana Fisher e os
-              instrumentistas Luiz Sayd e Joel Mendes.
+              A concert of Portuguese fado with the poets Rubênio Marcelo and Ana
+              Maria Bernardelli and guest musicians: soprano Luciana Fisher, Luiz Sayd
+              and Joel Mendes.
             </p>
           </div>
           <figure class="marco__foto">
-            <img src="images/t-2024-almar.jpg" alt="O Duo em cena com músicos convidados no palco do SESC Prosa" width="1000" height="562" loading="lazy">
-            <figcaption>Lançamento do livro do projeto ALMAR, SESC Prosa.</figcaption>
+            <img src="images/t-2024-almar.jpg" alt="The duo on the SESC Prosa stage with guest musicians" width="1000" height="562" loading="lazy">
+            <figcaption>Launch of the ALMAR project book, SESC Prosa.</figcaption>
           </figure>
         </div>
       </li>
 
-      <li class="marco marco--foto reveal">
+      <li class="marco marco--foto">
         <p class="marco__ano">2024</p>
         <div class="marco__corpo">
           <div>
             <div class="marco__cabeca">
-              <h3>Aveiro — Festivais de Outono</h3>
+              <h3>Aveiro, Festivais de Outono</h3>
               <i class="marco__fio"></i>
-              <p class="marco__onde">Igreja das Carmelitas · Portugal · novembro</p>
+              <p class="marco__onde">Igreja das Carmelitas · Portugal · November</p>
             </div>
             <p>
-              O Duo é convidado a integrar a programação dos Festivais de Outono da
-              Universidade de Aveiro. No programa, canções europeias e brasileiras,
-              incluindo composições de Marcelo Fernandes.
+              Invited by the University of Aveiro’s autumn festival. The programme
+              had European and Brazilian songs, including pieces by Marcelo
+              Fernandes.
             </p>
           </div>
           <figure class="marco__foto">
-            <img src="images/t-2024-aveiro.jpg" alt="O Duo com uma intérprete convidada diante da talha dourada da Igreja das Carmelitas, em Aveiro" width="1200" height="800" loading="lazy">
-            <figcaption>Igreja das Carmelitas, Aveiro — Portugal.</figcaption>
+            <img src="images/t-2024-aveiro.jpg" alt="The duo with a guest singer in front of the gilded altarpiece of the Igreja das Carmelitas, Aveiro" width="1200" height="800" loading="lazy">
+            <figcaption>Igreja das Carmelitas, Aveiro, Portugal.</figcaption>
           </figure>
         </div>
       </li>
 
-      <li class="marco marco--foto reveal">
+      <li class="marco marco--foto">
         <p class="marco__ano">2024</p>
         <div class="marco__corpo">
           <div>
             <div class="marco__cabeca">
-              <h3>Nepomuk — Svatojánské Muzeum</h3>
+              <h3>Nepomuk, Svatojánské Muzeum</h3>
               <i class="marco__fio"></i>
-              <p class="marco__onde">República Tcheca · novembro</p>
+              <p class="marco__onde">Czech Republic · November</p>
             </div>
             <p>
-              Apresentação dentro da agenda cultural do tradicional museu de Nepomuk,
-              a convite do consulado tcheco, na mesma viagem que levou o Duo a Portugal.
+              A concert in the museum’s cultural programme, at the invitation of the
+              Czech consulate, on the same trip that took the duo to Portugal.
             </p>
           </div>
           <figure class="marco__foto marco__foto--alta">
-            <img src="images/t-2024-nepomuk.jpg" alt="Marcelo com o violão ao lado da anfitriã no salão do Svatojánské Muzeum, em Nepomuk" width="1000" height="1333" loading="lazy">
-            <figcaption>Svatojánské Muzeum, Nepomuk — República Tcheca.</figcaption>
+            <img src="images/t-2024-nepomuk.jpg" alt="Marcelo with his guitar next to the host in the hall of the Svatojánské Muzeum, Nepomuk" width="1000" height="1333" loading="lazy">
+            <figcaption>Svatojánské Muzeum, Nepomuk, Czech Republic.</figcaption>
           </figure>
         </div>
       </li>
 
-      <li class="marco marco--foto reveal">
+      <li class="marco marco--foto">
         <p class="marco__ano">2025</p>
         <div class="marco__corpo">
           <div>
             <div class="marco__cabeca">
-              <h3>Berna e Paris</h3>
+              <h3>Bern and Paris</h3>
               <i class="marco__fio"></i>
-              <p class="marco__onde">Suíça e França · março e abril</p>
+              <p class="marco__onde">Switzerland and France · March and April</p>
             </div>
             <p>
-              Em Berna, o concerto se realizou na casa da Embaixadora do Brasil, com a
-              presença de embaixadores de vários países. Em Paris, na Maison de
-              l'Amérique Latine e na Université Sorbonne Nouvelle.
+              In Bern they played at the residence of the Brazilian Ambassador, for
+              ambassadors from several countries. In Paris, at the Maison de
+              l’Amérique Latine and the Université Sorbonne Nouvelle.
             </p>
             <p>
-              No repertório, canções de Marcelo Fernandes sobre poetas
-              sul-mato-grossenses — Delasnieve Daspet, Raquel Naveira, Rubênio Marcelo —
-              e obras do compositor brasileiro Otto Pintiaski. Na mesma turnê, Marcelo
-              fez ainda um recital solo no Conservatório de Winterthur.
+              The programme had Marcelo’s songs on poems by Delasnieve Daspet, Raquel
+              Naveira and Rubênio Marcelo, and works by the Brazilian composer Otto
+              Pintiaski. On the same tour Marcelo gave a solo recital at the
+              Winterthur Conservatory.
             </p>
           </div>
           <figure class="marco__foto">
-            <img src="images/t-2025-bern.jpg" alt="Plateia sentada no salão da residência da Embaixadora do Brasil em Bern" width="1000" height="750" loading="lazy">
-            <figcaption>Casa da Embaixadora do Brasil, Bern — Suíça.</figcaption>
+            <img src="images/t-2025-bern.jpg" alt="Audience seated in the hall of the Brazilian Ambassador’s residence in Bern" width="1000" height="750" loading="lazy">
+            <figcaption>Residence of the Brazilian Ambassador, Bern, Switzerland.</figcaption>
           </figure>
         </div>
       </li>
 
-      <li class="marco marco--foto reveal">
+      <li class="marco marco--foto">
         <p class="marco__ano">2025</p>
         <div class="marco__corpo">
           <div>
             <div class="marco__cabeca">
-              <h3>Umbria — Todi e Deruta</h3>
+              <h3>Umbria: Todi and Deruta</h3>
               <i class="marco__fio"></i>
-              <p class="marco__onde">Itália · julho</p>
+              <p class="marco__onde">Italy · July</p>
             </div>
             <p>
-              Dois concertos na região da Umbria: em Todi, dentro da programação do
-              festival <em>Suoni dal legno</em>, e no Museo Regionale della Ceramica, na
-              Comune di Deruta.
+              Two concerts in Umbria: in Todi, at the festival <em>Suoni dal
+              legno</em>, and at the Museo Regionale della Ceramica in Deruta.
             </p>
           </div>
           <figure class="marco__foto marco__foto--alta">
-            <img src="images/t-2025-todi.jpg" alt="O Duo se apresentando ao ar livre em Todi, à noite, junto a um muro de pedra" width="1000" height="1333" loading="lazy">
-            <figcaption>Festival “Suoni dal legno”, Todi — Itália.</figcaption>
+            <img src="images/t-2025-todi.jpg" alt="The duo performing outdoors at night in Todi, next to a stone wall" width="1000" height="1333" loading="lazy">
+            <figcaption>“Suoni dal legno” festival, Todi, Italy.</figcaption>
           </figure>
         </div>
       </li>
 
-      <li class="marco reveal">
+      <li class="marco">
         <p class="marco__ano">2025</p>
         <div class="marco__corpo">
           <div>
             <div class="marco__cabeca">
-              <h3>Cerimônias e aberturas</h3>
+              <h3>Ceremonies and openings</h3>
               <i class="marco__fio"></i>
               <p class="marco__onde">Campo Grande, MS</p>
             </div>
             <p>
-              Posse da Presidência da OAB no Teatro Rubens Gil de Camillo (29 de
-              janeiro); abertura da COP 30 — Bioma Pantanal, no Auditório Insted (30 de
-              setembro); e a Semana de Recepção aos alunos do curso de Música da UFMS,
-              no Anfiteatro Luís Felipe de Oliveira, em março.
+              The swearing-in of the OAB (Brazilian Bar Association) board at Teatro
+              Rubens Gil de Camillo on 29 January; welcome week for UFMS music
+              students at the Anfiteatro Luís Felipe de Oliveira in March; and the
+              opening of COP 30 Pantanal Biome at the Insted auditorium on
+              30 September.
             </p>
           </div>
         </div>
       </li>
 
-      <li class="marco reveal">
+      <li class="marco">
         <p class="marco__ano">2026</p>
         <div class="marco__corpo">
           <div>
             <div class="marco__cabeca">
-              <h3>Femina Vox e as escolas municipais</h3>
+              <h3>Femina Vox and the city’s schools</h3>
               <i class="marco__fio"></i>
-              <p class="marco__onde">Teatro Rubens Gil de Camilo · 16 de março</p>
+              <p class="marco__onde">Teatro Rubens Gil de Camilo · 16 March</p>
             </div>
             <p>
-              O Duo abre o evento internacional Femina Vox, em Campo Grande.
+              The duo opened Femina Vox, an international event held in Campo Grande.
             </p>
             <p>
-              No mesmo ano começa o projeto <em>“Entre o rural e o urbano: as canções de
-              Almir Sater e Chico Buarque”</em>, com apresentações em escolas públicas
-              municipais — o repertório do Duo indo ao encontro de quem talvez nunca
-              tenha entrado num teatro.
+              The same year they started <em>“Entre o rural e o urbano: as canções de
+              Almir Sater e Chico Buarque”</em>, a series of concerts in the city’s
+              public schools.
             </p>
           </div>
         </div>
@@ -603,67 +573,61 @@
 </section>
 
 <!-- ============================ MAPA ============================ -->
-<section class="secao secao--escura" id="mapa" data-regua="Mapa">
+<section class="secao secao--escura" id="mapa" data-regua="Map">
   <div class="wrap">
     <header class="cab">
       <div class="cab__in">
-        <p class="rotulo reveal">Mapa</p>
-        <div>
-          <h2 class="reveal" style="--d:1">Onde essas canções já foram cantadas.</h2>
-          <p class="cab__texto reveal" style="--d:2">
-            Aproxime no Brasil ou na Europa e toque num ponto para ler o que
-            aconteceu ali.
-          </p>
-        </div>
+        <h2>Map</h2>
+        <p class="cab__texto">
+          Six countries with the duo, and eight more where Marcelo Fernandes has
+          played as a soloist.
+        </p>
       </div>
     </header>
 
-    <div class="mapa reveal" style="--d:1">
+    <div class="mapa">
       <div>
         <div class="mapa__palco">
-          <div class="mapa__ctrl" role="group" aria-label="Enquadramento do mapa">
-            <button type="button" data-vista="mundo" aria-pressed="true">Mundo</button>
-            <button type="button" data-vista="brasil" aria-pressed="false">Brasil</button>
-            <button type="button" data-vista="europa" aria-pressed="false">Europa</button>
+          <div class="mapa__ctrl" role="group" aria-label="Map view">
+            <button type="button" data-vista="mundo" aria-pressed="true">World</button>
+            <button type="button" data-vista="brasil" aria-pressed="false">Brazil</button>
+            <button type="button" data-vista="europa" aria-pressed="false">Europe</button>
           </div>
           <div class="mapa__tela" id="mapaTela">
             <!-- montado por js/mapa.js -->
           </div>
         </div>
         <p class="mapa__chave">
-          <span><i></i> Países onde o Duo se apresentou</span>
-          <span><i class="solo"></i> Onde Marcelo Fernandes tocou como solista</span>
+          <span><i></i> Countries where the duo has performed</span>
+          <span><i class="solo"></i> Where Marcelo Fernandes has played as a soloist</span>
         </p>
       </div>
 
       <div class="mapa__ficha" id="mapaFicha" aria-live="polite">
-        <p class="vazio">Escolha um ponto no mapa para ler sobre os concertos daquele lugar.</p>
+        <p class="vazio">Choose a point on the map.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============================ IMPRENSA ============================
-     Vem cedo na página, e não no fim: é o que um produtor procura primeiro.
-     O carrossel rola com os botões, com o dedo ou com o teclado. -->
-<section class="secao secao--creme" id="imprensa" data-regua="Imprensa">
+<!-- ============================ IMPRENSA ============================ -->
+<section class="secao secao--creme" id="imprensa" data-regua="Press">
   <div class="wrap">
     <header class="cab">
       <div class="cab__in">
-        <p class="rotulo reveal">Imprensa</p>
+        <h2>Press</h2>
         <div class="imprensa__topo">
           <div>
-            <h2 class="reveal" style="--d:1">O que escreveram sobre o Duo.</h2>
-            <p class="cab__texto reveal" style="--d:2">
-              Matérias em veículos do Brasil e de Portugal, da estreia no interior
-              de Mato Grosso do Sul às turnês europeias.
+            <p class="cab__texto">
+              Articles from Brazilian and Portuguese media. Headlines are kept in
+              the original Portuguese.
             </p>
           </div>
-          <div class="carrossel__ctrl reveal" style="--d:2">
-            <button type="button" id="recuar" aria-label="Ver as matérias anteriores">
+          <div class="carrossel__ctrl">
+            <button type="button" id="recuar" aria-label="Previous articles">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
-            <button type="button" id="avancar" aria-label="Ver as próximas matérias">
+            <button type="button" id="avancar" aria-label="Next articles">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
           </div>
@@ -671,89 +635,89 @@
       </div>
     </header>
 
-    <div class="carrossel reveal">
-      <ul class="carrossel__trilho" id="trilhoImprensa" tabindex="0" aria-label="Matérias sobre o Duo Amábile">
+    <div class="carrossel">
+      <ul class="carrossel__trilho" id="trilhoImprensa" tabindex="0" aria-label="Articles about Duo Amábile">
 
         <li class="recorte">
           <a class="recorte__cartao" href="https://www.diarioaveiro.pt/2024/11/27/festivais-de-outono-apresentam-hoje-o-duo-amabile/" target="_blank" rel="noopener">
-            <img class="recorte__foto" src="images/t-2024-aveiro.jpg" alt="O Duo com uma intérprete convidada diante da talha dourada da Igreja das Carmelitas" width="1200" height="800" loading="lazy">
+            <img class="recorte__foto" src="images/t-2024-aveiro.jpg" alt="The duo with a guest singer in front of the gilded altarpiece of the Igreja das Carmelitas" width="1200" height="800" loading="lazy">
             <div class="recorte__in">
-              <span class="recorte__veiculo">Diário de Aveiro · Portugal · nov. 2024</span>
-              <h3>Festivais de Outono apresentam hoje o Duo Amábile</h3>
-              <p>O jornal anuncia o concerto na Igreja das Carmelitas, dentro da programação dos Festivais de Outono da Universidade de Aveiro.</p>
-              <span class="recorte__ir">Ler a matéria <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7m0 0H8m9 0v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <h3 lang="pt">Festivais de Outono apresentam hoje o Duo Amábile</h3>
+              <span class="recorte__veiculo">Diário de Aveiro · Portugal · Nov 2024</span>
+              <p>The paper announces the concert at the Igreja das Carmelitas, part of the University of Aveiro’s autumn festival.</p>
+              <span class="recorte__ir">Read <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7m0 0H8m9 0v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             </div>
           </a>
         </li>
 
         <li class="recorte">
           <a class="recorte__cartao" href="images/imprensa-europa.jpg" download>
-            <img class="recorte__foto recorte__foto--pagina" src="images/imprensa-europa.jpg" alt="Página do caderno Artes&amp;Lazer do jornal O Estado com a manchete “Duo Amábile pela Europa”" width="900" height="1563" loading="lazy">
+            <img class="recorte__foto recorte__foto--pagina" src="images/imprensa-europa.jpg" alt="Page of the Artes&amp;Lazer section of the newspaper O Estado, headlined “Duo Amábile pela Europa”" width="900" height="1563" loading="lazy">
             <div class="recorte__in">
-              <span class="recorte__veiculo">O Estado · Artes&amp;Lazer · abr. 2025</span>
-              <h3>Duo Amábile pela Europa</h3>
-              <p>Página inteira sobre a turnê por Suíça e França: os concertos em Berna, na Maison de l’Amérique Latine e na Sorbonne Nouvelle, e como nascem as canções do Duo.</p>
-              <span class="recorte__ir">Baixar a página <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0 4-4m-4 4-4-4M5 19h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <h3 lang="pt">Duo Amábile pela Europa</h3>
+              <span class="recorte__veiculo">O Estado · Artes&amp;Lazer · Apr 2025</span>
+              <p>A full page on the tour of Switzerland and France: Bern, the Maison de l’Amérique Latine, the Sorbonne Nouvelle, and how the duo’s songs are written.</p>
+              <span class="recorte__ir">Download the page <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0 4-4m-4 4-4-4M5 19h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             </div>
           </a>
         </li>
 
         <li class="recorte">
           <a class="recorte__cartao" href="https://correiodoestado.com.br/correio-b/duo-amabile-realiza-concertos-na-europa/440527/" target="_blank" rel="noopener">
-            <img class="recorte__foto recorte__foto--topo" src="images/t-2024-nepomuk.jpg" alt="Marcelo com o violão ao lado da anfitriã no salão do Svatojánské Muzeum, em Nepomuk" width="1000" height="1333" loading="lazy">
+            <img class="recorte__foto recorte__foto--topo" src="images/t-2024-nepomuk.jpg" alt="Marcelo with his guitar next to the host in the hall of the Svatojánské Muzeum, Nepomuk" width="1000" height="1333" loading="lazy">
             <div class="recorte__in">
-              <span class="recorte__veiculo">Correio do Estado · dez. 2024</span>
-              <h3>Duo Amábile realiza concertos na Europa</h3>
-              <p>A cobertura da viagem que levou o Duo à República Tcheca e a Portugal, com repertório de canção brasileira contemporânea.</p>
-              <span class="recorte__ir">Ler a matéria <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7m0 0H8m9 0v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <h3 lang="pt">Duo Amábile realiza concertos na Europa</h3>
+              <span class="recorte__veiculo">Correio do Estado · Dec 2024</span>
+              <p>Coverage of the trip to the Czech Republic and Portugal, with a programme of contemporary Brazilian song.</p>
+              <span class="recorte__ir">Read <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7m0 0H8m9 0v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             </div>
           </a>
         </li>
 
         <li class="recorte">
           <a class="recorte__cartao" href="https://www.violaobrasileiro.com.br/blog/violonista-marcelo-fernandes-e-a-cantora-ana-lucia-gaborim-fazem-recital-na-academia-brasileira-de-letras-no-rio/570" target="_blank" rel="noopener">
-            <img class="recorte__foto" src="images/t-2023-rio.jpg" alt="Ana Lúcia e Marcelo no Rio de Janeiro, com o Pão de Açúcar ao fundo" width="1000" height="706" loading="lazy">
+            <img class="recorte__foto" src="images/t-2023-rio.jpg" alt="Ana Lúcia and Marcelo in Rio de Janeiro, with Sugarloaf Mountain behind them" width="1000" height="706" loading="lazy">
             <div class="recorte__in">
+              <h3 lang="pt">Recital na Academia Brasileira de Letras, no Rio</h3>
               <span class="recorte__veiculo">Violão Brasileiro · 2023</span>
-              <h3>Recital na Academia Brasileira de Letras, no Rio</h3>
-              <p>O site especializado registra o recital na ABL, com a estreia de obra de Marcelo Fernandes sobre poema de Carlos Nejar.</p>
-              <span class="recorte__ir">Ler a matéria <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7m0 0H8m9 0v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <p>The guitar website covers the recital at the Brazilian Academy of Letters and the premiere of Marcelo’s piece on a poem by Carlos Nejar.</p>
+              <span class="recorte__ir">Read <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7m0 0H8m9 0v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             </div>
           </a>
         </li>
 
         <li class="recorte">
           <a class="recorte__cartao" href="https://oestadoonline.com.br/arte-e-lazer/em-noite-historica-na-abl-duo-amabile-fara-homenagem-a-delasnieve-daspet-e-carlos-nejar/" target="_blank" rel="noopener">
-            <img class="recorte__foto" src="images/t-2023-saopaulo.jpg" alt="Palco iluminado em azul no Memorial da América Latina, visto da plateia" width="1000" height="750" loading="lazy">
+            <img class="recorte__foto" src="images/t-2023-saopaulo.jpg" alt="Stage lit in blue at the Memorial da América Latina, seen from the audience" width="1000" height="750" loading="lazy">
             <div class="recorte__in">
+              <h3 lang="pt">Em noite histórica na ABL, Duo Amábile homenageia Delasnieve Daspet e Carlos Nejar</h3>
               <span class="recorte__veiculo">O Estado Online · 2023</span>
-              <h3>Em noite histórica na ABL, Duo Amábile homenageia Delasnieve Daspet e Carlos Nejar</h3>
-              <p>A viagem ao Rio de Janeiro para o recital na Academia Brasileira de Letras e no PEN Clube do Brasil.</p>
-              <span class="recorte__ir">Ler a matéria <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7m0 0H8m9 0v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <p>The trip to Rio de Janeiro for the recitals at the Brazilian Academy of Letters and PEN Clube do Brasil.</p>
+              <span class="recorte__ir">Read <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7m0 0H8m9 0v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             </div>
           </a>
         </li>
 
         <li class="recorte">
           <a class="recorte__cartao" href="https://g1.globo.com/ms/mato-grosso-do-sul/noticia/2023/10/11/semana-de-arte-moderna-recebe-homenagem-no-bioparque-pantanal.ghtml" target="_blank" rel="noopener">
-            <img class="recorte__foto" src="images/t-2023-bioparque.jpg" alt="Teatro lotado no Bioparque Pantanal durante o concerto de encerramento" width="1200" height="900" loading="lazy">
+            <img class="recorte__foto" src="images/t-2023-bioparque.jpg" alt="A full theatre at Bioparque Pantanal during the closing concert" width="1200" height="900" loading="lazy">
             <div class="recorte__in">
-              <span class="recorte__veiculo">G1 Mato Grosso do Sul · out. 2023</span>
-              <h3>Semana de Arte Moderna recebe homenagem no Bioparque Pantanal</h3>
-              <p>O encerramento do projeto “Cem anos de Semana de Arte Moderna em Terras Pantaneiras”, com teatro lotado em Campo Grande.</p>
-              <span class="recorte__ir">Ler a matéria <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7m0 0H8m9 0v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <h3 lang="pt">Semana de Arte Moderna recebe homenagem no Bioparque Pantanal</h3>
+              <span class="recorte__veiculo">G1 Mato Grosso do Sul · Oct 2023</span>
+              <p>The closing concert of “Cem anos de Semana de Arte Moderna em Terras Pantaneiras”, to a full house in Campo Grande.</p>
+              <span class="recorte__ir">Read <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7m0 0H8m9 0v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             </div>
           </a>
         </li>
 
         <li class="recorte">
           <a class="recorte__cartao" href="https://www.fundacaodecultura.ms.gov.br/semana-de-arte-moderna-e-homenageada-no-mato-grosso-do-sul/" target="_blank" rel="noopener">
-            <img class="recorte__foto" src="images/t-2022-classica.jpg" alt="Ana Lúcia cantando sob luz de palco enquanto Marcelo toca sentado" width="1000" height="666" loading="lazy">
+            <img class="recorte__foto" src="images/t-2022-classica.jpg" alt="Ana Lúcia singing under stage lights while Marcelo plays, seated" width="1000" height="666" loading="lazy">
             <div class="recorte__in">
+              <h3 lang="pt">Semana de Arte Moderna é homenageada no Mato Grosso do Sul</h3>
               <span class="recorte__veiculo">Fundação de Cultura de MS · 2023</span>
-              <h3>Semana de Arte Moderna é homenageada no Mato Grosso do Sul</h3>
-              <p>O projeto contemplado pelo FIC levou concertos gratuitos a seis cidades do interior, em parceria com a UFMS, a UEMS e o IFMS.</p>
-              <span class="recorte__ir">Ler a matéria <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7m0 0H8m9 0v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <p>The FIC-funded project took free concerts to six towns, in partnership with UFMS, UEMS and IFMS.</p>
+              <span class="recorte__ir">Read <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7m0 0H8m9 0v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             </div>
           </a>
         </li>
@@ -761,33 +725,33 @@
       </ul>
     </div>
 
-    <div class="kit reveal">
-      <p class="rotulo">Para a imprensa</p>
+    <div class="kit">
+      <h3>Press kit</h3>
       <div>
         <p>
-          Material liberado para divulgação de concertos. A foto oficial pode ser
-          publicada com o crédito “Divulgação / Duo Amábile”.
+          Free to use for concert publicity. Please credit the official photo
+          “Divulgação / Duo Amábile”.
         </p>
         <div class="kit__lista">
           <a class="kit__item" href="images/duo-oficial.jpg" download>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0 4-4m-4 4-4-4M5 19h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
             <span>
-              <b>Foto oficial</b>
+              <b>Official photo</b>
               <span>JPG · 1063 × 916 px · 85 KB</span>
             </span>
           </a>
           <a class="kit__item" href="images/imprensa-europa.jpg" download>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0 4-4m-4 4-4-4M5 19h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
             <span>
-              <b>Página do jornal O Estado</b>
-              <span>JPG · caderno Artes&amp;Lazer, abril de 2025</span>
+              <b>O Estado newspaper page</b>
+              <span>JPG · Artes&amp;Lazer, April 2025</span>
             </span>
           </a>
           <a class="kit__item" href="release-duo-amabile.txt" download>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0 4-4m-4 4-4-4M5 19h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
             <span>
-              <b>Release do Duo</b>
-              <span>Texto · biografia curta e ficha técnica</span>
+              <b>Press release</b>
+              <span>Text, in Portuguese · short bio and technical details</span>
             </span>
           </a>
         </div>
@@ -797,57 +761,54 @@
 </section>
 
 <!-- ============================ REPERTÓRIO ============================ -->
-<section class="secao" id="repertorio" data-regua="Repertório">
+<section class="secao" id="repertorio" data-regua="Repertoire">
   <div class="wrap">
     <header class="cab">
       <div class="cab__in">
-        <p class="rotulo reveal">Repertório</p>
-        <div>
-          <h2 class="reveal" style="--d:1">Quatro séculos, e o que se escreve agora.</h2>
-          <p class="cab__texto reveal" style="--d:2">
-            O programa muda conforme a ocasião, mas a espinha é sempre a mesma: a
-            canção brasileira, sobretudo a contemporânea e a regional.
-          </p>
-        </div>
+        <h2>Repertoire</h2>
+        <p class="cab__texto">
+          The programme changes with the occasion. At its centre is Brazilian song,
+          above all contemporary and regional song.
+        </p>
       </div>
     </header>
 
     <div class="programa">
-      <ol class="pecas reveal">
+      <ol class="pecas">
         <li>
-          <span class="epoca">Séculos XVI a XVIII</span>
-          <h3>Música antiga</h3>
-          <p>Repertório europeu escrito para voz e instrumento dedilhado.</p>
+          <h3>Early music</h3>
+          <span class="epoca">16th to 18th century</span>
+          <p>European pieces for voice and plucked instrument.</p>
         </li>
         <li>
-          <span class="epoca">Século XIX</span>
-          <h3>Clássico-romântico</h3>
-          <p>O lied e a canção de salão, no arranjo para canto e violão.</p>
+          <h3>Classical and Romantic</h3>
+          <span class="epoca">19th century</span>
+          <p>Lieder and salon songs, arranged for voice and guitar.</p>
         </li>
         <li>
-          <span class="epoca">Século XX</span>
-          <h3>Canções do século passado</h3>
-          <p>Obras originalmente escritas ou arranjadas para essa formação.</p>
+          <h3>Twentieth-century song</h3>
+          <span class="epoca">20th century</span>
+          <p>Works written or arranged for voice and guitar.</p>
         </li>
         <li>
-          <span class="epoca">Hoje · a especialidade do Duo</span>
-          <h3>Canção brasileira contemporânea</h3>
+          <h3>Contemporary Brazilian song</h3>
+          <span class="epoca">Today · the duo’s focus</span>
           <p>
-            Produção atual e regional, em boa parte composta por Marcelo Fernandes
-            sobre poemas de escritores brasileiros — inclusive canções em nheengatu,
-            estreadas na turnê europeia de 2025.
+            New and regional work, much of it by Marcelo Fernandes on Brazilian
+            poems, including songs in Nheengatu, an Indigenous language of the
+            Amazon, first sung on the 2025 European tour.
           </p>
         </li>
       </ol>
 
-      <div class="reveal" style="--d:1">
+      <div>
         <figure class="figura">
-          <img src="images/duo-nave.jpg" alt="Marcelo sentado ao violão e Ana Lúcia cantando na nave da Igreja das Carmelitas" width="1400" height="933" loading="lazy">
-          <figcaption>Concerto em Aveiro, Portugal — novembro de 2024.</figcaption>
+          <img src="images/duo-nave.webp" alt="Marcelo seated with his guitar and Ana Lúcia singing in the nave of the Igreja das Carmelitas" width="1200" height="800" loading="lazy">
+          <figcaption>Aveiro, Portugal, November 2024.</figcaption>
         </figure>
 
         <div class="poetas">
-          <h3>Poetas musicados pelo Duo</h3>
+          <h3>Poets the duo has set to music</h3>
           <ul>
             <li>Carlos Nejar</li>
             <li>Raquel Naveira</li>
@@ -862,28 +823,24 @@
   </div>
 </section>
 
-<!-- ============================ CITAÇÃO ============================
-     A única figura desenhada do site: o contorno de um violão clássico em fio
-     único, cortado pela borda esquerda. Sem preenchimento e sem sombra — é
-     gravura, não ilustração. Fica só aqui, onde não há texto por cima. -->
+<!-- ============================ CITAÇÃO ============================ -->
 <section class="secao secao--escura secao--gravura">
   <span class="violao violao--citacao" aria-hidden="true" data-violao></span>
 
   <div class="wrap">
     <figure class="homenagem">
-      <p class="rotulo reveal">Escreveram</p>
       <div>
         <blockquote>
-          <p class="reveal">
-            Ao incluir em seu repertório obras inéditas inspiradas na poesia
-            brasileira, o Duo Amábile <em>criou pontes entre literatura e melodia</em>,
-            revelando ao mundo a riqueza da cultura brasileira em toda a sua
-            multiplicidade.
+          <p>
+            “By bringing into their repertoire new works inspired by Brazilian
+            poetry, Duo Amábile <em>built bridges between literature and
+            melody</em>, showing the world the richness of Brazilian culture in
+            all its diversity.”
           </p>
         </blockquote>
-        <figcaption class="reveal" style="--d:1">
+        <figcaption>
           <b>Ana Maria Bernardelli</b><br>
-          Poeta, membro da Academia Sul-mato-grossense de Letras
+          Poet, member of the Academia Sul-mato-grossense de Letras (translated from Portuguese)
         </figcaption>
       </div>
     </figure>
@@ -891,35 +848,34 @@
 </section>
 
 <!-- ============================ CONTATO ============================ -->
-<section class="secao secao--creme" id="contato" data-regua="Contato">
+<section class="secao secao--creme" id="contato" data-regua="Contact">
   <div class="wrap">
     <div class="contato">
       <div class="contato__texto">
-        <p class="rotulo reveal" style="margin-bottom:18px">Contato</p>
-        <h2 class="reveal" style="--d:1">Convide o Duo para o seu palco.</h2>
-        <p class="reveal" style="--d:2">
-          Teatros, igrejas, festivais, universidades, academias de letras e eventos
-          culturais. O programa é montado junto com quem convida — e pode incluir
-          obras escritas especialmente para a ocasião.
+        <h2 class="titulo">Contact</h2>
+        <p>
+          The duo plays in theatres, churches, festivals, universities, literary
+          academies and at cultural events. The programme is put together with the
+          host and can include pieces written for the occasion.
         </p>
-        <div class="contato__acoes reveal" style="--d:3">
-          <a class="btn btn--forte btn--lg" href="mailto:anaemarcelo440@gmail.com?subject=Convite%20para%20o%20Duo%20Am%C3%A1bile">Escrever para o Duo</a>
-          <a class="btn btn--lg" href="https://www.instagram.com/duoamabilecantoeviolao/" target="_blank" rel="noopener">Ver no Instagram</a>
+        <div class="contato__acoes">
+          <a class="btn btn--forte btn--lg" href="mailto:anaemarcelo440@gmail.com?subject=Invitation%20for%20Duo%20Am%C3%A1bile">Email the duo</a>
+          <a class="btn btn--lg" href="https://wa.me/5567992313176?text=Hello!%20I%E2%80%99d%20like%20to%20invite%20Duo%20Am%C3%A1bile%20for%20a%20concert." target="_blank" rel="noopener">WhatsApp</a>
         </div>
       </div>
 
-      <dl class="fichas reveal" style="--d:2">
+      <dl class="fichas">
         <div>
-          <dt>E-mail</dt>
+          <dt>Email</dt>
           <dd><a href="mailto:anaemarcelo440@gmail.com">anaemarcelo440@gmail.com</a></dd>
         </div>
         <div>
           <dt>WhatsApp</dt>
-          <dd><a href="https://wa.me/5567992313176" target="_blank" rel="noopener">(67) 99231-3176 — Marcelo</a></dd>
-          <dd><a href="https://wa.me/5567991501810" target="_blank" rel="noopener">(67) 99150-1810 — Ana Lúcia</a></dd>
+          <dd><a href="https://wa.me/5567992313176?text=Hello!%20I%E2%80%99d%20like%20to%20invite%20Duo%20Am%C3%A1bile%20for%20a%20concert." target="_blank" rel="noopener">+55 67 99231-3176 (Marcelo)</a></dd>
+          <dd><a href="https://wa.me/5567991501810?text=Hello!%20I%E2%80%99d%20like%20to%20invite%20Duo%20Am%C3%A1bile%20for%20a%20concert." target="_blank" rel="noopener">+55 67 99150-1810 (Ana Lúcia)</a></dd>
         </div>
         <div>
-          <dt>Nas redes</dt>
+          <dt>Online</dt>
           <dd><a href="https://www.instagram.com/duoamabilecantoeviolao/" target="_blank" rel="noopener">Instagram</a></dd>
           <dd><a href="https://www.youtube.com/@DuoAmabile-CantoeViol%C3%A3o" target="_blank" rel="noopener">YouTube</a></dd>
         </div>
@@ -930,44 +886,41 @@
 
 </main>
 
-<!-- ============================ RODAPÉ ============================ -->
 <footer class="rodape">
   <div class="wrap">
     <div class="rodape__in">
       <div class="rodape__marca">
-        <a class="marca" href="#topo" aria-label="Duo Amábile — voltar ao topo">
+        <a class="marca" href="#topo">
           <span class="marca__nome">Duo Amábile</span>
-          <span class="marca__papel">canto e violão</span>
+          <span class="marca__papel">voice and guitar</span>
         </a>
-        <p>Ana Lúcia Gaborim, canto. Marcelo Fernandes, violão. Campo Grande, Mato Grosso do Sul.</p>
+        <p>Ana Lúcia Gaborim, voice. Marcelo Fernandes, guitar. Campo Grande, Mato Grosso do Sul, Brazil.</p>
       </div>
 
-      <nav class="rodape__links" aria-label="Rodapé">
+      <nav class="rodape__links" aria-label="Footer">
         <div>
-          <h4>O Duo</h4>
-          <a href="#duo">Quem são</a>
-          <a href="videos.html">Vídeos</a>
-          <a href="#trajetoria">Trajetória</a>
-          <a href="#mapa">Mapa de concertos</a>
-          <a href="#repertorio">Repertório</a>
+          <h3>The duo</h3>
+          <a href="#duo">About</a>
+          <a href="videos.html">Videos</a>
+          <a href="#trajetoria">Concerts</a>
+          <a href="#mapa">Map</a>
+          <a href="#repertorio">Repertoire</a>
         </div>
         <div>
-          <h4>Os intérpretes</h4>
+          <h3>The musicians</h3>
           <a href="ana.html">Ana Lúcia Gaborim</a>
-          <a href="ana.html#curriculo">Currículo de Ana Lúcia</a>
           <a href="marcelo.html">Marcelo Fernandes</a>
-          <a href="marcelo.html#curriculo">Currículo de Marcelo</a>
         </div>
         <div>
-          <h4>Imprensa</h4>
-          <a href="#imprensa">Matérias publicadas</a>
-          <a href="images/duo-oficial.jpg" download>Foto oficial</a>
-          <a href="release-duo-amabile.txt" download>Release do Duo</a>
+          <h3>Press</h3>
+          <a href="#imprensa">Articles</a>
+          <a href="images/duo-oficial.jpg" download>Official photo</a>
+          <a href="release-duo-amabile.txt" download>Press release (PT)</a>
         </div>
         <div>
-          <h4>Falar com o Duo</h4>
+          <h3>Contact</h3>
           <a href="mailto:anaemarcelo440@gmail.com">anaemarcelo440@gmail.com</a>
-          <a href="https://wa.me/5567992313176" target="_blank" rel="noopener">WhatsApp</a>
+          <a href="https://wa.me/5567992313176?text=Hello!%20I%E2%80%99d%20like%20to%20invite%20Duo%20Am%C3%A1bile%20for%20a%20concert." target="_blank" rel="noopener">WhatsApp</a>
           <a href="https://www.instagram.com/duoamabilecantoeviolao/" target="_blank" rel="noopener">Instagram</a>
           <a href="https://www.youtube.com/@DuoAmabile-CantoeViol%C3%A3o" target="_blank" rel="noopener">YouTube</a>
         </div>
@@ -976,13 +929,13 @@
 
     <div class="rodape__fim">
       <p>© <span id="ano">2026</span> Duo Amábile</p>
-      <p><em>Amabile</em> — na partitura, a indicação para tocar com doçura.</p>
+      <p><em>Amabile</em>: in a score, play gently.</p>
     </div>
   </div>
 </footer>
 
-<script src="js/main.js" defer></script>
-<script src="js/mapa-dados.js" defer></script>
-<script src="js/mapa.js" defer></script>
+<script src="js/main.js?v=18" defer></script>
+<script src="js/mapa-dados.js?v=18" defer></script>
+<script src="js/mapa.js?v=18" defer></script>
 </body>
 </html>

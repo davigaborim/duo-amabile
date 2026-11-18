@@ -33,81 +33,114 @@
 
   var CAIXA = { x: 0, y: 8, w: 900, h: 392 };   // viewBox do SVG
 
+  /* O site tem inglês na raiz e português em pt/. Cada texto dos lugares
+     vem nas duas línguas, e as fotos são buscadas a partir da raiz. */
+  var PT = (document.documentElement.lang || '').toLowerCase().indexOf('pt') === 0;
+  var RAIZ = PT ? '../' : '';
+  var L = function (par) { return par && typeof par === 'object' ? (PT ? par.pt : par.en) : par; };
+
   var LUGARES = [
     {
-      id: 'ms', nome: 'Mato Grosso do Sul', pais: 'Brasil',
+      id: 'ms', nome: 'Mato Grosso do Sul', pais: { pt: 'Brasil', en: 'Brazil' },
       x: 284.18, y: 336.86, vistas: ['brasil'], esq: true,
       foto: 'images/t-2023-bioparque.jpg',
-      alt: 'Teatro lotado no Bioparque Pantanal',
-      legenda: 'Bioparque Pantanal, Campo Grande — encerramento do projeto “100 anos de Semana de Arte Moderna em Terras Pantaneiras”, 2023.',
-      texto: 'A casa do Duo. Desde a estreia em Corumbá, em 2015, foram temporadas inteiras pelo interior do estado — quase sempre de graça, em parceria com a UFMS, a UEMS e o IFMS.',
+      alt: { pt: 'Teatro lotado no Bioparque Pantanal', en: 'A full house at Bioparque Pantanal' },
+      legenda: {
+        pt: 'Bioparque Pantanal, Campo Grande. Encerramento do projeto “Cem anos de Semana de Arte Moderna em Terras Pantaneiras”, 2023.',
+        en: 'Bioparque Pantanal, Campo Grande. Closing concert of the project “Cem anos de Semana de Arte Moderna em Terras Pantaneiras”, 2023.'
+      },
+      texto: {
+        pt: 'Onde o Duo mora. Desde a estreia em Corumbá, em 2015, fez turnês inteiras pelo interior do estado, quase sempre com entrada gratuita e em parceria com a UFMS, a UEMS e o IFMS.',
+        en: 'Home. Since the first concert in Corumbá in 2015 the duo has toured the state several times, mostly with free admission and in partnership with the public universities UFMS, UEMS and IFMS.'
+      },
       cidades: ['Campo Grande', 'Corumbá', 'Três Lagoas', 'Dourados', 'Ponta Porã', 'Aquidauana', 'Coxim', 'Bonito', 'Naviraí', 'Nova Andradina', 'Chapadão do Sul', 'Paranaíba', 'São Gabriel do Oeste', 'Sidrolândia', 'Rochedo', 'Corguinho']
     },
     {
-      id: 'rio', nome: 'Rio de Janeiro', pais: 'Brasil',
+      id: 'rio', nome: 'Rio de Janeiro', pais: { pt: 'Brasil', en: 'Brazil' },
       x: 312.85, y: 343.26, vistas: ['brasil'],
       foto: 'images/t-2023-rio.jpg',
-      alt: 'Ana Lúcia e Marcelo no Rio de Janeiro, com o Pão de Açúcar ao fundo',
-      legenda: 'Rio de Janeiro, 2023.',
-      texto: 'Em 2023 o Duo tocou na sede do PEN Clube do Brasil, na instauração do PEN Clube Centro-Oeste, e na Academia Brasileira de Letras — estreando obra de Marcelo Fernandes sobre poema de Carlos Nejar.'
+      alt: { pt: 'Ana Lúcia e Marcelo no Rio de Janeiro, com o Pão de Açúcar ao fundo', en: 'Ana Lúcia and Marcelo in Rio de Janeiro, with Sugarloaf Mountain behind them' },
+      legenda: { pt: 'Rio de Janeiro, 2023.', en: 'Rio de Janeiro, 2023.' },
+      texto: {
+        pt: 'Em 2023 o Duo tocou no PEN Clube do Brasil, na criação do PEN Clube Centro-Oeste, e na Academia Brasileira de Letras, onde estreou uma obra de Marcelo Fernandes sobre poema de Carlos Nejar.',
+        en: 'In 2023 the duo played at PEN Clube do Brasil, for the founding of PEN Clube Centro-Oeste, and at the Brazilian Academy of Letters, where they premiered a piece by Marcelo Fernandes on a poem by Carlos Nejar.'
+      }
     },
     {
-      id: 'sp', nome: 'São Paulo', pais: 'Brasil',
+      id: 'sp', nome: 'São Paulo', pais: { pt: 'Brasil', en: 'Brazil' },
       x: 304.18, y: 344.96, vistas: ['brasil'], esq: true,
       foto: 'images/t-2023-saopaulo.jpg',
-      alt: 'Palco iluminado em azul no Memorial da América Latina',
-      legenda: 'Memorial da América Latina, São Paulo.',
-      texto: 'Setembro de 2023: abertura do VIII IFLAC World Brazil — Peace Congress, no Memorial da América Latina, com participação do violinista Heitor Lotti.'
+      alt: { pt: 'Palco iluminado em azul no Memorial da América Latina', en: 'Stage lit in blue at the Memorial da América Latina' },
+      legenda: { pt: 'Memorial da América Latina, São Paulo.', en: 'Memorial da América Latina, São Paulo.' },
+      texto: {
+        pt: 'Setembro de 2023. O Duo abriu o VIII IFLAC World Brazil Peace Congress, no Memorial da América Latina, com o violinista Heitor Lotti como convidado.',
+        en: 'September 2023. The duo opened the 8th IFLAC World Brazil Peace Congress at the Memorial da América Latina, with violinist Heitor Lotti as guest.'
+      }
     },
     {
-      id: 'br', nome: 'Brasil', pais: 'Brasil',
+      id: 'br', nome: { pt: 'Brasil', en: 'Brazil' }, pais: { pt: 'Brasil', en: 'Brazil' },
       x: 292, y: 341, vistas: ['mundo'], aproxima: 'brasil', esq: true
     },
     {
-      id: 'europa', nome: 'Europa', pais: 'Europa',
+      id: 'europa', nome: { pt: 'Europa', en: 'Europe' }, pais: { pt: 'Europa', en: 'Europe' },
       x: 434, y: 160, vistas: ['mundo'], aproxima: 'europa'
     },
     {
       id: 'aveiro', nome: 'Aveiro', pais: 'Portugal',
       x: 399.28, y: 177.18, vistas: ['europa'],
       foto: 'images/t-2024-aveiro.jpg',
-      alt: 'O Duo diante da talha dourada da Igreja das Carmelitas, em Aveiro',
-      legenda: 'Igreja das Carmelitas, Aveiro.',
-      texto: 'Novembro de 2024. Convidados dos Festivais de Outono da Universidade de Aveiro, tocaram na Igreja das Carmelitas: canções europeias e brasileiras, incluindo composições de Marcelo Fernandes.'
+      alt: { pt: 'O Duo diante da talha dourada da Igreja das Carmelitas, em Aveiro', en: 'The duo in front of the gilded woodwork of the Igreja das Carmelitas, Aveiro' },
+      legenda: { pt: 'Igreja das Carmelitas, Aveiro.', en: 'Igreja das Carmelitas, Aveiro.' },
+      texto: {
+        pt: 'Novembro de 2024. A convite dos Festivais de Outono da Universidade de Aveiro, o Duo tocou na Igreja das Carmelitas canções europeias e brasileiras, entre elas composições de Marcelo Fernandes.',
+        en: 'November 2024. Invited by the University of Aveiro’s autumn festival, the duo played European and Brazilian songs at the Igreja das Carmelitas, including pieces by Marcelo Fernandes.'
+      }
     },
     {
-      id: 'nepomuk', nome: 'Nepomuk', pais: 'República Tcheca',
+      id: 'nepomuk', nome: 'Nepomuk', pais: { pt: 'República Tcheca', en: 'Czech Republic' },
       x: 454.97, y: 149.75, vistas: ['europa'],
       foto: 'images/t-2024-nepomuk.jpg',
-      alt: 'Marcelo com o violão no salão do Svatojánské Muzeum',
-      legenda: 'Svatojánské Muzeum, Nepomuk.',
-      texto: 'Novembro de 2024, dentro da agenda cultural do tradicional Svatojánské Muzeum — na mesma viagem que levou o Duo a Portugal.'
+      alt: { pt: 'Marcelo com o violão no salão do Svatojánské Muzeum', en: 'Marcelo with his guitar in the hall of the Svatojánské Muzeum' },
+      legenda: { pt: 'Svatojánské Muzeum, Nepomuk.', en: 'Svatojánské Muzeum, Nepomuk.' },
+      texto: {
+        pt: 'Novembro de 2024, na programação cultural do Svatojánské Muzeum, na mesma viagem que levou o Duo a Portugal.',
+        en: 'November 2024, as part of the Svatojánské Muzeum’s cultural programme, on the same trip that took the duo to Portugal.'
+      }
     },
     {
-      id: 'suica', nome: 'Berna', pais: 'Suíça',
+      id: 'suica', nome: { pt: 'Berna', en: 'Bern' }, pais: { pt: 'Suíça', en: 'Switzerland' },
       x: 439.6, y: 157.88, vistas: ['europa'],
       foto: 'images/t-2025-bern.jpg',
-      alt: 'Plateia sentada no salão da residência da Embaixadora do Brasil em Berna',
-      legenda: 'Casa da Embaixadora do Brasil, Berna.',
-      texto: 'Março de 2025, na casa da Embaixadora do Brasil, diante de embaixadores de vários países. Na mesma turnê, Marcelo Fernandes fez um recital solo no Conservatório de Winterthur.'
+      alt: { pt: 'Plateia sentada no salão da residência da Embaixadora do Brasil em Berna', en: 'Audience seated in the hall of the Brazilian Ambassador’s residence in Bern' },
+      legenda: { pt: 'Residência da Embaixadora do Brasil, Berna.', en: 'Residence of the Brazilian Ambassador, Bern.' },
+      texto: {
+        pt: 'Março de 2025, na residência da Embaixadora do Brasil, para uma plateia de embaixadores de vários países. Na mesma turnê, Marcelo Fernandes fez um recital solo no Conservatório de Winterthur.',
+        en: 'March 2025, at the residence of the Brazilian Ambassador, for an audience of ambassadors from several countries. On the same tour Marcelo Fernandes gave a solo recital at the Winterthur Conservatory.'
+      }
     },
     {
-      id: 'paris', nome: 'Paris', pais: 'França',
+      id: 'paris', nome: 'Paris', pais: { pt: 'França', en: 'France' },
       x: 426.84, y: 151.79, vistas: ['europa'],
       foto: 'images/t-2025-paris.jpg',
-      alt: 'Cartaz do recital do Duo Amábile na Université Sorbonne Nouvelle',
-      legenda: 'Recital na Université Sorbonne Nouvelle, abril de 2025.',
-      texto: 'Abril de 2025. No programa, canções inéditas de Marcelo Fernandes — algumas na língua indígena nheengatu — e obras de Otto Pintiaski.',
+      alt: { pt: 'Cartaz do recital do Duo Amábile na Université Sorbonne Nouvelle', en: 'Poster for the Duo Amábile recital at the Université Sorbonne Nouvelle' },
+      legenda: { pt: 'Recital na Université Sorbonne Nouvelle, abril de 2025.', en: 'Recital at the Université Sorbonne Nouvelle, April 2025.' },
+      texto: {
+        pt: 'Abril de 2025. No programa, canções inéditas de Marcelo Fernandes, algumas em nheengatu, língua indígena da Amazônia, e obras de Otto Pintiaski.',
+        en: 'April 2025. The programme had new songs by Marcelo Fernandes, some in Nheengatu, an Indigenous language of the Amazon, and works by Otto Pintiaski.'
+      },
       cidades: ['Maison de l’Amérique Latine', 'Université Sorbonne Nouvelle']
     },
     {
-      id: 'umbria', nome: 'Todi e Deruta', pais: 'Itália',
+      id: 'umbria', nome: { pt: 'Todi e Deruta', en: 'Todi and Deruta' }, pais: { pt: 'Itália', en: 'Italy' },
       x: 452.03, y: 170.46, vistas: ['europa'],
       foto: 'images/t-2025-todi.jpg',
-      alt: 'O Duo se apresentando ao ar livre em Todi, à noite',
-      legenda: 'Festival “Suoni dal legno”, Todi.',
-      texto: 'Julho de 2025, na região da Umbria.',
-      cidades: ['Todi — festival “Suoni dal legno”', 'Deruta — Museo Regionale della Ceramica']
+      alt: { pt: 'O Duo se apresentando ao ar livre em Todi, à noite', en: 'The duo performing outdoors at night in Todi' },
+      legenda: { pt: 'Festival “Suoni dal legno”, Todi.', en: '“Suoni dal legno” festival, Todi.' },
+      texto: { pt: 'Julho de 2025, na Úmbria.', en: 'July 2025, in Umbria.' },
+      cidades: [
+        { pt: 'Todi, festival “Suoni dal legno”', en: 'Todi, “Suoni dal legno” festival' },
+        'Deruta, Museo Regionale della Ceramica'
+      ]
     }
   ];
 
@@ -117,7 +150,9 @@
   svg.setAttribute('class', 'mapa__svg');
   svg.setAttribute('viewBox', CAIXA.x + ' ' + CAIXA.y + ' ' + CAIXA.w + ' ' + CAIXA.h);
   svg.setAttribute('role', 'img');
-  svg.setAttribute('aria-label', 'Mapa-múndi com os países onde o Duo Amábile e Marcelo Fernandes se apresentaram');
+  svg.setAttribute('aria-label', PT
+    ? 'Mapa-múndi com os países onde o Duo Amábile e Marcelo Fernandes se apresentaram'
+    : 'World map showing the countries where Duo Amábile and Marcelo Fernandes have performed');
 
   var grupo = document.createElementNS(NS, 'g');
   grupo.setAttribute('class', 'mapa__grupo');
@@ -147,10 +182,10 @@
     b.type = 'button';
     b.className = 'pino';
     b.innerHTML = '<span class="pino__nota"></span><span class="pino__nome"></span>';
-    b.querySelector('.pino__nome').textContent = lugar.nome;
+    b.querySelector('.pino__nome').textContent = L(lugar.nome);
     b.setAttribute('aria-label', lugar.aproxima
-      ? 'Aproximar o mapa em ' + lugar.nome
-      : 'Ver os concertos em ' + lugar.nome + ', ' + lugar.pais);
+      ? (PT ? 'Aproximar o mapa em ' : 'Zoom in on ') + L(lugar.nome)
+      : (PT ? 'Ver os concertos em ' : 'See the concerts in ') + L(lugar.nome) + ', ' + L(lugar.pais));
     b.addEventListener('click', function () {
       if (lugar.aproxima) { mudarVista(lugar.aproxima); return; }
       abrirFicha(lugar, b);
@@ -233,24 +268,24 @@
 
     if (lugar.foto) {
       var img = document.createElement('img');
-      img.src = lugar.foto;
-      img.alt = lugar.alt || '';
+      img.src = RAIZ + lugar.foto;
+      img.alt = L(lugar.alt) || '';
       img.loading = 'lazy';
       ficha.appendChild(img);
     }
 
-    ficha.appendChild(texto('p', 'pais', lugar.pais));
-    ficha.appendChild(texto('h3', null, lugar.nome));
-    if (lugar.texto) ficha.appendChild(texto('p', null, lugar.texto));
+    ficha.appendChild(texto('h3', null, L(lugar.nome)));
+    ficha.appendChild(texto('p', 'pais', L(lugar.pais)));
+    if (lugar.texto) ficha.appendChild(texto('p', null, L(lugar.texto)));
 
     if (lugar.cidades) {
       var ul = document.createElement('ul');
-      lugar.cidades.forEach(function (c) { ul.appendChild(texto('li', null, c)); });
+      lugar.cidades.forEach(function (c) { ul.appendChild(texto('li', null, L(c))); });
       ficha.appendChild(ul);
     }
 
     if (lugar.legenda) {
-      var leg = texto('p', 'vazio', lugar.legenda);
+      var leg = texto('p', 'vazio', L(lugar.legenda));
       leg.style.marginTop = '16px';
       ficha.appendChild(leg);
     }
