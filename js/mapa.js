@@ -73,8 +73,8 @@
       alt: { pt: 'Palco iluminado em azul no Memorial da América Latina', en: 'Stage lit in blue at the Memorial da América Latina' },
       legenda: { pt: 'Memorial da América Latina, São Paulo.', en: 'Memorial da América Latina, São Paulo.' },
       texto: {
-        pt: 'Setembro de 2023. O Duo abriu o VIII IFLAC World Brazil Peace Congress, no Memorial da América Latina, com o violinista Heitor Lotti como convidado.',
-        en: 'September 2023. The duo opened the 8th IFLAC World Brazil Peace Congress at the Memorial da América Latina, with violinist Heitor Lotti as guest.'
+        pt: 'Setembro de 2023. O Duo abriu o VIII IFLAC World Brazil Peace Congress, no Memorial da América Latina, com o violinista Heitor Lotti como convidado. Em maio de 2026, voltou ao Memorial para o Ato Comemorativo da Independência do Paraguai.',
+        en: 'September 2023. The duo opened the 8th IFLAC World Brazil Peace Congress at the Memorial da América Latina, with violinist Heitor Lotti as guest. In May 2026 they returned to the Memorial for the ceremony marking Paraguay’s Independence Day.'
       }
     },
     {
