@@ -223,15 +223,15 @@ delas — não são sequer criadas.
 Nos HTML, a folha de estilo e os scripts são chamados assim:
 
 ```html
-<link rel="stylesheet" href="css/style.css?v=18">
-<script src="js/main.js?v=18" defer></script>
+<link rel="stylesheet" href="css/style.css?v=19">
+<script src="js/main.js?v=19" defer></script>
 ```
 
 O `?v=` existe porque o navegador guarda o CSS em cache e pode continuar
 mostrando o antigo depois de uma publicação — foi o que aconteceu na primeira
 vez, e o resultado é uma página meio nova e meio velha, que parece quebrada.
 **Depois de mexer no CSS ou num JS, troque o número em todos os HTML**,
-inclusive os de `pt/` e o `404.html` (`?v=18`, `?v=18`…), e o navegador é
+inclusive os de `pt/` e o `404.html` (`?v=19`, `?v=19`…), e o navegador é
 obrigado a buscar a versão nova.
 
 ## Mexer no conteúdo
