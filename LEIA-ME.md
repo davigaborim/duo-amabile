@@ -238,8 +238,20 @@ obrigado a buscar a versão nova.
 
 ### Acrescentar um marco na trajetória
 
-No `index.html`, dentro de `<ol class="linha">`, copie um `<li class="marco">`
-e ajuste. O esqueleto é:
+No `index.html` e no `pt/index.html`, dentro de `<ol class="linha">`, copie
+um `<li class="marco">` e ajuste. **A lista vai do mais recente para o mais
+antigo** (pedido do Marcelo, 11/2026): marco novo entra **no topo**, e dentro
+do mesmo ano o mais recente vem primeiro.
+
+**Ler mais.** Do marco com o atributo `data-corte` para baixo, a lista fica
+recolhida, com só o começo do primeiro escondido aparecendo num degradê e o
+botão "Show earlier years" / "Ver os anos anteriores" embaixo. Serve para quem
+rola chegar ao mapa mais rápido. Hoje o corte está no 2019 (aparecem 2021 a
+2026). Quando entrar ano novo, passe o `data-corte` para o marco mais antigo
+que deve sumir e ajuste o texto do botão nos dois idiomas. Sem JavaScript a
+lista aparece inteira.
+
+O esqueleto é:
 
 ```html
 <li class="marco marco--foto">

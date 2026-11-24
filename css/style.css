@@ -476,6 +476,20 @@ em{ font-style:italic; }
   .marco__ano span{ display:inline; font-size:1em; margin-left:8px; }
 }
 
+/* Ler mais: do marco com data-corte para baixo fica recolhido, sumindo
+   num degradê. O JavaScript põe a altura; sem ele a lista vem inteira. */
+.linha.is-recolhida,
+.linha.is-abrindo{ overflow:hidden; }
+.linha.is-recolhida{
+  -webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - 240px),transparent);
+          mask-image:linear-gradient(to bottom,#000 calc(100% - 240px),transparent);
+}
+.linha.is-abrindo{ transition:max-height .6s cubic-bezier(.22,.61,.36,1); }
+.linha__mais{ display:flex; justify-content:center; margin-top:clamp(6px,1.5vw,14px); }
+.linha__mais[hidden]{ display:none; }
+.marco[tabindex="-1"]:focus{ outline:none; }
+@media (prefers-reduced-motion:reduce){ .linha.is-abrindo{ transition:none; } }
+
 /* ==========================================================================
    7. MAPA
    ========================================================================== */

@@ -427,6 +427,59 @@
      link da trajetória.
      ====================================================================== */
 
+  /* --- Ler mais da trajetória ------------------------------------------
+     A lista vem do mais recente para o mais antigo. Do marco com
+     `data-corte` para baixo fica recolhido: aparece só o começo dele,
+     sumindo num degradê, e o botão abre o resto. Assim quem rola chega ao
+     mapa mais rápido. Sem JavaScript a lista aparece inteira.
+     ------------------------------------------------------------------- */
+  var linha = document.querySelector('[data-linha]');
+  var corte = linha && linha.querySelector('[data-corte]');
+  var caixaMais = document.querySelector('[data-linha-mais]');
+
+  if (linha && corte && caixaMais) {
+    var botaoMais = caixaMais.querySelector('button');
+    var ESPIA = 190;   // quanto do primeiro marco escondido ainda aparece
+
+    var antigos = [];
+    for (var m = corte; m; m = m.nextElementSibling) antigos.push(m);
+
+    var ajustarCorte = function () {
+      if (!linha.classList.contains('is-recolhida')) return;
+      var topo = corte.getBoundingClientRect().top - linha.getBoundingClientRect().top;
+      linha.style.maxHeight = Math.round(topo + ESPIA) + 'px';
+    };
+
+    linha.classList.add('is-recolhida');
+    antigos.forEach(function (el) { el.inert = true; });
+    caixaMais.hidden = false;
+    ajustarCorte();
+    window.addEventListener('resize', ajustarCorte);
+    window.addEventListener('load', ajustarCorte);
+
+    botaoMais.addEventListener('click', function () {
+      antigos.forEach(function (el) { el.inert = false; });
+      linha.classList.remove('is-recolhida');
+      linha.classList.add('is-abrindo');
+      linha.style.maxHeight = linha.scrollHeight + 'px';
+      botaoMais.setAttribute('aria-expanded', 'true');
+      caixaMais.hidden = true;
+
+      // o foco vai para o primeiro ano que estava escondido
+      corte.setAttribute('tabindex', '-1');
+      corte.focus({ preventScroll: true });
+
+      var terminar = function () {
+        linha.classList.remove('is-abrindo');
+        linha.style.maxHeight = '';
+        // a página cresceu: a régua e as notas precisam medir de novo
+        window.dispatchEvent(new Event('resize'));
+      };
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) terminar();
+      else setTimeout(terminar, 650);
+    });
+  }
+
   var caixaNotas = document.querySelector('[data-notas]');
   var menosMovimento = window.matchMedia('(prefers-reduced-motion: reduce)');
 
